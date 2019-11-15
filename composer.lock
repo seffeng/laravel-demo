@@ -1420,12 +1420,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/seffeng/laravel-basics.git",
-                "reference": "060848ae7a05598a81c2b777d43606809292d518"
+                "reference": "22b34565c0a47c4a53ad4e5693f0f9c4d1adce94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/seffeng/laravel-basics/zipball/060848ae7a05598a81c2b777d43606809292d518",
-                "reference": "060848ae7a05598a81c2b777d43606809292d518",
+                "url": "https://api.github.com/repos/seffeng/laravel-basics/zipball/22b34565c0a47c4a53ad4e5693f0f9c4d1adce94",
+                "reference": "22b34565c0a47c4a53ad4e5693f0f9c4d1adce94",
                 "shasum": ""
             },
             "require": {
@@ -1456,7 +1456,7 @@
                 "laravel",
                 "seffeng"
             ],
-            "time": "2019-11-15T02:23:19+00:00"
+            "time": "2019-11-15T07:42:04+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
