@@ -23,7 +23,7 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
-        "seffeng/laravel-basics": "dev-master"
+        "seffeng/laravel-basics": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2"
@@ -44,12 +44,6 @@
     "extra": {
         "laravel": {
             "dont-discover": []
-        }
-    },
-    "repositories": {
-        "packagist": {
-            "type": "composer",
-            "url": "https://packagist.phpcomposer.com"
         }
     },
     "minimum-stability": "dev",
