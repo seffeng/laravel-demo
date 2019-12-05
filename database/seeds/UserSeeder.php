@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $username = 'admin';
+        $username = '10086';
         if (!User::where('username', $username)->where('delete_id', DeleteConst::NOT)->exists()) {
             $model = new User();
             $model->fill([

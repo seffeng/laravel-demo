@@ -14,7 +14,7 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        $phone = '13800138000';
+        $phone = '10086';
         if (!Admin::where('phone', $phone)->where('delete_id', DeleteConst::NOT)->exists()) {
             $model = new Admin();
             $model->fill([

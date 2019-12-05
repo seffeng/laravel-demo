@@ -2,6 +2,8 @@
 
 namespace App\Common\Base;
 
+use App\Common\Constants\ErrorConst;
+
 /**
  *
  * @author zxf
@@ -9,5 +11,9 @@ namespace App\Common\Base;
  */
 class Controller extends \Seffeng\Basics\Base\Controller
 {
-
+    /**
+     * 重新定义错误常量类
+     * @var ErrorConst
+     */
+    protected $errorClass = ErrorConst::class;
 }

@@ -2,6 +2,8 @@
 
 namespace App\Common\Exceptions;
 
+use App\Common\Constants\ErrorConst;
+
 /**
  *
  * @author zxf
@@ -14,4 +16,10 @@ class Handler extends \Seffeng\Basics\Exceptions\Handler
      * @var string
      */
     protected $asJson = true;
+
+    /**
+     *
+     * @var ErrorConst
+     */
+    protected $errorClass = ErrorConst::class;
 }

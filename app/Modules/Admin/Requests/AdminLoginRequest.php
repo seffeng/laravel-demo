@@ -3,7 +3,6 @@
 namespace App\Modules\Admin\Requests;
 
 use App\Common\Base\FormRequest;
-use App\Common\Rules\Phone;
 
 class AdminLoginRequest extends FormRequest
 {
@@ -27,9 +26,8 @@ class AdminLoginRequest extends FormRequest
         return [
             'phone' => [
                 'required',
-                'min:11',
-                'max:11',
-                new Phone()
+                'min:5',
+                'max:11'
             ],
             'password' => 'required|between:6,20',
         ];
