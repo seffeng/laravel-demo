@@ -2,13 +2,21 @@
 
 ## 运行环境
 ```
-php 版本 >= 7.1
+php 版本 >= 7.2
 ```
 
 ## 安装部署
 ```
+# composer 安装
+1、laravel5
+$ composer create-project seffeng/laravel-demo=1.* --prefer-dist
+
+2、laravel6
+$ composer create-project seffeng/laravel-demo=2.* --prefer-dist
+
+# 源码 安装
 1、安装
-composer install -vvv
+$ composer install -vvv
 
 2、创建数据库；
 
