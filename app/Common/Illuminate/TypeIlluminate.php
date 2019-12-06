@@ -37,12 +37,23 @@ class TypeIlluminate
     /**
      *
      * @author zxf
+     * @date    2019年12月6日
+     * @return string
+     */
+    public function getName()
+    {
+        return Arr::get(static::fetchNameItems(), $this->getValue(), '');
+    }
+
+    /**
+     *
+     * @author zxf
      * @date    2019年9月25日
      * @return array
      */
     public static function fetchItems()
     {
-        return array_keys(self::fetchNameItems());
+        return array_keys(static::fetchNameItems());
     }
 
     /**

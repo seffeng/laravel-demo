@@ -43,7 +43,7 @@ class StatusIlluminate
      */
     public function getName()
     {
-        return Arr::get(self::fetchNameItems(), $this->getValue(), '');
+        return Arr::get(static::fetchNameItems(), $this->getValue(), '');
     }
 
     /**
@@ -65,7 +65,7 @@ class StatusIlluminate
      */
     public static function fetchItems()
     {
-        return array_keys(self::fetchNameItems());
+        return array_keys(static::fetchNameItems());
     }
 
     /**

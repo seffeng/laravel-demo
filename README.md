@@ -36,6 +36,7 @@ $ php ./artisan db:seed
 │  │  ├─Base                    基础接口对象
 │  │  ├─Constants               常量定义
 │  │  ├─Exceptions              基础异常
+|  |  ├─Illuminate              字段值声明
 │  │  └─Rules                   自定义验证规则
 │  ├─Console
 │  │  └─Commands            控制台脚本
