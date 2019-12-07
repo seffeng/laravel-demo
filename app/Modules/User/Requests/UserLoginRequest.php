@@ -8,6 +8,12 @@ class UserLoginRequest extends FormRequest
 {
     /**
      *
+     * @var array
+     */
+    protected $fillable = ['username', 'password'];
+
+    /**
+     *
      * {@inheritDoc}
      * @see \App\Common\Base\FormRequest::authorize()
      */

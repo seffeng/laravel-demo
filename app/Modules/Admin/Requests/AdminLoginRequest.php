@@ -8,6 +8,12 @@ class AdminLoginRequest extends FormRequest
 {
     /**
      *
+     * @var array
+     */
+    protected $fillable = ['phone', 'password'];
+
+    /**
+     *
      * {@inheritDoc}
      * @see \App\Common\Base\FormRequest::authorize()
      */

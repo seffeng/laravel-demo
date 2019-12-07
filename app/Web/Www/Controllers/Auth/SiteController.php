@@ -22,11 +22,12 @@ class SiteController extends Controller
     public function login(Request $request)
     {
         try {
-            $validate = Validator::make($request->post(), $this->getUserLoginRequest()->rules(), $this->getUserLoginRequest()->messages(), $this->getUserLoginRequest()->attributes());
-            if ($errorItems = $this->getUserLoginRequest()->getErrorItems($validate)) {
+            $form = $this->getUserLoginRequest();
+            $validate = Validator::make($form->load($request->post()), $form->rules(), $form->messages(), $form->attributes());
+            if ($errorItems = $form->getErrorItems($validate)) {
                 return $this->responseError($errorItems['message'], $errorItems['data']);
             } else {
-                if ($this->getUserService()->userLogin($request->post('username'), $request->post('password'))) {
+                if ($this->getUserService()->userLogin($form->getFillItems('username'), $form->getFillItems('password'))) {
                     return $this->responseSuccess([
                         'user' => $this->getUserService()->getLoginUserToArray()
                     ], '登录成功！');
