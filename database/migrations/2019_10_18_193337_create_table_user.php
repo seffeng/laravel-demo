@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use App\Modules\User\Models\User;
-use Illuminate\Support\Facades\DB;
 
 class CreateTableUser extends Migration
 {
@@ -33,7 +32,7 @@ class CreateTableUser extends Migration
                 $table->engine = 'InnoDB';
                 $table->collation = 'utf8mb4_general_ci';
             });
-            DB::statement('ALTER TABLE `'. DB::connection()->getTablePrefix() . $tableName .'` COMMENT \'用户表\'');
+            $model->getConnection()->statement('ALTER TABLE `'. $model->getTablePrefix() . $tableName .'` COMMENT \'用户表\'');
         }
     }
 
