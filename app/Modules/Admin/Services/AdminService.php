@@ -44,7 +44,7 @@ class AdminService extends Service
             if ($model) {
                 return $model;
             }
-            throw new AdminNotFoundException('管理员不存在！');
+            throw new AdminNotFoundException(trans('admin.not_found'));
         } catch (\Exception $e) {
             throw $e;
         }
@@ -78,7 +78,7 @@ class AdminService extends Service
             if ($model) {
                 return $model;
             }
-            throw new AdminNotFoundException('管理员不存在！');
+            throw new AdminNotFoundException(trans('admin.not_found'));
         } catch (\Exception $e) {
             throw $e;
         }
@@ -107,11 +107,11 @@ class AdminService extends Service
                     event(new LoginEvent($userItem));
                     return $this->adminIsLogin();
                 }
-                throw new AdminException('账号或密码错误！');
+                throw new AdminException(trans('admin.pass_error'));
             }
-            throw new AdminStatusException('该账号已禁用！');
+            throw new AdminStatusException(trans('admin.forbid'));
         } catch (AdminNotFoundException $e) {
-            throw new AdminNotFoundException('账号或密码错误！');
+            throw new AdminNotFoundException(trans('admin.pass_error'));
         } catch (\Exception $e) {
             throw $e;
         }
@@ -177,11 +177,11 @@ class AdminService extends Service
     public function getAdminPaginate(AdminSearchRequest $form, int $pageSize = 10)
     {
         $query = Admin::on();
-        if ($form->id) {
-            $query->where('id', $form->id);
+        if ($id = $form->getFillItems('id')) {
+            $query->where('id', $id);
         }
-        if ($form->phone) {
-            $query->where('phone', $form->phone);
+        if ($phone = $form->getFillItems('phone')) {
+            $query->where('phone', $phone);
         }
         return $query->orderBy('id', 'desc')->paginate($pageSize);
     }
@@ -224,8 +224,8 @@ class AdminService extends Service
         try {
             $model = new Admin();
             $model->fill([
-                'phone' => $form->phone,
-                'password' => $form->password,
+                'phone' => $form->getFillItems('phone'),
+                'password' => $form->getFillItems('password'),
             ]);
             $model->encryptPassword();
             $model->loadDefaultValue();
@@ -246,10 +246,10 @@ class AdminService extends Service
     public function updateAdmin(AdminUpdateRequest $form)
     {
         try {
-            $model = $this->notNullById($form->id);
+            $model = $this->notNullById($form->getFillItems('id'));
             $model->fill([
-                'phone' => $form->phone,
-                'password' => $form->password,
+                'phone' => $form->getFillItems('phone'),
+                'password' => $form->getFillItems('password'),
             ]);
             $model->encryptPassword();
             return $model->save();

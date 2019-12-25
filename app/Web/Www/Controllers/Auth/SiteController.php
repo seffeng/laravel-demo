@@ -4,7 +4,6 @@ namespace App\Web\Www\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Web\Www\Common\Controller;
-use App\Common\Constants\ErrorConst;
 use App\Modules\User\Services\UserService;
 use App\Web\Www\Requests\Auth\UserLoginRequest;
 use Illuminate\Support\Facades\Validator;
@@ -30,14 +29,14 @@ class SiteController extends Controller
                 if ($this->getUserService()->userLogin($form->getFillItems('username'), $form->getFillItems('password'))) {
                     return $this->responseSuccess([
                         'user' => $this->getUserService()->getLoginUserToArray()
-                    ], '登录成功！');
+                    ], trans('user.login_success'));
                 }
-                return $this->responseError('登录失败！');
+                return $this->responseError(trans('user.login_failure'));
             }
         } catch (UserException $e) {
             return $this->responseError($e->getMessage());
         } catch (\Exception $e) {
-            return $this->responseError(ErrorConst::getError());
+            return $this->responseException($e);
         }
     }
 

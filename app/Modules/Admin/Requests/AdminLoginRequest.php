@@ -47,10 +47,10 @@ class AdminLoginRequest extends FormRequest
     public function messages()
     {
         return [
-            'required' => ':attribute不能为空！',
-            'min' => ':attribute至少:min位字符！',
-            'max' => ':attribute最多:max位字符！',
-            'between' => ':attribute必须:min~:max位字符！',
+            'required' => trans('common.required'),
+            'min' => trans('common.min'),
+            'max' => trans('common.max'),
+            'between' => trans('common.between'),
         ];
     }
 

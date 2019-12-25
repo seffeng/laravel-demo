@@ -1,0 +1,44 @@
+<?php
+
+namespace App\Common\Actions;
+
+class DownListAction
+{
+    const TYPE_CSRF_TOKEN = 'csrf_token';
+    const TYPE_TEST = 'test';
+
+    /**
+     *
+     * @author zxf
+     * @date    2019年12月25日
+     * @param  string $type
+     * @return array
+     */
+    public function run(string $type = null)
+    {
+        try {
+            $data = [];
+            $type = str_replace(' ', '', $type);
+            if (strpos($type, ',') !== false) {
+                $typeList = explode(',', $type);
+            } else {
+                $typeList = [$type];
+            }
+            if ($typeList) foreach ($typeList as $type) {
+                switch ($type) {
+                    case self::TYPE_CSRF_TOKEN : {
+                        $data[$type] = csrf_token();
+                        break;
+                    }
+                    case self::TYPE_TEST : {
+                        $data[$type] = ['key1' => 'value1', 'key2' => 'value2'];
+                        break;
+                    }
+                }
+            }
+            return $data;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+}

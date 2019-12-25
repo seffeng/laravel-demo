@@ -40,7 +40,7 @@ class UserService
             if ($model) {
                 return $model;
             }
-            throw new UserNotFoundException('用户不存在！');
+            throw new UserNotFoundException(trans('user.not_found'));
         } catch (\Exception $e) {
             throw $e;
         }
@@ -69,11 +69,11 @@ class UserService
                     event(new LoginEvent($userItem));
                     return $this->userIsLogin();
                 }
-                throw new UserException('账号或密码错误！');
+                throw new UserException(trans('user.pass_error'));
             }
-            throw new UserStatusException('该账号已禁用！');
+            throw new UserStatusException(trans('user.forbid'));
         } catch (UserNotFoundException $e) {
-            throw new UserNotFoundException('账号或密码错误！');
+            throw new UserNotFoundException(trans('user.pass_error'));
         } catch (\Exception $e) {
             throw $e;
         }

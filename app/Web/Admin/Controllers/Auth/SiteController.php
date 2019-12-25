@@ -4,11 +4,11 @@ namespace App\Web\Admin\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Web\Admin\Common\Controller;
-use App\Common\Constants\ErrorConst;
 use Illuminate\Support\Facades\Validator;
 use App\Modules\Admin\Services\AdminService;
 use App\Web\Admin\Requests\Admin\AdminLoginRequest;
 use App\Modules\Admin\Exceptions\AdminException;
+use App\Web\Admin\Requests\Admin\AdminUpdateRequest;
 
 class SiteController extends Controller
 {
@@ -30,14 +30,14 @@ class SiteController extends Controller
                 if ($this->getAdminService()->adminLogin($form->getFillItems('phone'), $form->getFillItems('password'))) {
                     return $this->responseSuccess([
                         'admin' => $this->getAdminService()->getLoginAdminToArray()
-                    ], '登录成功！');
+                    ], trans('admin.login_success'));
                 }
-                return $this->responseError('登录失败！');
+                return $this->responseError(trans('admin.login_failure'));
             }
         } catch (AdminException $e) {
             return $this->responseError($e->getMessage());
         } catch (\Exception $e) {
-            return $this->responseError(ErrorConst::getError());
+            return $this->responseException($e);
         }
     }
 
@@ -71,6 +71,33 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
+     * @date    2019年12月25日
+     * @param  Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(Request $request)
+    {
+        try {
+            $form = $this->getAdminUpdateRequest();
+            $data = $request->all();
+            $data['id'] = $this->getAdminService()->getAuthGuard()->id();
+            $data = $form->load($data);
+            $validator = Validator::make($data, $form->rules(), $form->messages(), $form->attributes());
+            if ($errorItems = $form->getErrorItems($validator)) {
+                return $this->responseError($errorItems['message'], $errorItems['data']);
+            }
+            if ($this->getAdminService()->updateAdmin($form)) {
+                return $this->responseSuccess([], trans('admin.self_update_success'));
+            }
+            return $this->responseSuccess([], trans('admin.self_update_failure'));
+        } catch (\Exception $e) {
+            return $this->responseException($e);
+        }
+    }
+
+    /**
+     *
+     * @author zxf
      * @date    2019年9月29日
      * @return AdminService
      */
@@ -88,5 +115,16 @@ class SiteController extends Controller
     private function getAdminLoginRequest()
     {
         return new AdminLoginRequest();
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date    2019年12月25日
+     * @return \App\Web\Admin\Requests\Admin\AdminUpdateRequest
+     */
+    private function getAdminUpdateRequest()
+    {
+        return new AdminUpdateRequest();
     }
 }

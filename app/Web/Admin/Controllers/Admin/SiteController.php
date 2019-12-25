@@ -4,7 +4,6 @@ namespace App\Web\Admin\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Web\Admin\Common\Controller;
-use App\Common\Constants\ErrorConst;
 use App\Modules\Admin\Services\AdminService;
 use App\Web\Admin\Requests\Admin\AdminSearchRequest;
 use Illuminate\Support\Facades\Validator;
@@ -29,7 +28,7 @@ class SiteController extends Controller
             $items = $this->getAdminService()->getAdminStore($form);
             return $this->responseSuccess($items);
         } catch (\Exception $e) {
-            return $this->responseError(ErrorConst::getError(), config('app.debug') ? ['message' => $e->getMessage()] : []);
+            return $this->responseException($e);
         }
     }
 
@@ -49,12 +48,12 @@ class SiteController extends Controller
                 return $this->responseError($errorItems['message'], $errorItems['data']);
             } else {
                 if ($this->getAdminService()->createAdmin($form)) {
-                    return $this->responseSuccess([], '管理员添加成功！');
+                    return $this->responseSuccess([], trans('admin.create_success'));
                 }
             }
-            return $this->responseError('管理员添加失败！');
+            return $this->responseError(trans('admin.create_failure'));
         } catch (\Exception $e) {
-            return $this->responseError(ErrorConst::getError(), config('app.debug') ? ['message' => $e->getMessage()] : []);
+            return $this->responseException($e);
         }
     }
 
@@ -74,12 +73,12 @@ class SiteController extends Controller
                 return $this->responseError($errorItems['message'], $errorItems['data']);
             } else {
                 if ($this->getAdminService()->updateAdmin($form)) {
-                    return $this->responseSuccess([], '管理员修改成功！');
+                    return $this->responseSuccess([], trans('admin.update_success'));
                 }
             }
-            return $this->responseError('管理员修改失败！');
+            return $this->responseError(trans('admin.update_failure'));
         } catch (\Exception $e) {
-            return $this->responseError(ErrorConst::getError(), config('app.debug') ? ['message' => $e->getMessage()] : []);
+            return $this->responseException($e);
         }
     }
 
@@ -95,13 +94,13 @@ class SiteController extends Controller
         try {
             $id = $request->get('id');
             if ($this->getAdminService()->deleteAdmin($id)) {
-                return $this->responseSuccess([], '管理员删除成功！');
+                return $this->responseSuccess([], trans('admin.delete_success'));
             }
-            return $this->responseError('管理员删除失败！');
+            return $this->responseError(trans('admin.delete_failure'));
         } catch (AdminException $e) {
             return $this->responseError($e->getMessage());
         } catch (\Exception $e) {
-            return $this->responseError(ErrorConst::getError(), config('app.debug') ? ['message' => $e->getMessage()] : []);
+            return $this->responseException($e);
         }
     }
 

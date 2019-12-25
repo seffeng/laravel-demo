@@ -17,6 +17,10 @@ Route::group(['namespace' => 'Auth'], function() {
     Route::get('/logout', 'SiteController@logout');
 });
 
+Route::group(['namespace' => 'Auth', 'middleware' => ['checkLogin:admin']], function() {
+    Route::put('/auth', 'SiteController@update');
+});
+
 Route::group(['middleware' => ['checkLogin:admin']], function() {
     Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
         Route::get('/index', 'SiteController@index');

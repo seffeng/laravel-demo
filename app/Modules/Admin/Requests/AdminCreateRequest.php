@@ -7,6 +7,7 @@ use App\Common\Rules\Phone;
 use Illuminate\Validation\Rule;
 use App\Modules\Admin\Models\Admin;
 use App\Common\Constants\DeleteConst;
+use App\Common\Rules\Password;
 /**
  *
  * @author zxf
@@ -42,7 +43,7 @@ class AdminCreateRequest extends FormRequest
             'password' => [
                 'required',
                 'between:6,20',
-                'regex:/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/',
+                new Password()
             ],
         ];
     }
@@ -55,12 +56,11 @@ class AdminCreateRequest extends FormRequest
     public function messages()
     {
         return [
-            'required' => ':attribute不能为空！',
-            'min' => ':attribute至少:min位字符！',
-            'max' => ':attribute最多:max位字符！',
-            'between' => ':attribute必须:min~:max位字符！',
-            'unique' => ':attribute已存在！',
-            'regex' => ':attribute必须包含字母和数字的6~20位字符！',
+            'required' => trans('common.required'),
+            'min' => trans('common.min'),
+            'max' => trans('common.max'),
+            'between' => trans('common.between'),
+            'unique' => trans('common.unique'),
         ];
     }
 
