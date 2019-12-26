@@ -9,9 +9,44 @@ use App\Modules\User\Exceptions\UserException;
 use App\Modules\User\Exceptions\UserStatusException;
 use App\Modules\User\Events\LoginEvent;
 use App\Common\Constants\DeleteConst;
+use App\Modules\User\Requests\UserUpdateRequest;
 
 class UserService
 {
+    /**
+     *
+     * @author zxf
+     * @date    2019年12月26日
+     * @param  int $id
+     * @return User
+     */
+    public function getUserById(int $id)
+    {
+        return User::where('id', $id)->where('delete_id', DeleteConst::NOT)->first();
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date    2019年10月29日
+     * @param  int $id
+     * @throws UserNotFoundException
+     * @throws \Exception
+     * @return User
+     */
+    public function notNullById(int $id)
+    {
+        try {
+            $model = $this->getUserById($id);
+            if ($model) {
+                return $model;
+            }
+            throw new UserNotFoundException(trans('user.not_found'));
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
     /**
      *
      * @author zxf
@@ -127,6 +162,34 @@ class UserService
             ];
         }
         return [];
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date    2019年12月26日
+     * @param  UserUpdateRequest $form
+     * @throws \Exception
+     * @return boolean
+     */
+    public function updateUser(UserUpdateRequest $form)
+    {
+        try {
+            $model = $this->notNullById($form->getFillItems('id'));
+            $password = $form->getFillItems('password');
+            $model->fill([
+                'username' => $form->getFillItems('username'),
+            ]);
+            if ($password) {
+                $model->fill([
+                    'password' => $form->getFillItems('password'),
+                ]);
+                $model->encryptPassword();
+            }
+            return $model->save();
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 
     /**

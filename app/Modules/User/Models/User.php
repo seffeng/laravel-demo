@@ -25,6 +25,12 @@ class User extends Model implements AuthenticatableContracts
     protected $table = 'user';
 
     /**
+     *
+     * @var array
+     */
+    protected $fillable = ['username', 'password'];
+
+    /**
      * 密码加密
      * @date    2019年7月30日
      */

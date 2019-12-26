@@ -22,3 +22,7 @@ Route::group(['namespace' => 'Auth'], function() {
     Route::get('/check-login', 'SiteController@isLogin');
     Route::get('/logout', 'SiteController@logout');
 });
+
+Route::group(['namespace' => 'Auth', 'middleware' => ['checkLogin:www']], function() {
+    Route::put('/auth', 'SiteController@update');
+});

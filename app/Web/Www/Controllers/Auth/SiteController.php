@@ -8,6 +8,7 @@ use App\Modules\User\Services\UserService;
 use App\Web\Www\Requests\Auth\UserLoginRequest;
 use Illuminate\Support\Facades\Validator;
 use App\Modules\User\Exceptions\UserException;
+use App\Web\Www\Requests\Auth\UserUpdateRequest;
 
 class SiteController extends Controller
 {
@@ -70,6 +71,33 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
+     * @date    2019年12月26日
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(Request $request)
+    {
+        try {
+            $form = $this->getUserUpdateRequest();
+            $data = $request->all();
+            $data['id'] = $this->getUserService()->getAuthGuard()->id();
+            $data = $form->load($data);
+            $validator = Validator::make($data, $form->rules(), $form->messages(), $form->attributes());
+            if ($errorItems = $form->getErrorItems($validator)) {
+                return $this->responseError($errorItems['message'], $errorItems['data']);
+            }
+            if ($this->getUserService()->updateUser($form)) {
+                return $this->responseSuccess([], trans('user.self_update_success'));
+            }
+            return $this->responseSuccess([], trans('user.self_update_failure'));
+        } catch (\Exception $e) {
+            return $this->responseException($e);
+        }
+    }
+
+    /**
+     *
+     * @author zxf
      * @date    2019年9月29日
      * @return UserService
      */
@@ -87,5 +115,16 @@ class SiteController extends Controller
     private function getUserLoginRequest()
     {
         return new UserLoginRequest();
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date    2019年12月26日
+     * @return \App\Web\Www\Requests\Auth\UserUpdateRequest
+     */
+    private function getUserUpdateRequest()
+    {
+        return new UserUpdateRequest();
     }
 }
