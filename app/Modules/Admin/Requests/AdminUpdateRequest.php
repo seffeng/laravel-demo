@@ -8,6 +8,7 @@ use Illuminate\Validation\Rule;
 use App\Modules\Admin\Models\Admin;
 use App\Common\Constants\DeleteConst;
 use App\Common\Rules\Password;
+
 /**
  *
  * @author zxf

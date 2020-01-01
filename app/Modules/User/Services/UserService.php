@@ -94,13 +94,13 @@ class UserService
      * @throws \Exception
      * @return boolean
      */
-    public function userLogin(string $username, string $password, bool $remember = false)
+    public function userLogin(string $username, string $password, bool $remember = false, string $auth = 'www')
     {
         try {
             $userItem = $this->notNullByUsername($username);
             if ($userItem->getStatus()->getIsNormal()) {
                 if ($userItem->verifyPassword($password)) {
-                    $this->getAuthGuard()->login($userItem, $remember);
+                    $this->getAuthGuard($auth)->login($userItem, $remember);
                     event(new LoginEvent($userItem));
                     return $this->userIsLogin();
                 }
@@ -198,8 +198,8 @@ class UserService
      * @date    2019年9月29日
      * @return \Illuminate\Contracts\Auth\StatefulGuard
      */
-    public function getAuthGuard()
+    public function getAuthGuard(string $auth = 'www')
     {
-        return Auth::guard('www');
+        return Auth::guard($auth);
     }
 }

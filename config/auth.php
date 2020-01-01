@@ -50,8 +50,8 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
+            'driver' => 'passport',
+            'provider' => 'www',
             'hash' => false,
         ],
     ],
