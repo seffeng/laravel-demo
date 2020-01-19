@@ -6,6 +6,7 @@ use App\Common\Base\Model;
 use App\Modules\User\Illuminate\UserStatus;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContracts;
 use Illuminate\Auth\Authenticatable;
+use Laravel\Passport\HasApiTokens;
 /**
  *
  * @date    2019年9月25日
@@ -16,7 +17,7 @@ use Illuminate\Auth\Authenticatable;
  */
 class User extends Model implements AuthenticatableContracts
 {
-    use Authenticatable;
+    use Authenticatable, HasApiTokens;
 
     /**
      *

@@ -17,5 +17,8 @@ Route::group(['namespace' => 'Site'], function() {
 Route::group(['namespace' => 'Auth'], function() {
     Route::post('/login', 'SiteController@login');
     Route::get('/check-login', 'SiteController@isLogin');
+});
+
+Route::group(['namespace' => 'Auth', 'middleware' => 'checkLogin:api'], function() {
     Route::get('/logout', 'SiteController@logout');
 });

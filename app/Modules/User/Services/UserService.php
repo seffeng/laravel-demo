@@ -14,6 +14,11 @@ use App\Modules\User\Requests\UserUpdateRequest;
 class UserService
 {
     /**
+     * @var string
+     */
+    private $auth = 'www';
+
+    /**
      *
      * @author zxf
      * @date    2019年12月26日
@@ -94,13 +99,13 @@ class UserService
      * @throws \Exception
      * @return boolean
      */
-    public function userLogin(string $username, string $password, bool $remember = false, string $auth = 'www')
+    public function userLogin(string $username, string $password, bool $remember = false)
     {
         try {
             $userItem = $this->notNullByUsername($username);
             if ($userItem->getStatus()->getIsNormal()) {
                 if ($userItem->verifyPassword($password)) {
-                    $this->getAuthGuard($auth)->login($userItem, $remember);
+                    $this->getAuthGuard()->login($userItem, $remember);
                     event(new LoginEvent($userItem));
                     return $this->userIsLogin();
                 }
@@ -121,7 +126,16 @@ class UserService
      */
     public function userLogout()
     {
-        return $this->getAuthGuard()->logout();
+        try {
+            $user = $this->getLoginUser();
+            if ($user) {
+                $token = $user->token();
+                $token && $token->delete();
+            }
+            return $this->getAuthGuard()->logout();
+        } catch (\Exception $e) {
+            return true;
+        }
     }
 
     /**
@@ -198,8 +212,30 @@ class UserService
      * @date    2019年9月29日
      * @return \Illuminate\Contracts\Auth\StatefulGuard
      */
-    public function getAuthGuard(string $auth = 'www')
+    public function getAuthGuard()
     {
-        return Auth::guard($auth);
+        return Auth::guard($this->getAuth());
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date    2020年1月19日
+     * @return string
+     */
+    public function getAuth()
+    {
+        return $this->auth;
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date    2020年1月19日
+     * @param  string $auth
+     */
+    public function setAuth(string $auth)
+    {
+        $this->auth = $auth;
     }
 }

@@ -26,9 +26,12 @@ class SiteController extends Controller
             if ($errorItems = $form->getErrorItems($validate)) {
                 return $this->responseError($errorItems['message'], $errorItems['data']);
             } else {
-                if ($this->getUserService()->userLogin($form->getFillItems('username'), $form->getFillItems('password'), true, 'api')) {
+                $userService = $this->getUserService();
+                if ($userService->userLogin($form->getFillItems('username'), $form->getFillItems('password'))) {
+                    $user = $userService->getLoginUser();
                     return $this->responseSuccess([
-                        'user' => $this->getUserService()->getLoginUserToArray()
+                        'user' => $userService->getLoginUserToArray(),
+                        'token' => $user->createToken($user->username)->accessToken
                     ], trans('user.login_success'));
                 }
                 return $this->responseError(trans('user.login_failure'));
@@ -49,7 +52,9 @@ class SiteController extends Controller
      */
     public function logout(Request $request)
     {
-        $this->getUserService()->userLogout();
+        $userService = $this->getUserService();
+        $userService->setAuth('api');
+        $userService->userLogout();
         return $this->responseSuccess(['url' => '/login']);
     }
 
@@ -61,9 +66,11 @@ class SiteController extends Controller
      */
     public function isLogin(Request $request)
     {
+        $userService = $this->getUserService();
+        $userService->setAuth('api');
         return $this->responseSuccess([
-            'isLogin' => $this->getUserService()->userIsLogin(),
-            'user' => $this->getUserService()->getLoginUserToArray() ?: new \stdClass()
+            'isLogin' => $userService->userIsLogin(),
+            'user' => $userService->getLoginUserToArray() ?: new \stdClass()
         ]);
     }
 

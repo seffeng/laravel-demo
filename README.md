@@ -23,8 +23,8 @@ $ composer install -vvv
 3、修改 .env 对应配置，如关闭DEBUG(APP_DEBUG=false)、数据库信息（DB_DATABASE）等；
 
 4、执行迁移脚本创建数据表，初始数据，初始用户：（账号：10086, 密码：123456）；
-$ php ./artisan migrate
-$ php ./artisan db:seed
+$ php ./artisan migrate --seed
+$ php ./artisan passport:install
 
 5、前台根目录为 /public/www，后台根目录为 /public/admin， API根目录为 /public/api；
 ```
