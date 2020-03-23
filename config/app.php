@@ -14,23 +14,6 @@ return [
 
     'name' => APP_NAME,
 
-    /**
-     * 应用配置
-     */
-    'setting' => [
-        'api' => [
-            'namespace' => 'App\Web\Api\Controllers',
-        ],
-        'admin' => [
-            'namespace' => 'App\Web\Admin\Controllers',
-            'viewPath' => 'views/admin',
-        ],
-        'www' => [
-            'namespace' => 'App\Web\Www\Controllers',
-            'viewPath' => 'views/www',
-        ],
-    ],
-
     /*
      |--------------------------------------------------------------------------
      | Application Environment

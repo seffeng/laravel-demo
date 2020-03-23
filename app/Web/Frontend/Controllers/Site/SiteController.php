@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Web\Api\Controllers\Site;
+namespace App\Web\Frontend\Controllers\Site;
 
-use App\Web\Backend\Common\Controller;
+use App\Web\Frontend\Common\Controller;
 use Illuminate\Http\Request;
 use App\Common\Actions\DownListAction;
 

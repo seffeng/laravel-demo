@@ -6,7 +6,7 @@ use App\Common\Base\Model;
 use App\Modules\User\Illuminate\UserStatus;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContracts;
 use Illuminate\Auth\Authenticatable;
-use Laravel\Passport\HasApiTokens;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 /**
  *
  * @date    2019年9月25日
@@ -15,9 +15,9 @@ use Laravel\Passport\HasApiTokens;
  * @property integer $status_id
  * @property integer $delete_id
  */
-class User extends Model implements AuthenticatableContracts
+class User extends Model implements AuthenticatableContracts, JWTSubject
 {
-    use Authenticatable, HasApiTokens;
+    use Authenticatable;
 
     /**
      *
@@ -73,5 +73,25 @@ class User extends Model implements AuthenticatableContracts
         $this->login_at = time();
         $this->login_count += 1;
         $this->login_ip = ip2long(request()->ip());
+    }
+    
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+    
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

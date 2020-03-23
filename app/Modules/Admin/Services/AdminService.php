@@ -54,27 +54,27 @@ class AdminService extends Service
      *
      * @author zxf
      * @date    2019年9月29日
-     * @param  string $phone
+     * @param  string $username
      * @return Admin
      */
-    public function getAdminByPhone(string $phone)
+    public function getAdminByUsername(string $username)
     {
-        return Admin::where('phone', $phone)->where('delete_id', DeleteConst::NOT)->first();
+        return Admin::where('username', $username)->where('delete_id', DeleteConst::NOT)->first();
     }
 
     /**
      *
      * @author zxf
      * @date   2019年10月19日
-     * @param  string $phone
+     * @param  string $username
      * @throws AdminNotFoundException
      * @throws \Exception
      * @return Admin
      */
-    public function notNullByPhone(string $phone)
+    public function notNullByUsername(string $username)
     {
         try {
-            $model = $this->getAdminByPhone($phone);
+            $model = $this->getAdminByUsername($username);
             if ($model) {
                 return $model;
             }
@@ -88,7 +88,7 @@ class AdminService extends Service
      *
      * @author zxf
      * @date    2019年9月29日
-     * @param string $phone
+     * @param string $username
      * @param string $password
      * @param bool $remember
      * @throws AdminException
@@ -97,10 +97,10 @@ class AdminService extends Service
      * @throws \Exception
      * @return boolean
      */
-    public function adminLogin(string $phone, string $password, bool $remember = false)
+    public function adminLogin(string $username, string $password, bool $remember = false)
     {
         try {
-            $userItem = $this->notNullByPhone($phone);
+            $userItem = $this->notNullByUsername($username);
             if ($userItem->getStatus()->getIsNormal()) {
                 if ($userItem->verifyPassword($password)) {
                     $this->getAuthGuard()->login($userItem, $remember);
@@ -161,7 +161,7 @@ class AdminService extends Service
         if ($user) {
             return [
                 'id' => $user->id,
-                'phone' => $user->phone,
+                'username' => $user->username,
             ];
         }
         return [];
@@ -180,8 +180,8 @@ class AdminService extends Service
         if ($id = $form->getFillItems('id')) {
             $query->where('id', $id);
         }
-        if ($phone = $form->getFillItems('phone')) {
-            $query->where('phone', $phone);
+        if ($username = $form->getFillItems('username')) {
+            $query->where('username', $username);
         }
         return $query->orderBy('id', 'desc')->paginate($pageSize);
     }
@@ -199,7 +199,7 @@ class AdminService extends Service
         if ($paginator) foreach ($paginator as $model) {
             $items[] = [
                 'id' => $model->id,
-                'phone' => $model->phone,
+                'username' => $model->username,
                 'statusId' => $model->status_id,
                 'statusName' => $model->getStatus()->getName(),
                 'createDate' => date('Y-m-d H:i', $model->created_at),
@@ -224,7 +224,7 @@ class AdminService extends Service
         try {
             $model = new Admin();
             $model->fill([
-                'phone' => $form->getFillItems('phone'),
+                'username' => $form->getFillItems('username'),
                 'password' => $form->getFillItems('password'),
             ]);
             $model->encryptPassword();
@@ -285,6 +285,6 @@ class AdminService extends Service
      */
     public function getAuthGuard()
     {
-        return Auth::guard('admin');
+        return Auth::guard('backend');
     }
 }

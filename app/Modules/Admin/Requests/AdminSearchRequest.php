@@ -16,5 +16,5 @@ class AdminSearchRequest extends FormRequest
      *
      * @var array
      */
-    protected  $fillable = ['id', 'phone'];
+    protected  $fillable = ['id', 'username'];
 }

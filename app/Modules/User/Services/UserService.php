@@ -10,13 +10,15 @@ use App\Modules\User\Exceptions\UserStatusException;
 use App\Modules\User\Events\LoginEvent;
 use App\Common\Constants\DeleteConst;
 use App\Modules\User\Requests\UserUpdateRequest;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 
 class UserService
 {
     /**
+     *
      * @var string
      */
-    private $auth = 'www';
+    private $auth = 'frontend';
 
     /**
      *
@@ -105,8 +107,11 @@ class UserService
             $userItem = $this->notNullByUsername($username);
             if ($userItem->getStatus()->getIsNormal()) {
                 if ($userItem->verifyPassword($password)) {
-                    $this->getAuthGuard()->login($userItem, $remember);
+                    $token = $this->getAuthGuard()->login($userItem, $remember);
                     event(new LoginEvent($userItem));
+                    if ($this->getAuth() === config('webpacket.api.guard')) {
+                        return $token;
+                    }
                     return $this->userIsLogin();
                 }
                 throw new UserException(trans('user.pass_error'));
@@ -127,14 +132,11 @@ class UserService
     public function userLogout()
     {
         try {
-            $user = $this->getLoginUser();
-            if ($user) {
-                $token = $user->token();
-                $token && $token->delete();
-            }
             return $this->getAuthGuard()->logout();
-        } catch (\Exception $e) {
+        } catch (TokenExpiredException $e) {
             return true;
+        } catch (\Exception $e) {
+            throw $e;
         }
     }
 
@@ -209,18 +211,19 @@ class UserService
     /**
      *
      * @author zxf
-     * @date    2019年9月29日
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     * @date   2020年3月23日
+     * @param string $auth
      */
-    public function getAuthGuard()
+    public function setAuth(string $auth)
     {
-        return Auth::guard($this->getAuth());
+        $this->auth = $auth;
+        return $this;
     }
 
     /**
      *
      * @author zxf
-     * @date    2020年1月19日
+     * @date   2020年3月23日
      * @return string
      */
     public function getAuth()
@@ -231,11 +234,11 @@ class UserService
     /**
      *
      * @author zxf
-     * @date    2020年1月19日
-     * @param  string $auth
+     * @date    2019年9月29日
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
      */
-    public function setAuth(string $auth)
+    public function getAuthGuard()
     {
-        $this->auth = $auth;
+        return Auth::guard($this->getAuth());
     }
 }

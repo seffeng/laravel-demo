@@ -2,6 +2,8 @@
 
 namespace App\Common\Actions;
 
+use Illuminate\Http\Request;
+
 class DownListAction
 {
     const TYPE_CSRF_TOKEN = 'csrf_token';
@@ -14,10 +16,11 @@ class DownListAction
      * @param  string $type
      * @return array
      */
-    public function run(string $type = null)
+    public function run(Request $request)
     {
         try {
             $data = [];
+            $type = $request->get('type');
             $type = str_replace(' ', '', $type);
             if (strpos($type, ',') !== false) {
                 $typeList = explode(',', $type);

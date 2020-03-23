@@ -3,7 +3,6 @@
 namespace App\Modules\Admin\Requests;
 
 use App\Common\Base\FormRequest;
-use App\Common\Rules\Phone;
 use Illuminate\Validation\Rule;
 use App\Modules\Admin\Models\Admin;
 use App\Common\Constants\DeleteConst;
@@ -13,7 +12,7 @@ use App\Common\Rules\Password;
  * @author zxf
  * @date    2019年10月29日
  * @property int $password
- * @property string $phone
+ * @property string $username
  */
 class AdminCreateRequest extends FormRequest
 {
@@ -21,7 +20,7 @@ class AdminCreateRequest extends FormRequest
      *
      * @var array
      */
-    protected  $fillable = ['password', 'phone'];
+    protected  $fillable = ['password', 'username'];
 
     /**
      *
@@ -31,11 +30,10 @@ class AdminCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'phone' => [
+            'username' => [
                 'required',
-                'min:11',
-                'max:11',
-                new Phone(),
+                'min:5',
+                'max:16',
                 Rule::unique((new Admin())->getTable())->where(function ($query) {
                     return $query->where('delete_id', DeleteConst::NOT);
                 })
@@ -72,7 +70,7 @@ class AdminCreateRequest extends FormRequest
     public function attributes()
     {
         return [
-            'phone' => '手机号',
+            'username' => '用户名',
             'password' => '密码',
         ];
     }

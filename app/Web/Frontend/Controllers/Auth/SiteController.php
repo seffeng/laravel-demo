@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Web\Api\Controllers\Auth;
+namespace App\Web\Frontend\Controllers\Auth;
 
 use Illuminate\Http\Request;
+use App\Web\Frontend\Common\Controller;
 use App\Modules\User\Services\UserService;
+use App\Web\Frontend\Requests\Auth\UserLoginRequest;
 use Illuminate\Support\Facades\Validator;
 use App\Modules\User\Exceptions\UserException;
-use App\Web\Api\Common\Controller;
-use App\Web\Api\Requests\Auth\UserLoginRequest;
-use App\Web\Api\Requests\Auth\UserUpdateRequest;
+use App\Web\Frontend\Requests\Auth\UserUpdateRequest;
 
 class SiteController extends Controller
 {
@@ -27,11 +27,9 @@ class SiteController extends Controller
             if ($errorItems = $form->getErrorItems($validate)) {
                 return $this->responseError($errorItems['message'], $errorItems['data']);
             } else {
-                $userService = $this->getUserService()->setAuth(config('webpacket.api.guard'));
-                if ($token = $userService->userLogin($form->getFillItems('username'), $form->getFillItems('password'))) {
+                if ($this->getUserService()->userLogin($form->getFillItems('username'), $form->getFillItems('password'))) {
                     return $this->responseSuccess([
-                        'user' => $userService->getLoginUserToArray(),
-                        'token' => $token
+                        'user' => $this->getUserService()->getLoginUserToArray()
                     ], trans('user.login_success'));
                 }
                 return $this->responseError(trans('user.login_failure'));
@@ -52,13 +50,8 @@ class SiteController extends Controller
      */
     public function logout(Request $request)
     {
-        try {
-            $userService = $this->getUserService()->setAuth(config('webpacket.api.guard'));
-            $userService->userLogout();
-            return $this->responseSuccess(['url' => '/login']);
-        } catch (\Exception $e) {
-            return $this->responseException($e);
-        }
+        $this->getUserService()->userLogout();
+        return $this->responseSuccess(['url' => '/login']);
     }
 
     /**
@@ -69,10 +62,9 @@ class SiteController extends Controller
      */
     public function isLogin(Request $request)
     {
-        $userService = $this->getUserService()->setAuth(config('webpacket.api.guard'));
         return $this->responseSuccess([
-            'isLogin' => $userService->userIsLogin(),
-            'user' => $userService->getLoginUserToArray() ?: new \stdClass()
+            'isLogin' => $this->getUserService()->userIsLogin(),
+            'user' => $this->getUserService()->getLoginUserToArray() ?: new \stdClass()
         ]);
     }
 
@@ -88,14 +80,13 @@ class SiteController extends Controller
         try {
             $form = $this->getUserUpdateRequest();
             $data = $request->all();
-            $userService = $this->getUserService()->setAuth(config('webpacket.api.guard'));
-            $data['id'] = $userService->getAuthGuard()->id();
+            $data['id'] = $this->getUserService()->getAuthGuard()->id();
             $data = $form->load($data);
             $validator = Validator::make($data, $form->rules(), $form->messages(), $form->attributes());
             if ($errorItems = $form->getErrorItems($validator)) {
                 return $this->responseError($errorItems['message'], $errorItems['data']);
             }
-            if ($userService->updateUser($form)) {
+            if ($this->getUserService()->updateUser($form)) {
                 return $this->responseSuccess([], trans('user.self_update_success'));
             }
             return $this->responseSuccess([], trans('user.self_update_failure'));
@@ -113,8 +104,7 @@ class SiteController extends Controller
      */
     public function info(Request $request)
     {
-        $userService = $this->getUserService()->setAuth(config('webpacket.api.guard'));
-        return $this->responseSuccess($userService->getLoginUserToArray() ?: new \stdClass());
+        return $this->responseSuccess($this->getUserService()->getLoginUserToArray() ?: new \stdClass());
     }
 
     /**

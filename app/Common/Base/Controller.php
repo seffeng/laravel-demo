@@ -3,6 +3,8 @@
 namespace App\Common\Base;
 
 use App\Common\Constants\ErrorConst;
+use Illuminate\Support\Facades\Request;
+use Seffeng\Basics\Helpers\Arr;
 
 /**
  *
@@ -16,4 +18,19 @@ class Controller extends \Seffeng\Basics\Base\Controller
      * @var ErrorConst
      */
     protected $errorClass = ErrorConst::class;
+
+    /**
+     *
+     * {@inheritDoc}
+     * @see \Seffeng\Basics\Base\Controller::responseSuccess()
+     */
+    public function responseSuccess($data = [], string $message = 'success', array $headers = [])
+    {
+        $customHeaders = [];
+        if ($token = Request::header('refresh_token')) {
+            $customHeaders['refresh_token'] = $token;
+        }
+        $headers = Arr::merge($headers, $customHeaders);
+        return parent::responseSuccess($data, $message, $headers);
+    }
 }

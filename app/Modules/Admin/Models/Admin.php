@@ -30,7 +30,7 @@ class Admin extends Model implements AuthenticatableContracts
      *
      * @var array
      */
-    protected $fillable = ['phone', 'password'];
+    protected $fillable = ['username', 'password'];
 
     /**
      * 密码加密

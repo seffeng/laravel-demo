@@ -14,11 +14,11 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        $phone = '10086';
-        if (!Admin::where('phone', $phone)->where('delete_id', DeleteConst::NOT)->exists()) {
+        $username = '10086';
+        if (!Admin::where('username', $username)->where('delete_id', DeleteConst::NOT)->exists()) {
             $model = new Admin();
             $model->fill([
-                'phone' => $phone,
+                'username' => $username,
                 'password' => '123456',
                 'status_id' => StatusConst::NORMAL,
                 'delete_id' => DeleteConst::NOT,

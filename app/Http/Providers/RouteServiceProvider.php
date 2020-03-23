@@ -25,7 +25,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->namespace = Arr::get(config('app.setting'), config('app.name') .'.namespace', $this->namespace);
+        $this->namespace = Arr::get(config('webpacket'), config('app.name') .'.namespace', $this->namespace);
         parent::boot();
     }
 
@@ -36,7 +36,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        $appName = Arr::has(config('app.setting'), config('app.name'));
+        $appName = Arr::has(config('webpacket'), config('app.name'));
         if ($appName) {
             $funName = 'map'. Str::studly(config('app.name')) .'Routes';
             $this->$funName();
@@ -46,35 +46,35 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Define the "www" routes for the application.
+     * Define the "Frontend" routes for the application.
      *
      * These routes all receive session state, CSRF protection, etc.
      *
      * @return void
      */
-    protected function mapWwwRoutes()
+    protected function mapFrontendRoutes()
     {
         Route::middleware('web')
         ->namespace($this->namespace)
-        ->group(base_path('routes/www.php'));
+        ->group(base_path('routes/frontend.php'));
     }
 
     /**
-     * Define the "admin" routes for the application.
+     * Define the "Backend" routes for the application.
      *
      * These routes all receive session state, CSRF protection, etc.
      *
      * @return void
      */
-    protected function mapAdminRoutes()
+    protected function mapBackendRoutes()
     {
         Route::middleware('web')
         ->namespace($this->namespace)
-        ->group(base_path('routes/admin.php'));
+        ->group(base_path('routes/backend.php'));
     }
 
     /**
-     * Define the "api" routes for the application.
+     * Define the "Api" routes for the application.
      *
      * These routes are typically stateless.
      *

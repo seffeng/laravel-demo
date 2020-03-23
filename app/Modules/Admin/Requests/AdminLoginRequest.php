@@ -10,7 +10,7 @@ class AdminLoginRequest extends FormRequest
      *
      * @var array
      */
-    protected $fillable = ['phone', 'password'];
+    protected $fillable = ['username', 'password'];
 
     /**
      *
@@ -30,10 +30,10 @@ class AdminLoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'phone' => [
+            'username' => [
                 'required',
                 'min:5',
-                'max:11'
+                'max:16'
             ],
             'password' => 'required|between:6,20',
         ];
@@ -62,7 +62,7 @@ class AdminLoginRequest extends FormRequest
     public function attributes()
     {
         return [
-            'phone' => '手机号',
+            'username' => '用户名',
             'password' => '密码',
         ];
     }

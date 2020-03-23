@@ -24,15 +24,16 @@ $ composer install -vvv
 
 4、执行迁移脚本创建数据表，初始数据，初始用户：（账号：10086, 密码：123456）；
 $ php ./artisan migrate --seed
-$ php ./artisan passport:install
+$ php ./artisan jwt:secret
 
-5、前台根目录为 /public/www，后台根目录为 /public/admin， API根目录为 /public/api；
+5、前台根目录为 /public/frontend，后台根目录为 /public/backend， API根目录为 /public/api；
 ```
 
 ## 目录说明
 ```
 ├─app
 │  ├─Common                 公共模块
+│  │  ├─Actions                 公共控制器Action
 │  │  ├─Base                    基础接口对象
 │  │  ├─Constants               常量定义
 │  │  ├─Exceptions              基础异常
@@ -63,7 +64,7 @@ $ php ./artisan passport:install
 │  │      ├─Requests                表单规则验证
 │  │      └─Services                服务处理
 │  └─Web                    WEB应用
-│      ├─Admin                  后台应用
+│      ├─Backend                后台应用
 │      │  ├─Common                  公共模块
 │      │  ├─Controllers             控制器
 │      │  │  ├─Admin
@@ -73,9 +74,14 @@ $ php ./artisan passport:install
 │      │  └─Requests                表单验证
 │      │      └─Admin
 │      ├─Api                    API应用
-│      │  └─Controllers
-│      │      └─Test
-│      └─Www                    前台应用
+│      │  ├─Common
+│      │  │─Controllers
+│      │  │  ├─Auth
+│      │  │  ├─Site
+│      │  │  └─Test
+│      │  └─Requests
+│      │      └─Auth
+│      └─Frontend               前台应用
 │          ├─Common
 │          ├─Controllers
 │          │  ├─Auth
@@ -90,13 +96,13 @@ $ php ./artisan passport:install
 │  ├─migrations
 │  └─seeds
 ├─public
-│  ├─admin                  后台入口
+│  ├─backend                后台入口
 │  ├─api                    api入口
-│  └─www                    前台入口
+│  └─frontend               前台入口
 ├─resources
 │  └─views
-│      ├─admin
-│      └─www
+│      ├─backend
+│      └─frontend
 ├─routes
 ├─storage
 │  ├─app
@@ -108,9 +114,9 @@ $ php ./artisan passport:install
 │  │  ├─sessions
 │  │  ├─testing
 │  │  └─views
-│  │      ├─admin
+│  │      ├─backend
 │  │      ├─api
-│  │      └─www
+│  │      └─frontend
 │  └─logs
 └─vendor
 ```

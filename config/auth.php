@@ -17,7 +17,7 @@ return [
      */
 
     'defaults' => [
-        'guard' => 'www',
+        'guard' => 'frontend',
         'passwords' => 'users',
     ],
 
@@ -39,19 +39,19 @@ return [
      */
 
     'guards' => [
-        'www' => [
+        'frontend' => [
             'driver' => 'session',
-            'provider' => 'www',
+            'provider' => 'user',
         ],
 
-        'admin' => [
+        'backend' => [
             'driver' => 'session',
             'provider' => 'admin',
         ],
 
         'api' => [
-            'driver' => 'passport',
-            'provider' => 'www',
+            'driver' => 'jwt',
+            'provider' => 'user',
             'hash' => false,
         ],
     ],
@@ -74,7 +74,7 @@ return [
      */
 
     'providers' => [
-        'www' => [
+        'user' => [
             'driver' => 'eloquent',
             'model' => User::class,
         ],
