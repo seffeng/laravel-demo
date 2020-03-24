@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function() {
-    var_dump('www.index');
-    //return view('home');
+    //var_dump('www.index');
+    return view('home');
 });
 
 Route::get('home', 'Test\SiteController@home');

@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function() {
-    var_dump('admin.index');
-    //return view('home');
+    //var_dump('admin.index');
+    return view('home');
 });
 
 Route::group(['namespace' => 'Site'], function() {

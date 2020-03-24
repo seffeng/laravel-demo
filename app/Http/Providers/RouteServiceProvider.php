@@ -5,7 +5,6 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -25,7 +24,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->namespace = Arr::get(config('webpacket'), config('app.name') .'.namespace', $this->namespace);
+        $this->namespace = Arr::get(config('packet'), config('app.name') .'.namespace', $this->namespace);
         parent::boot();
     }
 
@@ -36,41 +35,27 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        $appName = Arr::has(config('webpacket'), config('app.name'));
-        if ($appName) {
-            $funName = 'map'. Str::studly(config('app.name')) .'Routes';
-            $this->$funName();
+        $appName = config('app.name');
+        $middleware = config('packet.'. $appName .'.middleware');
+        if ($middleware === 'api') {
+            $this->mapApiRoutes($appName);
         } else {
-            $this->mapApiRoutes();
+            $this->mapWebRoutes($appName);
         }
     }
 
     /**
-     * Define the "Frontend" routes for the application.
+     * Define the "Web" routes for the application.
      *
      * These routes all receive session state, CSRF protection, etc.
      *
      * @return void
      */
-    protected function mapFrontendRoutes()
+    protected function mapWebRoutes(string $appName)
     {
         Route::middleware('web')
         ->namespace($this->namespace)
-        ->group(base_path('routes/frontend.php'));
-    }
-
-    /**
-     * Define the "Backend" routes for the application.
-     *
-     * These routes all receive session state, CSRF protection, etc.
-     *
-     * @return void
-     */
-    protected function mapBackendRoutes()
-    {
-        Route::middleware('web')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/backend.php'));
+        ->group(base_path('routes/'. $appName .'.php'));
     }
 
     /**
@@ -80,10 +65,10 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapApiRoutes()
+    protected function mapApiRoutes(string $appName)
     {
         Route::middleware('api')
         ->namespace($this->namespace)
-        ->group(base_path('routes/api.php'));
+        ->group(base_path('routes/'. $appName .'.php'));
     }
 }

@@ -27,6 +27,12 @@ $ php ./artisan migrate --seed
 $ php ./artisan jwt:secret
 
 5、前台根目录为 /public/frontend，后台根目录为 /public/backend， API根目录为 /public/api；
+
+6、增加网站应用；
+# 1. /public 目录下增加应用入口，nginx配置root；
+# 2. /config/packet.php 增加应用设置；
+# 3. /app/Web 目录下增加对应应用；
+# 4. /routes 目录下增加对应路由；
 ```
 
 ## 目录说明

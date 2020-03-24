@@ -109,7 +109,7 @@ class UserService
                 if ($userItem->verifyPassword($password)) {
                     $token = $this->getAuthGuard()->login($userItem, $remember);
                     event(new LoginEvent($userItem));
-                    if ($this->getAuth() === config('webpacket.api.guard')) {
+                    if ($this->getAuth() === config('packet.api.guard')) {
                         return $token;
                     }
                     return $this->userIsLogin();

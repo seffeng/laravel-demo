@@ -27,7 +27,7 @@ class SiteController extends Controller
             if ($errorItems = $form->getErrorItems($validate)) {
                 return $this->responseError($errorItems['message'], $errorItems['data']);
             } else {
-                $userService = $this->getUserService()->setAuth(config('webpacket.api.guard'));
+                $userService = $this->getUserService()->setAuth(config('packet.api.guard'));
                 if ($token = $userService->userLogin($form->getFillItems('username'), $form->getFillItems('password'))) {
                     return $this->responseSuccess([
                         'user' => $userService->getLoginUserToArray(),
@@ -53,7 +53,7 @@ class SiteController extends Controller
     public function logout(Request $request)
     {
         try {
-            $userService = $this->getUserService()->setAuth(config('webpacket.api.guard'));
+            $userService = $this->getUserService()->setAuth(config('packet.api.guard'));
             $userService->userLogout();
             return $this->responseSuccess(['url' => '/login']);
         } catch (\Exception $e) {
@@ -69,7 +69,7 @@ class SiteController extends Controller
      */
     public function isLogin(Request $request)
     {
-        $userService = $this->getUserService()->setAuth(config('webpacket.api.guard'));
+        $userService = $this->getUserService()->setAuth(config('packet.api.guard'));
         return $this->responseSuccess([
             'isLogin' => $userService->userIsLogin(),
             'user' => $userService->getLoginUserToArray() ?: new \stdClass()
@@ -88,7 +88,7 @@ class SiteController extends Controller
         try {
             $form = $this->getUserUpdateRequest();
             $data = $request->all();
-            $userService = $this->getUserService()->setAuth(config('webpacket.api.guard'));
+            $userService = $this->getUserService()->setAuth(config('packet.api.guard'));
             $data['id'] = $userService->getAuthGuard()->id();
             $data = $form->load($data);
             $validator = Validator::make($data, $form->rules(), $form->messages(), $form->attributes());
@@ -113,7 +113,7 @@ class SiteController extends Controller
      */
     public function info(Request $request)
     {
-        $userService = $this->getUserService()->setAuth(config('webpacket.api.guard'));
+        $userService = $this->getUserService()->setAuth(config('packet.api.guard'));
         return $this->responseSuccess($userService->getLoginUserToArray() ?: new \stdClass());
     }
 

@@ -27,7 +27,7 @@ class CheckLogin
     {
         try {
             $guard = Arr::get($guards, '0');
-            $guard === config('webpacket.api.guard') && Auth::guard($guard)->getPayload();
+            $guard === config('packet.api.guard') && Auth::guard($guard)->getPayload();
 
             if ($guard && Auth::guard($guard)->check()) {
                 return $next($request);

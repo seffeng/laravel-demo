@@ -1,5 +1,4 @@
 <?php
-
 return [
     /*
      |--------------------------------------------------------------------------
@@ -13,7 +12,7 @@ return [
      */
 
     'paths' => [
-        resource_path(config('app.setting.'. config('app.name') .'.viewPath', 'views')),
+        resource_path(config('packet.'. config('app.name') .'.viewPath', 'views')),
     ],
 
     /*
@@ -29,6 +28,6 @@ return [
 
     'compiled' => env(
         'VIEW_COMPILED_PATH',
-        realpath(storage_path('framework/'. config('app.setting.'. config('app.name') .'.viewPath', 'views')))
-        ),
+        realpath(storage_path('framework/'. config('packet.'. config('app.name') .'.viewPath', 'views')))
+    ),
 ];
