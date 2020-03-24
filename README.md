@@ -33,6 +33,7 @@ $ php ./artisan jwt:secret
 # 2. /config/packet.php 增加应用设置；
 # 3. /app/Web 目录下增加对应应用；
 # 4. /routes 目录下增加对应路由；
+# 5. 其他：/storage/framework/views、/resources/views。
 ```
 
 ## 目录说明
