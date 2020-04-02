@@ -39,7 +39,7 @@ class CheckLogin
                 $request->headers->set('Authorization', 'Bearer '. $token);
                 Auth::guard($guard)->setToken($token)->user();
                 return $next($request);
-            } catch (TokenInvalidException $e) {
+            } catch (JWTException $e) {
             }
         } catch (TokenInvalidException $e) {
 
