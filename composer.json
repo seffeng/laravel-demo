@@ -23,7 +23,9 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^2.0",
+        "psr/http-message": "^1.0",
         "seffeng/laravel-basics": "^2.0",
+        "symfony/psr-http-message-bridge": "^2.0",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {

@@ -12,7 +12,6 @@ use App\Common\Base\Service;
 use App\Modules\Admin\Requests\AdminSearchRequest;
 use App\Modules\Admin\Requests\AdminCreateRequest;
 use App\Modules\Admin\Requests\AdminUpdateRequest;
-use App\Common\Constants\DeleteConst;
 
 class AdminService extends Service
 {
@@ -25,7 +24,7 @@ class AdminService extends Service
      */
     public function getAdminById(int $id)
     {
-        return Admin::where('id', $id)->where('delete_id', DeleteConst::NOT)->first();
+        return Admin::byId($id)->notDelete()->first();
     }
 
     /**
@@ -59,7 +58,7 @@ class AdminService extends Service
      */
     public function getAdminByUsername(string $username)
     {
-        return Admin::where('username', $username)->where('delete_id', DeleteConst::NOT)->first();
+        return Admin::byUsername($username)->notDelete()->first();
     }
 
     /**
@@ -176,13 +175,18 @@ class AdminService extends Service
      */
     public function getAdminPaginate(AdminSearchRequest $form, int $pageSize = 10)
     {
+        /**
+         *
+         * @var Admin $query
+         */
         $query = Admin::on();
         if ($id = $form->getFillItems('id')) {
-            $query->where('id', $id);
+            $query->byId($id);
         }
         if ($username = $form->getFillItems('username')) {
-            $query->where('username', $username);
+            $query->likeUsername($username);
         }
+        $query->notDelete();
         return $query->orderBy('id', 'desc')->paginate($pageSize);
     }
 

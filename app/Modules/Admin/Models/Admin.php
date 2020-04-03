@@ -8,6 +8,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContracts;
 use Illuminate\Auth\Authenticatable;
 use App\Common\Constants\StatusConst;
 use App\Common\Constants\DeleteConst;
+use Illuminate\Database\Eloquent\Builder;
 /**
  *
  * @date    2019年9月25日
@@ -15,6 +16,10 @@ use App\Common\Constants\DeleteConst;
  * @property string $username
  * @property integer $status_id
  * @property integer $delete_id
+ * @method Admin byId(int $id)
+ * @method Admin byUsername(string $username)
+ * @method Admin likeUsername(string $username, bool $left = false)
+ * @method Admin notDelete()
  */
 class Admin extends Model implements AuthenticatableContracts
 {
@@ -95,5 +100,57 @@ class Admin extends Model implements AuthenticatableContracts
     public function delete()
     {
         $this->delete_id = DeleteConst::YES;
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2020年4月3日
+     * @param Builder $query
+     * @param int $id
+     * @return Admin
+     */
+    public function scopeById(Builder $query, int $id)
+    {
+        return $query->where('id', $id);
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date    2020年4月3日
+     * @param  Builder $query
+     * @param  string $username
+     * @return Admin
+     */
+    public function scopeByUsername(Builder $query, string $username)
+    {
+        return $query->where('username', $username);
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2020年4月3日
+     * @param Builder $query
+     * @param string $username
+     * @param boolean $left
+     * @return Admin
+     */
+    public function scopeLikeUsername(Builder $query, string $username, bool $left = false)
+    {
+        return $query->where('username', 'like', ($left ? '%' : ''). $username .'%');
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2020年4月3日
+     * @param  Builder $query
+     * @return Admin
+     */
+    public function scopeNotDelete(Builder $query)
+    {
+        return $query->where('delete_id', DeleteConst::NOT);
     }
 }
