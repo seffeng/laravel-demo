@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class DownListAction
 {
-    const TYPE_CSRF_TOKEN = 'csrf_token';
+    const TYPE_CSRF_TOKEN = 'csrfToken';
     const TYPE_TEST = 'test';
 
     /**

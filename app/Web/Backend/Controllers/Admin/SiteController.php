@@ -24,8 +24,10 @@ class SiteController extends Controller
     {
         try {
             $form = $this->getAdminSearchRequest();
-            $form->load($request->all());
-            $items = $this->getAdminService()->getAdminStore($form);
+            $form->load($request->input());
+            $pageSize = $request->get($form->getPerPageName(), $form->getPerPage());
+            $pageSize < 1 && $pageSize = $form->getPerPage();
+            $items = $this->getAdminService()->getAdminStore($form, $pageSize);
             return $this->responseSuccess($items);
         } catch (\Exception $e) {
             return $this->responseException($e);
@@ -43,7 +45,7 @@ class SiteController extends Controller
     {
         try {
             $form = $this->getAdminCreateRequest();
-            $validator = Validator::make($form->load($request->all()), $form->rules(), $form->messages(), $form->attributes());
+            $validator = Validator::make($form->load($request->post()), $form->rules(), $form->messages(), $form->attributes());
             if ($errorItems = $form->getErrorItems($validator)) {
                 return $this->responseError($errorItems['message'], $errorItems['data']);
             } else {
@@ -68,7 +70,7 @@ class SiteController extends Controller
     {
         try {
             $form = $this->getAdminUpdateRequest();
-            $validator = Validator::make($form->load($request->all()), $form->rules(), $form->messages(), $form->attributes());
+            $validator = Validator::make($form->load($request->input()), $form->rules(), $form->messages(), $form->attributes());
             if ($errorItems = $form->getErrorItems($validator)) {
                 return $this->responseError($errorItems['message'], $errorItems['data']);
             } else {

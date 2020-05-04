@@ -20,7 +20,7 @@ class AdminCreateRequest extends FormRequest
      *
      * @var array
      */
-    protected  $fillable = ['password', 'username'];
+    protected  $fillable = ['username', 'password'];
 
     /**
      *

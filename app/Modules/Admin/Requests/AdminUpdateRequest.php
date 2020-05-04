@@ -21,7 +21,7 @@ class AdminUpdateRequest extends FormRequest
      *
      * @var array
      */
-    protected  $fillable = ['id', 'password', 'username'];
+    protected $fillable = ['id', 'username', 'password'];
 
     /**
      *
