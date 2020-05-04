@@ -252,7 +252,7 @@ class AdminService extends Service
         try {
             $model = $this->notNullById($form->getFillItems('id'));
             $model->fill([
-                'phone' => $form->getFillItems('phone'),
+                'username' => $form->getFillItems('username'),
                 'password' => $form->getFillItems('password'),
             ]);
             $model->encryptPassword();
