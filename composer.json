@@ -5,12 +5,14 @@
         "framework",
         "laravel"
     ],
+    "homepage": "https://github.com/seffeng/laravel-demo",
     "license": "MIT",
     "type": "project",
     "authors": [
         {
             "name": "seffeng",
-            "email": "save.zxf@gmail.com"
+            "email": "save.zxf@gmail.com",
+            "homepage": "https://github.com/seffeng"
         }
     ],
     "config": {
