@@ -37,7 +37,7 @@ class User extends Model implements AuthenticatableContracts, JWTSubject
      */
     public function encryptPassword()
     {
-        $this->password = password_hash($this->password, PASSWORD_BCRYPT);
+        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
         return $this->password;
     }
 

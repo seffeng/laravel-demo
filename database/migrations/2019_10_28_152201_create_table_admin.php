@@ -20,7 +20,7 @@ class CreateTableAdmin extends Migration
             Schema::create($tableName, function (Blueprint $table) {
                 $table->bigIncrements('id')->comment('管理员ID[自增]');
                 $table->string('username', 50)->index()->nullable(false)->default('')->comment('用户名');
-                $table->string('password', 100)->nullable(false)->default('')->comment('密码');
+                $table->string('password')->nullable(false)->default('')->comment('密码');
                 $table->tinyInteger('status_id')->unsigned()->nullable(false)->default(0)->comment('状态');
                 $table->tinyInteger('delete_id')->unsigned()->nullable(false)->default(0)->comment('删除类型');
                 $table->integer('login_count')->unsigned()->nullable(false)->default(0)->comment('登录次数');
