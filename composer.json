@@ -3,7 +3,8 @@
     "description": "Laravel Demo",
     "keywords": [
         "framework",
-        "laravel"
+        "laravel",
+        "seffeng"
     ],
     "homepage": "https://github.com/seffeng/laravel-demo",
     "license": "MIT",
