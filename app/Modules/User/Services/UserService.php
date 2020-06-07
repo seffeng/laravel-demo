@@ -11,6 +11,8 @@ use App\Modules\User\Events\LoginEvent;
 use App\Common\Constants\DeleteConst;
 use App\Modules\User\Requests\UserUpdateRequest;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Common\Exceptions\BaseException;
 
 class UserService
 {
@@ -135,6 +137,8 @@ class UserService
             return $this->getAuthGuard()->logout();
         } catch (TokenExpiredException $e) {
             return true;
+        } catch (JWTException $e) {
+            throw new BaseException($e->getMessage());
         } catch (\Exception $e) {
             throw $e;
         }

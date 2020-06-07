@@ -3,6 +3,7 @@
 namespace App\Modules\Admin\Requests;
 
 use App\Common\Base\FormRequest;
+use App\Common\Rules\Password;
 
 class AdminLoginRequest extends FormRequest
 {
@@ -35,7 +36,11 @@ class AdminLoginRequest extends FormRequest
                 'min:5',
                 'max:16'
             ],
-            'password' => 'required|between:6,20',
+            'password' => [
+                'required',
+                'between:6,20',
+                new Password()
+            ],
         ];
     }
 

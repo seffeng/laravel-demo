@@ -9,6 +9,7 @@ use App\Modules\User\Exceptions\UserException;
 use App\Web\Api\Common\Controller;
 use App\Web\Api\Requests\Auth\UserLoginRequest;
 use App\Web\Api\Requests\Auth\UserUpdateRequest;
+use App\Common\Exceptions\BaseException;
 
 class SiteController extends Controller
 {
@@ -56,6 +57,8 @@ class SiteController extends Controller
             $userService = $this->getUserService()->setAuth(config('packet.api.guard'));
             $userService->userLogout();
             return $this->responseSuccess(['url' => '/login']);
+        } catch (BaseException $e) {
+            return $this->responseError($e->getMessage());
         } catch (\Exception $e) {
             return $this->responseException($e);
         }

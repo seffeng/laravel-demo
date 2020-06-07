@@ -3,6 +3,7 @@
 namespace App\Modules\User\Requests;
 
 use App\Common\Base\FormRequest;
+use App\Common\Rules\Password;
 
 class UserLoginRequest extends FormRequest
 {
@@ -31,7 +32,11 @@ class UserLoginRequest extends FormRequest
     {
         return [
             'username' => 'required|min:5|max:16',
-            'password' => 'required|between:6,20',
+            'password' => [
+                'required',
+                'between:6,20',
+                new Password()
+            ]
         ];
     }
 

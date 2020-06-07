@@ -19,7 +19,7 @@ class AdminSeeder extends Seeder
             $model = new Admin();
             $model->fill([
                 'username' => $username,
-                'password' => '123456',
+                'password' => 'a123456',
                 'status_id' => StatusConst::NORMAL,
                 'delete_id' => DeleteConst::NOT,
                 'login_count' => 0,

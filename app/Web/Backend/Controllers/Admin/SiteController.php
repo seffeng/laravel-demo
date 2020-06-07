@@ -25,9 +25,9 @@ class SiteController extends Controller
         try {
             $form = $this->getAdminSearchRequest();
             $form->load($request->input());
-            $pageSize = $request->get($form->getPerPageName(), $form->getPerPage());
-            $pageSize < 1 && $pageSize = $form->getPerPage();
-            $items = $this->getAdminService()->getAdminStore($form, $pageSize);
+            $perPage = $request->get($form->getPerPageName());
+            $perPage > 0 && $form->setPerPage($perPage);
+            $items = $this->getAdminService()->getAdminStore($form);
             return $this->responseSuccess($items);
         } catch (\Exception $e) {
             return $this->responseException($e);

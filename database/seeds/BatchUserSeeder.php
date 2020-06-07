@@ -20,7 +20,7 @@ class BatchUserSeeder extends Seeder
             return true;
         }
         $model = new User();
-        $model->password = '123456';
+        $model->password = 'a123456';
         $password = $model->encryptPassword();
         $tableName = $model->getTable();
         $time = time();

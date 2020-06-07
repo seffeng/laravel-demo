@@ -27,7 +27,7 @@ $ php ./artisan jwt:secret
 
 3、修改 .env 对应配置，如关闭DEBUG(APP_DEBUG=false)、数据库信息（DB_DATABASE）等；
 
-4、执行迁移脚本创建数据表，初始数据，初始用户：（账号：10086, 密码：123456）；
+4、执行迁移脚本创建数据表，初始数据，初始用户：（账号：10086, 密码：a123456）；
 $ php ./artisan migrate --seed
 
 5、前台根目录为 /public/frontend，后台根目录为 /public/backend， API根目录为 /public/api；
@@ -145,3 +145,43 @@ $ php ./artisan migrate --seed
 ## 备注
 
 无
+
+## 已有接口
+
+### api
+
+| 名称     | 地址         | 方式 | 参数              |
+| -------- | ------------ | ---- | ----------------- |
+| 数据获取 | /down-list   | GET  | type              |
+| 登录     | /login       | POST | username,password |
+| 登出     | /logout      | POST |                   |
+| 是否登录 | /check-login | GET  |                   |
+| 登录用户 | /auth        | GET  |                   |
+| 修改资料 | /auth        | PUT  | username          |
+
+### backend
+
+| 名称       | 地址         | 方式   | 参数              |
+| ---------- | ------------ | ------ | ----------------- |
+| 数据获取   | /down-list   | GET    | type              |
+| 登录       | /login       | POST   | username,password |
+| 登出       | /logout      | POST   |                   |
+| 是否登录   | /check-login | GET    |                   |
+| 登录用户   | /auth        | GET    |                   |
+| 修改资料   | /auth        | PUT    | username          |
+| 管理员列表 | /admin/index | GET    |                   |
+| 管理员添加 | /admin/index | POST   | username,password |
+| 管理员编辑 | /admin/index | PUT    | username,password |
+| 管理员删除 | /admin/index | DELETE | id                |
+
+### frontend
+
+| 名称     | 地址         | 方式 | 参数              |
+| -------- | ------------ | ---- | ----------------- |
+| 数据获取 | /down-list   | GET  | type              |
+| 登录     | /login       | POST | username,password |
+| 登出     | /logout      | POST |                   |
+| 是否登录 | /check-login | GET  |                   |
+| 登录用户 | /auth        | GET  |                   |
+| 修改资料 | /auth        | PUT  | username          |
+
