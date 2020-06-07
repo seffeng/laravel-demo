@@ -4,7 +4,7 @@ namespace App\Common\Base;
 
 use App\Common\Constants\ErrorConst;
 use Illuminate\Support\Facades\Request;
-use Seffeng\Basics\Helpers\Arr;
+use Seffeng\LaravelHelpers\Helpers\Arr;
 
 /**
  *

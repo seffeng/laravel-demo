@@ -169,11 +169,11 @@ class AdminService extends Service
     /**
      *
      * @author zxf
-     * @date    2019年10月29日
-     * @param  int $pageSize
+     * @date    2020年6月7日
+     * @param  AdminSearchRequest $form
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function getAdminPaginate(AdminSearchRequest $form, int $pageSize = 10)
+    public function getAdminPaginate(AdminSearchRequest $form)
     {
         /**
          *
@@ -187,18 +187,19 @@ class AdminService extends Service
             $query->likeUsername($username);
         }
         $query->notDelete();
-        return $query->orderBy('id', 'desc')->paginate($pageSize);
+        return $query->orderBy('id', 'desc')->paginate($form->getPerPage());
     }
 
     /**
      *
      * @author zxf
-     * @date    2019年10月29日
+     * @date    2020年6月7日
+     * @param  AdminSearchRequest $form
      * @return array
      */
-    public function getAdminStore(AdminSearchRequest $form, int $pageSize = 10)
+    public function getAdminStore(AdminSearchRequest $form)
     {
-        $paginator = $this->getAdminPaginate($form, $pageSize);
+        $paginator = $this->getAdminPaginate($form);
         $items = [];
         if ($paginator) foreach ($paginator as $model) {
             $items[] = [
