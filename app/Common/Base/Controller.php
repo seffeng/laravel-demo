@@ -27,8 +27,8 @@ class Controller extends \Seffeng\Basics\Base\Controller
     public function responseSuccess($data = [], string $message = 'success', array $headers = [])
     {
         $customHeaders = [];
-        if ($token = Request::header('refresh_token')) {
-            $customHeaders['refresh_token'] = $token;
+        if ($token = Request::header('Refresh-Token')) {
+            $customHeaders['Refresh-Token'] = $token;
         }
         $headers = Arr::merge($headers, $customHeaders);
         return parent::responseSuccess($data, $message, $headers);

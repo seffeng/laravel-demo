@@ -35,7 +35,7 @@ class CheckLogin
         } catch (TokenExpiredException $e) {
             try {
                 $token = Auth::guard($guard)->refresh();
-                $request->headers->set('refresh_token', $token);
+                $request->headers->set('Refresh-Token', $token);
                 $request->headers->set('Authorization', 'Bearer '. $token);
                 Auth::guard($guard)->setToken($token)->user();
                 return $next($request);
