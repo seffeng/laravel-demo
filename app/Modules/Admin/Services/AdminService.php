@@ -202,13 +202,19 @@ class AdminService extends Service
         $paginator = $this->getAdminPaginate($form);
         $items = [];
         if ($paginator) foreach ($paginator as $model) {
-            $items[] = [
+            $tmp = [
                 'id' => $model->id,
                 'username' => $model->username,
                 'statusId' => $model->status_id,
                 'statusName' => $model->getStatus()->getName(),
                 'createDate' => date('Y-m-d H:i', $model->created_at),
             ];
+            if ($this->getFillable()) foreach ($tmp as $key => $val) {
+                if (!in_array($key, $this->getFillable())) {
+                    unset($tmp[$key], $val);
+                }
+            }
+            $items[] = $tmp;
         }
         return [
             'items' => $items,
