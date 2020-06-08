@@ -17,6 +17,8 @@ $ composer create-project seffeng/laravel-demo=2.* --prefer-dist
 # 源码 安装
 1、安装
 $ composer install -vvv
+$ php ./artisan key:generate
+$ php ./artisan jwt:secret
 
 2、创建数据库；
 
@@ -24,7 +26,6 @@ $ composer install -vvv
 
 4、执行迁移脚本创建数据表，初始数据，初始用户：（账号：10086, 密码：123456）；
 $ php ./artisan migrate --seed
-$ php ./artisan jwt:secret
 
 5、前台根目录为 /public/frontend，后台根目录为 /public/backend， API根目录为 /public/api；
 
