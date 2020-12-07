@@ -198,7 +198,7 @@ class AdminService extends Service
         } else {
             $query->orderBy('id', TypeConst::ORDERBY_DESC);
         }
-        return $query->orderBy('id', 'desc')->paginate($pageSize);
+        return $query->paginate($pageSize);
     }
 
     /**
