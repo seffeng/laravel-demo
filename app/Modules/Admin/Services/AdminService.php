@@ -218,6 +218,7 @@ class AdminService extends Service
                 'username' => $model->username,
                 'statusId' => $model->status_id,
                 'statusName' => $model->getStatus()->getName(),
+                'statusIsNormal' => $model->getStatus()->getIsNormal(),
                 'createDate' => Carbon::parse($model->created_at)->format(FormatConst::DATE_YMDHI),
             ]);
         }
