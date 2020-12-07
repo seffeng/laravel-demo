@@ -12,7 +12,7 @@ php 版本 >= 7.2.5
 $ composer create-project seffeng/laravel-demo
 
 2、laravel6
-$ composer create-project seffeng/laravel-demo=2.* --prefer-dist
+$ composer create-project seffeng/laravel-demo=6.* --prefer-dist
 
 1、laravel5
 $ composer create-project seffeng/laravel-demo=1.* --prefer-dist
