@@ -8,13 +8,16 @@ php 版本 >= 7.2.5
 ## 安装部署
 ```shell
 # composer 安装
-1、laravel7
+1、laravel8
 $ composer create-project seffeng/laravel-demo
 
-2、laravel6
+2、laravel7
+$ composer create-project seffeng/laravel-demo=7.* --prefer-dist
+
+3、laravel6
 $ composer create-project seffeng/laravel-demo=6.* --prefer-dist
 
-1、laravel5
+4、laravel5
 $ composer create-project seffeng/laravel-demo=1.* --prefer-dist
 
 # 源码 安装
