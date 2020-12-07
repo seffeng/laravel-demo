@@ -14,6 +14,7 @@ use App\Modules\Admin\Requests\AdminCreateRequest;
 use App\Modules\Admin\Requests\AdminUpdateRequest;
 use Illuminate\Support\Carbon;
 use App\Common\Constants\FormatConst;
+use App\Common\Constants\TypeConst;
 
 class AdminService extends Service
 {
@@ -189,6 +190,14 @@ class AdminService extends Service
             $query->likeUsername($username);
         }
         $query->notDelete();
+
+        if ($orderItems = $form->getOrderBy()) {
+            foreach ($orderItems as $attribute => $order) {
+                $query->orderBy($attribute, $order);
+            }
+        } else {
+            $query->orderBy('id', TypeConst::ORDERBY_DESC);
+        }
         return $query->orderBy('id', 'desc')->paginate($pageSize);
     }
 
@@ -202,13 +211,18 @@ class AdminService extends Service
     {
         $paginator = $this->getAdminPaginate($form, $pageSize);
         $items = [];
+        /**
+         *
+         * @var Admin $model
+         */
         if ($paginator) foreach ($paginator as $model) {
             $items[] = $this->filterByFillable([
                 'id' => $model->id,
                 'username' => $model->username,
                 'statusId' => $model->status_id,
                 'statusName' => $model->getStatus()->getName(),
-                'createDate' => Carbon::parse($model->created_at)->format(FormatConst::DATE_YMDHI),
+                'statusIsNormal' => $model->getStatus()->getIsNormal(),
+                'createDate' => $model->created_at ? Carbon::parse($model->created_at)->format(FormatConst::DATE_YMDHI) : '',
             ]);
         }
         return [
