@@ -2,6 +2,8 @@
 
 namespace App\Common\Actions\DownList;
 
+use App\Common\Constants\FormatConst;
+
 class Test
 {
     /**
@@ -14,7 +16,7 @@ class Test
     public function handle($request)
     {
         $data = [];
-        $items = ['appName' => config('app.name'), 'key1' => 'value1', 'key2' => 'value2'];
+        $items = ['appName' => config('app.name'), 'key1' => 'value1', 'key2' => 'value2', 'date' => date(FormatConst::DATE_YMDHIS)];
         if ($items) foreach ($items as $key => $item) {
             $data[] = [
                 'id' => $key,

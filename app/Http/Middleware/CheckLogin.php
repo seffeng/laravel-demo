@@ -27,7 +27,7 @@ class CheckLogin
     {
         try {
             $guard = Arr::get($guards, '0');
-            $guard === config('packet.api.guard') && Auth::guard($guard)->getPayload();
+            Auth::guard($guard)->getPayload();
 
             if ($guard && Auth::guard($guard)->check()) {
                 return $next($request);
@@ -42,9 +42,7 @@ class CheckLogin
             } catch (JWTException $e) {
             }
         } catch (TokenInvalidException $e) {
-
         } catch (JWTException $e) {
-
         }
 
         throw new HttpException(ErrorConst::UNAUTHORIZED, ErrorConst::getError(ErrorConst::UNAUTHORIZED));

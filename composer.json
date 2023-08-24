@@ -22,15 +22,15 @@
         "sort-packages": true
     },
     "require": {
-        "php": "^7.3|^8.0",
-        "fideloper/proxy": "^4.2",
-        "laravel/framework": "^8.0",
-        "laravel/tinker": "^2.0",
+        "php": "^8.0",
+        "laravel/framework": "^10.0",
+        "laravel/octane": "^1.5",
+        "laravel/tinker": "^2.8",
         "seffeng/laravel-basics": "^3.1",
-        "tymon/jwt-auth": "^1.0"
+        "tymon/jwt-auth": "^2.0"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.5"
+        "barryvdh/laravel-debugbar": "^3.8"
     },
     "autoload": {
         "psr-4": {

@@ -2,14 +2,17 @@
 
 ## 运行环境
 ```
-php 版本 >= 7.3
+php 版本 >= 8.1
 ```
 
 ## 安装部署
 ```shell
 # composer 安装
-1、laravel8
+1、laravel10
 $ composer create-project seffeng/laravel-demo
+
+2、laravel8
+$ composer create-project seffeng/laravel-demo:~8.0
 
 3、laravel6
 $ composer create-project seffeng/laravel-demo:~6.0 --prefer-dist
@@ -53,17 +56,17 @@ $ php ./artisan migrate --seed
 │  │  ├─Base                    基础接口对象
 │  │  ├─Constants               常量定义
 │  │  ├─Exceptions              基础异常
-|  |  ├─Illuminate              字段值声明
+│  │  ├─Illuminate              字段值声明
+│  │  ├─Listeners               事件监听
 │  │  └─Rules                   自定义验证规则
-│  ├─Console
-│  │  └─Commands            控制台脚本
-│  ├─Exceptions
+│  ├─Console                    控制台应用
+│  │  └─Commands                    控制台脚本
+│  ├─Grpc                   GRPC应用
 │  ├─Http
-│  │  ├─Controllers
-│  │  ├─Middleware
-│  │  └─Providers
+│  │  └─Middleware              中间件
+│  ├─Jobs
 │  ├─Modules                模块管理
-│  │  ├─Admin                   管理员
+│  │  ├─Admin                   管理员模块
 │  │  │  ├─Events                   事件
 │  │  │  ├─Exceptions               异常
 │  │  │  ├─Illuminate               字段值声明
@@ -71,25 +74,19 @@ $ php ./artisan migrate --seed
 │  │  │  ├─Models                   数据表模块
 │  │  │  ├─Requests                 表单规则验证
 │  │  │  └─Services                 服务处理
-│  │  └─User                    用户
-│  │      ├─Events                  事件
-│  │      ├─Exceptions              异常
-│  │      ├─Illuminate              字段值声明
-│  │      ├─Listeners               事件监听
-│  │      ├─Models                  数据表模块
-│  │      ├─Requests                表单规则验证
-│  │      └─Services                服务处理
+│  │  ├─Log                     日志模块
+│  │  └─User                    用户模块
+│  ├─Providers
 │  └─Web                    WEB应用
-│      ├─Backend                后台应用
-│      │  ├─Common                  公共模块
+│      ├─Api                    API应用
+│      │  ├─Common                  后台入口
 │      │  ├─Controllers             控制器
-│      │  │  ├─Admin
 │      │  │  ├─Auth
 │      │  │  ├─Site
 │      │  │  └─Test
-│      │  └─Requests                表单验证
-│      │      └─Admin
-│      ├─Api                    API应用
+│      │  └─Requests                表单规则验证
+│      │      └─Auth
+│      ├─Backend                后台应用
 │      └─Frontend               前台应用
 ├─bootstrap
 │  └─cache
@@ -98,10 +95,12 @@ $ php ./artisan migrate --seed
 │  ├─migrations
 │  └─seeds
 ├─public
+│  ├─api                    API入口
 │  ├─backend                后台入口
-│  ├─api                    api入口
 │  └─frontend               前台入口
 ├─resources
+│  ├─lang
+│  │  └─zh-CN
 │  └─views
 │      ├─backend
 │      └─frontend
@@ -116,8 +115,8 @@ $ php ./artisan migrate --seed
 │  │  ├─sessions
 │  │  ├─testing
 │  │  └─views
-│  │      ├─backend
 │  │      ├─api
+│  │      ├─backend
 │  │      └─frontend
 │  └─logs
 └─vendor
@@ -135,7 +134,7 @@ $ php ./artisan migrate --seed
 
 ## 备注
 
-无
+如需使用GRPC，必须先 composer 安装 google/protobuf 和 grpc/grpc 。
 
 ## 已有接口
 

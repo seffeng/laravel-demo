@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAdminLoginLogTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -48,4 +48,4 @@ class CreateAdminLoginLogTable extends Migration
             Schema::dropIfExists($model->getTable());
         }
     }
-}
+};

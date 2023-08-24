@@ -14,6 +14,7 @@ use App\Modules\Admin\Exceptions\AdminPasswordException;
 use App\Web\Backend\Requests\Admin\AdminUpdateRequest;
 use Namshi\JOSE\JWS;
 use Seffeng\LaravelHelpers\Helpers\Arr;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class SiteController extends Controller
 {
@@ -38,7 +39,7 @@ class SiteController extends Controller
                     return $this->responseSuccess([
                         'token' => [
                             'token' => $token,
-                            'expiredAt' => Arr::get(JWS::load($token)->getPayload(), 'exp', 0)
+                            'expiredAt' => Arr::get(JWTAuth::setToken($token)->getPayload()->get(), 'exp', 0)
                         ],
                         'user' => $adminService->getLoginAdminToArray()
                     ], trans('admin.loginSuccess'));

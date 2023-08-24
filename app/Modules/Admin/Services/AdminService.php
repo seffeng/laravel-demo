@@ -249,9 +249,11 @@ class AdminService extends Service
             $items[] = $this->filterByFillable([
                 'id' => $model->id,
                 'username' => $model->username,
-                'statusId' => $model->status_id,
-                'statusName' => $model->getStatus()->getName(),
-                'statusIsNormal' => $model->getStatus()->getIsNormal(),
+                'status' => [
+                    'id' => $model->status_id,
+                    'name' => $model->getStatus()->getName(),
+                    'isNormal' => $model->getStatus()->getIsNormal()
+                ],
                 'loginAt' => Date::parse($model->login_at)->getTimestamp() > 0 ? Date::parse($model->login_at)->format(FormatConst::DATE_YMDHI) : '',
                 'createdAt' => Date::parse($model->created_at)->format(FormatConst::DATE_YMDHI),
                 'updatedAt' => Date::parse($model->updated_at)->format(FormatConst::DATE_YMDHI),

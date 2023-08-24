@@ -16,6 +16,12 @@ class FormatConst
     const DATE_YMDHI = 'Y/m/d H:i';
 
     /**
+     *
+     * @var string
+     */
+    const DATE_YMDHIS = 'Y/m/d H:i:s';
+
+    /**
      * 每天 86400 秒
      * @var integer
      */

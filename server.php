@@ -7,6 +7,12 @@
  * @author   Taylor Otwell <taylor@laravel.com>
  */
 
+/**
+ * APP NAME
+ * @var string
+ */
+define('APP_NAME', 'frontend');
+
 $uri = urldecode(
     parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
 );
@@ -18,4 +24,4 @@ if ($uri !== '/' && file_exists(__DIR__.'/public'.$uri)) {
     return false;
 }
 
-require_once __DIR__.'/public/frontend/index.php';
+require_once __DIR__.'/public/' . APP_NAME . '/index.php';

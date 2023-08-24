@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option php_namespace = "App\\Grpc\\Demo";
+option php_metadata_namespace = "App\\Grpc\\GPBMetadata";
+
+service Demo {
+    rpc sayHello(DemoRequest) returns (DemoReply) {}
+}
+
+message DemoRequest {
+    string name = 1;
+
+    int32 age = 2;
+}
+
+message DemoReply {
+    int32 code = 1;
+
+    string status = 2;
+
+    string message = 3;
+
+    Data data = 4;
+}
+
+message Data {
+    int64 id = 1;
+
+    string name = 2;
+
+    int32 age = 3;
+}

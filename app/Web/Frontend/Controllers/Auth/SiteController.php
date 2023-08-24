@@ -14,6 +14,8 @@ use App\Modules\User\Exceptions\UserPasswordException;
 use App\Web\Frontend\Requests\Auth\UserUpdateRequest;
 use Namshi\JOSE\JWS;
 use Seffeng\LaravelHelpers\Helpers\Arr;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\JWT;
 
 class SiteController extends Controller
 {
@@ -38,7 +40,7 @@ class SiteController extends Controller
                     return $this->responseSuccess([
                         'token' => [
                             'token' => $token,
-                            'expiredAt' => Arr::get(JWS::load($token)->getPayload(), 'exp', 0)
+                            'expiredAt' => Arr::get(JWTAuth::setToken($token)->getPayload()->get(), 'exp', 0)
                         ],
                         'user' => $userService->getLoginUserToArray()
                     ], trans('user.loginSuccess'));
