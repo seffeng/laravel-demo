@@ -13,7 +13,7 @@ class AdminSeeder extends Seeder
     public function run()
     {
         $username = '10086';
-        if (!Admin::where('username', $username)->exists()) {
+        if (!Admin::byUsername($username)->exists()) {
             $model = new Admin();
             $model->fill([
                 'username' => $username,

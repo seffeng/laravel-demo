@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         $username = '10086';
-        if (!User::where('username', $username)->exists()) {
+        if (!User::byUsername($username)->exists()) {
             $model = new User();
             $model->fill([
                 'username' => $username,

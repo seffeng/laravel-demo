@@ -8,14 +8,41 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
+     * @author zxf
+     * @date   2023-08-28
+     * @var    Admin
+     */
+    protected $model;
+
+    /**
+     *
+     * @author zxf
+     * @date   2023-08-28
+     */
+    public function __construct()
+    {
+        $this->model = new Admin();
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2023-08-28
+     * @return Admin
+     */
+    protected function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
      * Run the migrations.
      *
      * @return void
      */
     public function up()
     {
-        $model = new Admin();
-        $tableName = $model->getTable();
+        $tableName = $this->getModel()->getTable();
         if (!Schema::hasTable($tableName)) {
             Schema::create($tableName, function (Blueprint $table) {
                 $table->bigIncrements('id')->comment('管理员ID[自增]');
@@ -31,8 +58,8 @@ return new class extends Migration
                 $table->charset = 'utf8mb4';
                 $table->engine = 'InnoDB';
                 $table->collation = 'utf8mb4_general_ci';
+                $table->comment('管理员表');
             });
-            $model->getConnection()->statement('ALTER TABLE `'. $model->getTablePrefix() . $tableName .'` COMMENT \'管理员表\'');
         }
     }
 
@@ -44,8 +71,7 @@ return new class extends Migration
     public function down()
     {
         if (config('app.env') === 'local' && config('app.debug')) {
-            $model = new Admin();
-            Schema::dropIfExists($model->getTable());
+            Schema::dropIfExists($this->getModel()->getTable());
         }
     }
 };
