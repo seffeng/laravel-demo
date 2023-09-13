@@ -14,7 +14,13 @@ class DemoServer
         $response->setMessage('success!!!');
         $response->setCode(200);
         $response->setStatus('success');
-        $response->setData(new Data(['id' => random_int(1, 100), 'name' => $name, 'age' => $age]));
+        $id = random_int(1, 100);
+        $response->setData(new Data(['id' => ++$id, 'name' => $name . $id, 'age' => $age]));
+        $response->setDataList([
+            new Data(['id' => ++$id, 'name' => $name . $id, 'age' => ++$age]),
+            new Data(['id' => ++$id, 'name' => $name . $id, 'age' => ++$age]),
+            new Data(['id' => ++$id, 'name' => $name . $id, 'age' => ++$age]),
+        ]);
         $context->setStatus(\Grpc\Status::ok());
         return $response;
     }

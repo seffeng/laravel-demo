@@ -66,10 +66,22 @@ class GrpcDemo extends Command
                  */
                 list($reply, $status) = $client->sayHello($form)->wait();
                 var_dump($reply->getStatus(), $reply->getCode(), $reply->getMessage(), $status);
-                var_dump([
-                    'id' => $reply->getData()->getId(),
-                    'name' => $reply->getData()->getName(),
-                    'age' => $reply->getData()->getAge(),
+                $items = [];
+                $count = $reply->getDataList()->count();
+                if ($count > 0) for ($i = 0; $i < $count; $i++) {
+                    $items[] = [
+                        'id' => $reply->getDataList()->offsetGet($i)->getId(),
+                        'name' => $reply->getDataList()->offsetGet($i)->getName(),
+                        'age' => $reply->getDataList()->offsetGet($i)->getAge(),
+                    ];
+                }
+                print_r([
+                    'data' => [
+                        'id' => $reply->getData()->getId(),
+                        'name' => $reply->getData()->getName(),
+                        'age' => $reply->getData()->getAge()
+                    ],
+                    'list' => $items
                 ]);
                 exit;
             } else {

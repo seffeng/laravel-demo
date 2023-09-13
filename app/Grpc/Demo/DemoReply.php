@@ -29,6 +29,10 @@ class DemoReply extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.Data data = 4;</code>
      */
     protected $data = null;
+    /**
+     * Generated from protobuf field <code>repeated .Data dataList = 5;</code>
+     */
+    private $dataList;
 
     /**
      * Constructor.
@@ -40,6 +44,7 @@ class DemoReply extends \Google\Protobuf\Internal\Message
      *     @type string $status
      *     @type string $message
      *     @type \App\Grpc\Demo\Data $data
+     *     @type array<\App\Grpc\Demo\Data>|\Google\Protobuf\Internal\RepeatedField $dataList
      * }
      */
     public function __construct($data = NULL) {
@@ -141,6 +146,28 @@ class DemoReply extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \App\Grpc\Demo\Data::class);
         $this->data = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>repeated .Data dataList = 5;</code>
+     * @return \Google\Protobuf\Internal\RepeatedField
+     */
+    public function getDataList()
+    {
+        return $this->dataList;
+    }
+
+    /**
+     * Generated from protobuf field <code>repeated .Data dataList = 5;</code>
+     * @param array<\App\Grpc\Demo\Data>|\Google\Protobuf\Internal\RepeatedField $var
+     * @return $this
+     */
+    public function setDataList($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \App\Grpc\Demo\Data::class);
+        $this->dataList = $arr;
 
         return $this;
     }

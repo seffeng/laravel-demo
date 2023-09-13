@@ -21,6 +21,8 @@ message DemoReply {
     string message = 3;
 
     Data data = 4;
+
+    repeated Data dataList = 5;
 }
 
 message Data {
