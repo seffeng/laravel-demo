@@ -18,7 +18,7 @@ class DemoRequest extends \Google\Protobuf\Internal\Message
      */
     protected $name = '';
     /**
-     * Generated from protobuf field <code>int32 age = 2;</code>
+     * Generated from protobuf field <code>int64 age = 2;</code>
      */
     protected $age = 0;
 
@@ -29,7 +29,7 @@ class DemoRequest extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $name
-     *     @type int $age
+     *     @type int|string $age
      * }
      */
     public function __construct($data = NULL) {
@@ -60,8 +60,8 @@ class DemoRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>int32 age = 2;</code>
-     * @return int
+     * Generated from protobuf field <code>int64 age = 2;</code>
+     * @return int|string
      */
     public function getAge()
     {
@@ -69,13 +69,13 @@ class DemoRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>int32 age = 2;</code>
-     * @param int $var
+     * Generated from protobuf field <code>int64 age = 2;</code>
+     * @param int|string $var
      * @return $this
      */
     public function setAge($var)
     {
-        GPBUtil::checkInt32($var);
+        GPBUtil::checkInt64($var);
         $this->age = $var;
 
         return $this;
