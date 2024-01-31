@@ -22,10 +22,26 @@ class DemoClient extends \Grpc\BaseStub {
      * @param array $options
      * @return mixed
      */
-    public function sayHello(\App\Grpc\Demo\DemoRequest $request, $metadata = [], $options = []) {
-        return $this->_simpleRequest('/Demo/sayHello',
+    public function list(\App\Grpc\Demo\DemoRequest $request, $metadata = [], $options = []) {
+        return $this->_simpleRequest('/demo/list',
             $request,
-            ['\App\Grpc\Demo\DemoReply', 'decode'],
+            ['\App\Grpc\Demo\DemoListReply', 'decode'],
+            $metadata, $options
+        );
+    }
+
+    /**
+     *
+     * @date   2023-06-01
+     * @param \App\Grpc\Demo\DemoRequest $request
+     * @param array $metadata
+     * @param array $options
+     * @return mixed
+     */
+    public function view(\App\Grpc\Demo\DemoRequest $request, $metadata = [], $options = []) {
+        return $this->_simpleRequest('/demo/view',
+            $request,
+            ['\App\Grpc\Demo\DemoInfoReply', 'decode'],
             $metadata, $options
         );
     }

@@ -9,12 +9,12 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>DemoReply</code>
+ * Generated from protobuf message <code>DemoInfoReply</code>
  */
-class DemoReply extends \Google\Protobuf\Internal\Message
+class DemoInfoReply extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Generated from protobuf field <code>int32 code = 1;</code>
+     * Generated from protobuf field <code>int64 code = 1;</code>
      */
     protected $code = 0;
     /**
@@ -29,10 +29,6 @@ class DemoReply extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.Data data = 4;</code>
      */
     protected $data = null;
-    /**
-     * Generated from protobuf field <code>repeated .Data dataList = 5;</code>
-     */
-    private $dataList;
 
     /**
      * Constructor.
@@ -40,11 +36,10 @@ class DemoReply extends \Google\Protobuf\Internal\Message
      * @param array $data {
      *     Optional. Data for populating the Message object.
      *
-     *     @type int $code
+     *     @type int|string $code
      *     @type string $status
      *     @type string $message
      *     @type \App\Grpc\Demo\Data $data
-     *     @type array<\App\Grpc\Demo\Data>|\Google\Protobuf\Internal\RepeatedField $dataList
      * }
      */
     public function __construct($data = NULL) {
@@ -53,8 +48,8 @@ class DemoReply extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>int32 code = 1;</code>
-     * @return int
+     * Generated from protobuf field <code>int64 code = 1;</code>
+     * @return int|string
      */
     public function getCode()
     {
@@ -62,13 +57,13 @@ class DemoReply extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>int32 code = 1;</code>
-     * @param int $var
+     * Generated from protobuf field <code>int64 code = 1;</code>
+     * @param int|string $var
      * @return $this
      */
     public function setCode($var)
     {
-        GPBUtil::checkInt32($var);
+        GPBUtil::checkInt64($var);
         $this->code = $var;
 
         return $this;
@@ -146,28 +141,6 @@ class DemoReply extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \App\Grpc\Demo\Data::class);
         $this->data = $var;
-
-        return $this;
-    }
-
-    /**
-     * Generated from protobuf field <code>repeated .Data dataList = 5;</code>
-     * @return \Google\Protobuf\Internal\RepeatedField
-     */
-    public function getDataList()
-    {
-        return $this->dataList;
-    }
-
-    /**
-     * Generated from protobuf field <code>repeated .Data dataList = 5;</code>
-     * @param array<\App\Grpc\Demo\Data>|\Google\Protobuf\Internal\RepeatedField $var
-     * @return $this
-     */
-    public function setDataList($var)
-    {
-        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \App\Grpc\Demo\Data::class);
-        $this->dataList = $arr;
 
         return $this;
     }

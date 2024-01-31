@@ -9,9 +9,9 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>Data</code>
+ * Generated from protobuf message <code>DataType</code>
  */
-class Data extends \Google\Protobuf\Internal\Message
+class DataType extends \Google\Protobuf\Internal\Message
 {
     /**
      * Generated from protobuf field <code>int64 id = 1;</code>
@@ -21,10 +21,6 @@ class Data extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string name = 2;</code>
      */
     protected $name = '';
-    /**
-     * Generated from protobuf field <code>.DataType age = 3;</code>
-     */
-    protected $age = null;
 
     /**
      * Constructor.
@@ -34,7 +30,6 @@ class Data extends \Google\Protobuf\Internal\Message
      *
      *     @type int|string $id
      *     @type string $name
-     *     @type \App\Grpc\Demo\DataType $age
      * }
      */
     public function __construct($data = NULL) {
@@ -82,38 +77,6 @@ class Data extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->name = $var;
-
-        return $this;
-    }
-
-    /**
-     * Generated from protobuf field <code>.DataType age = 3;</code>
-     * @return \App\Grpc\Demo\DataType|null
-     */
-    public function getAge()
-    {
-        return $this->age;
-    }
-
-    public function hasAge()
-    {
-        return isset($this->age);
-    }
-
-    public function clearAge()
-    {
-        unset($this->age);
-    }
-
-    /**
-     * Generated from protobuf field <code>.DataType age = 3;</code>
-     * @param \App\Grpc\Demo\DataType $var
-     * @return $this
-     */
-    public function setAge($var)
-    {
-        GPBUtil::checkMessage($var, \App\Grpc\Demo\DataType::class);
-        $this->age = $var;
 
         return $this;
     }
