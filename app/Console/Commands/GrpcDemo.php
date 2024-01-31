@@ -4,9 +4,8 @@ namespace App\Console\Commands;
 
 use App\Grpc\Servers\DemoServer;
 use App\Grpc\Demo\DemoRequest;
-use App\Grpc\Demo\DemoReply;
+use App\Grpc\Demo\DemoListReply;
 use Illuminate\Console\Command;
-use Seffeng\LaravelHelpers\Helpers\Json;
 
 class GrpcDemo extends Command
 {
@@ -61,28 +60,49 @@ class GrpcDemo extends Command
                 $form->setName('张三');
                 $form->setAge(random_int(1, 100));
                 /**
-                 * @var DemoReply $reply
+                 * @var DemoInfoReply $reply
                  * @var mixed $status
                  */
-                list($reply, $status) = $client->sayHello($form)->wait();
+                list($reply, $status) = $client->view($form)->wait();
                 var_dump($reply->getStatus(), $reply->getCode(), $reply->getMessage(), $status);
-                $items = [];
-                $count = $reply->getDataList()->count();
-                if ($count > 0) for ($i = 0; $i < $count; $i++) {
-                    $items[] = [
-                        'id' => $reply->getDataList()->offsetGet($i)->getId(),
-                        'name' => $reply->getDataList()->offsetGet($i)->getName(),
-                        'age' => $reply->getDataList()->offsetGet($i)->getAge(),
-                    ];
+                $data = [
+                    'id' => $reply->getData()->getId(),
+                    'name' => $reply->getData()->getName(),
+                    'age' => [
+                        'id' => $reply->getData()->getAge()->getId(),
+                        'name' => $reply->getData()->getAge()->getName(),
+                    ]
+                ];
+                print_r($data);
+
+                /**
+                 * @var DemoListReply $reply
+                 * @var mixed $status
+                 */
+                list($reply, $status) = $client->list($form)->wait();
+                var_dump($reply->getStatus(), $reply->getCode(), $reply->getMessage(), $status);
+                $data = ['items' => [], 'page' => [
+                    'totalCount' => $reply->getData()->getPage()->getTotalCount(),
+                    'currentPage' => $reply->getData()->getPage()->getCurrentPage(),
+                    'pageCount' => $reply->getData()->getPage()->getPageCount(),
+                    'perPage' => $reply->getData()->getPage()->getPerPage()
+                ]];
+                $count = $reply->getData()->getItems()->count();
+                if ($count > 0) {
+                    $items = [];
+                    for ($i = 0; $i < $count; $i++) {
+                        $items[] = [
+                            'id' => $reply->getData()->getItems()->offsetGet($i)->getId(),
+                            'name' => $reply->getData()->getItems()->offsetGet($i)->getName(),
+                            'age' => [
+                                'id' => $reply->getData()->getItems()->offsetGet($i)->getAge()->getId(),
+                                'name' => $reply->getData()->getItems()->offsetGet($i)->getAge()->getName()
+                            ]
+                        ];
+                    }
+                    $data['items'] = $items;
                 }
-                print_r([
-                    'data' => [
-                        'id' => $reply->getData()->getId(),
-                        'name' => $reply->getData()->getName(),
-                        'age' => $reply->getData()->getAge()
-                    ],
-                    'list' => $items
-                ]);
+                print_r($data);
                 exit;
             } else {
                 $server = new \Grpc\RpcServer();
