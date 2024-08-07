@@ -14,7 +14,6 @@ use App\Modules\Log\Requests\OperateLogSearchRequest;
 use App\Modules\Log\Requests\AdminLoginLogSearchRequest;
 use App\Modules\Log\Requests\UserLoginLogSearchRequest;
 use Seffeng\LaravelHelpers\Helpers\Arr;
-use App\Common\Constants\FormatConst;
 use App\Common\Constants\TypeConst;
 use Illuminate\Support\Facades\Date;
 

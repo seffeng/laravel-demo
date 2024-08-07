@@ -12,7 +12,6 @@ use App\Common\Constants\CacheKeyConst;
 use App\Modules\Admin\Requests\AdminSearchRequest;
 use App\Modules\Admin\Requests\AdminCreateRequest;
 use App\Modules\Admin\Requests\AdminUpdateRequest;
-use App\Common\Constants\FormatConst;
 use App\Common\Constants\FromConst;
 use App\Common\Constants\ModuleConst;
 use App\Common\Constants\StatusConst;
