@@ -9,5 +9,11 @@ namespace App\Common\Base;
  */
 class Model extends \Seffeng\Basics\Base\Model
 {
-
+    /**
+     * @var array
+     */
+    protected $casts = [
+        'created_at' => 'timestamp',
+        'updated_at' => 'timestamp'
+    ];
 }

@@ -44,7 +44,9 @@ class Admin extends Model implements AuthenticatableContracts, JWTSubject
      * @var array
      */
     protected $casts = [
-        'login_at' => 'timestamp'
+        'login_at' => 'timestamp',
+        'created_at' => 'timestamp',
+        'updated_at' => 'timestamp'
     ];
 
     /**

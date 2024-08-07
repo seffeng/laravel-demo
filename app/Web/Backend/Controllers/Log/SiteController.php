@@ -26,7 +26,11 @@ class SiteController extends Controller
             $perPage = $request->get($form->getPerPageName());
             $perPage > 0 && $form->setPerPage($perPage);
             $form->sortable();
-            $form->setWith(['operator', 'resource']);
+            $form->setWith(['operator' => function($q) {
+                $q->withTrashed();
+            }, 'resource' => function($q) {
+                $q->withTrashed();
+            }]);
             $items = $this->getService()->getOperateLogStore($form);
             return $this->responseSuccess($items);
         } catch (\Exception $e) {
@@ -49,7 +53,9 @@ class SiteController extends Controller
             $perPage = $request->get($form->getPerPageName());
             $perPage > 0 && $form->setPerPage($perPage);
             $form->sortable();
-            $form->setWith(['admin']);
+            $form->setWith(['admin' => function($q) {
+                $q->withTrashed();
+            }]);
             $items = $this->getService()->getAdminLoginLogStore($form);
             return $this->responseSuccess($items);
         } catch (\Exception $e) {
@@ -72,7 +78,9 @@ class SiteController extends Controller
             $perPage = $request->get($form->getPerPageName());
             $perPage > 0 && $form->setPerPage($perPage);
             $form->sortable();
-            $form->setWith(['user']);
+            $form->setWith(['user' => function($q) {
+                $q->withTrashed();
+            }]);
             $items = $this->getService()->getUserLoginLogStore($form);
             return $this->responseSuccess($items);
         } catch (\Exception $e) {

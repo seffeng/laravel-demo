@@ -197,10 +197,11 @@ class UserService extends Service
      * @author zxf
      * @date    2019年12月26日
      * @param  UserUpdateRequest $form
+     * @param  boolean $assoc
      * @throws \Exception
-     * @return boolean
+     * @return boolean|User
      */
-    public function updateUser(UserUpdateRequest $form)
+    public function updateUser(UserUpdateRequest $form, $assoc = false)
     {
         try {
             if ($form->getIsPass()) {
@@ -218,7 +219,7 @@ class UserService extends Service
                 $diffChanges = $model->diffChanges(['username']);
                 if ($model->save()) {
                     $form->setOperateLogParams($model, TypeConst::LOG_UPDATE, ModuleConst::USER, $diffChanges);
-                    return true;
+                    return $assoc ? $model : true;
                 }
                 return false;
             }
@@ -285,12 +286,14 @@ class UserService extends Service
             $items[] = $this->filterByFillable([
                 'id' => $model->id,
                 'username' => $model->username,
-                'statusId' => $model->status_id,
-                'statusName' => $model->getStatus()->getName(),
-                'statusIsNormal' => $model->getStatus()->getIsNormal(),
-                'loginAt' => Date::parse($model->login_at)->getTimestamp() > 0 ? Date::parse($model->login_at)->format(FormatConst::DATE_YMDHI) : '',
-                'createAt' => Date::parse($model->created_at)->format(FormatConst::DATE_YMDHI),
-                'updateAt' => Date::parse($model->updated_at)->format(FormatConst::DATE_YMDHI),
+                'status' => [
+                    'id' => $model->status_id,
+                    'name' => $model->getStatus()->getName(),
+                    'isNormal' => $model->getStatus()->getIsNormal()
+                ],
+                'loginAt' => $model->login_at,
+                'createdAt' => $model->created_at,
+                'updatedAt' => $model->updated_at
             ]);
         }
         return [

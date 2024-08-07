@@ -259,13 +259,21 @@ class LogService extends Service
         return $this->filterByFillable([
             'id' => $model->id,
             'username' => Arr::get($user, 'username', ''),
-            'statusId' => $model->status_id,
-            'statusName' => $model->getStatus()->getName(),
-            'statusIsSuccess' => $model->getStatus()->isSuccess(),
-            'typeId' => $model->type_id,
-            'typeName' => $model->getType()->getName(),
+            'status' => [
+                'id' => $model->status_id,
+                'name' => $model->getStatus()->getName(),
+                'isSuccess' => $model->getStatus()->isSuccess()
+            ],
+            'type' => [
+                'id' => $model->type_id,
+                'name' => $model->getType()->getName()
+            ],
+            'from' => [
+                'id' => $model->getFrom()->getValue(),
+                'name' => $model->getFrom()->getName()
+            ],
             'content' => $model->content,
-            'createdAt' => Date::parse($model->created_at)->format(FormatConst::DATE_YMDHI),
+            'createdAt' => $model->created_at
         ]);
     }
 
@@ -361,23 +369,37 @@ class LogService extends Service
     {
         $operator = $model->operator;
         $resource = $model->resource;
+        $detail = Json::decode($model->detail);
         return $this->filterByFillable([
             'id' => $model->id,
-            'operatorId' => Arr::get($operator, 'id', ''),
-            'username' => Arr::get($operator, 'username', ''),
-            'statusId' => $model->status_id,
-            'statusName' => $model->getStatus()->getName(),
-            'statusIsSuccess' => $model->getStatus()->isSuccess(),
-            'typeId' => $model->type_id,
-            'typeName' => $model->getType()->getName(),
-            'fromId' => $model->getFrom()->getValue(),
-            'fromName' => $model->getFrom()->getName(),
-            'moduleId' => $model->module_id,
-            'moduleName' => $model->getLogModule()->getName(),
-            'resId' => $model->res_id,
-            'resource' => Arr::get($resource, 'name', Arr::get($resource, 'username', '')),
+            'operator' => [
+                'id' => Arr::get($operator, 'id', ''),
+                'username' => Arr::get($operator, 'username', '')
+            ],
+            'status' => [
+                'id' => $model->status_id,
+                'name' => $model->getStatus()->getName(),
+                'isSuccess' => $model->getStatus()->isSuccess()
+            ],
+            'type' => [
+                'id' => $model->type_id,
+                'name' => $model->getType()->getName()
+            ],
+            'from' => [
+                'id' => $model->getFrom()->getValue(),
+                'name' => $model->getFrom()->getName()
+            ],
+            'module' => [
+                'id' => $model->module_id,
+                'name' => $model->getLogModule()->getName()
+            ],
+            'resource' => [
+                'id' => $model->res_id,
+                'name' => Arr::get($resource, 'name', Arr::get($resource, 'username', ''))
+            ],
             'content' => $model->content,
-            'createdAt' => Date::parse($model->created_at)->format(FormatConst::DATE_YMDHI),
+            'detail' => $detail ?: new \stdClass(),
+            'createdAt' => $model->created_at
         ]);
     }
 }

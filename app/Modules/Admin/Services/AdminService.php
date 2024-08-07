@@ -254,9 +254,9 @@ class AdminService extends Service
                     'name' => $model->getStatus()->getName(),
                     'isNormal' => $model->getStatus()->getIsNormal()
                 ],
-                'loginAt' => Date::parse($model->login_at)->getTimestamp() > 0 ? Date::parse($model->login_at)->format(FormatConst::DATE_YMDHI) : '',
-                'createdAt' => Date::parse($model->created_at)->format(FormatConst::DATE_YMDHI),
-                'updatedAt' => Date::parse($model->updated_at)->format(FormatConst::DATE_YMDHI),
+                'loginAt' => $model->login_at,
+                'createdAt' => $model->created_at,
+                'updatedAt' => $model->updated_at
             ]);
         }
         return [
@@ -270,10 +270,11 @@ class AdminService extends Service
      * @author zxf
      * @date    2019年10月29日
      * @param  AdminCreateRequest $form
+     * @param  boolean $assoc
      * @throws \Exception
-     * @return boolean
+     * @return boolean|Admin
      */
-    public function createAdmin(AdminCreateRequest $form)
+    public function createAdmin(AdminCreateRequest $form, bool $assoc = false)
     {
         try {
             if ($form->getIsPass()) {
@@ -287,7 +288,7 @@ class AdminService extends Service
 
                 if ($model->save()) {
                     $form->setOperateLogParams($model, TypeConst::LOG_CREATE, ModuleConst::ADMIN);
-                    return true;
+                    return $assoc ? $model : true;
                 }
                 return false;
             }
@@ -302,10 +303,11 @@ class AdminService extends Service
      * @author zxf
      * @date    2019年10月30日
      * @param AdminUpdateRequest $form
+     * @param  boolean $assoc
      * @throws \Exception
-     * @return boolean
+     * @return boolean|Admin
      */
-    public function updateAdmin(AdminUpdateRequest $form)
+    public function updateAdmin(AdminUpdateRequest $form, bool $assoc = false)
     {
         try {
             if ($form->getIsPass()) {
@@ -323,7 +325,7 @@ class AdminService extends Service
                 $diffChanges = $model->diffChanges(array_diff(array_keys($form->getFillItems()), ['password']));
                 if ($model->save()) {
                     $form->setOperateLogParams($model, TypeConst::LOG_UPDATE, ModuleConst::ADMIN, $diffChanges);
-                    return true;
+                    return $assoc ? $model : true;
                 }
                 return false;
             }
@@ -338,17 +340,18 @@ class AdminService extends Service
      * @author zxf
      * @date    2019年10月29日
      * @param  AdminDeleteRequest $form
+     * @param  boolean $assoc
      * @throws \Exception
-     * @return boolean
+     * @return boolean|Admin
      */
-    public function deleteAdmin(AdminDeleteRequest $form)
+    public function deleteAdmin(AdminDeleteRequest $form, bool $assoc = false)
     {
         try {
             if ($form->getIsPass()) {
                 $model = $this->notNullById($form->getFillItems('id'));
                 if ($model->delete()) {
                     $form->setOperateLogParams($model, TypeConst::LOG_DELETE, ModuleConst::ADMIN);
-                    return true;
+                    return $assoc ? $model : true;
                 }
                 return false;
             }
@@ -364,9 +367,10 @@ class AdminService extends Service
      * @author zxf
      * @date   2023-03-28
      * @param  AdminStatusRequest $form
-     * @return boolean
+     * @param  boolean $assoc
+     * @return boolean|Admin
      */
-    public function onAdmin(AdminStatusRequest $form)
+    public function onAdmin(AdminStatusRequest $form, bool $assoc = false)
     {
         try {
             if ($form->getIsPass()) {
@@ -375,7 +379,7 @@ class AdminService extends Service
                 if ($model->save()) {
                     $form->setOperateLogParams($model, TypeConst::LOG_UNLOCK, ModuleConst::ADMIN);
                     Cache::forget($this->getLoginFailedCacheKey($model->id));
-                    return true;
+                    return $assoc ? $model : true;
                 }
                 return false;
             }
@@ -391,9 +395,10 @@ class AdminService extends Service
      * @author zxf
      * @date   2023-03-28
      * @param  AdminStatusRequest $form
-     * @return boolean
+     * @param  boolean $assoc
+     * @return boolean|Admin
      */
-    public function offAdmin(AdminStatusRequest $form)
+    public function offAdmin(AdminStatusRequest $form, bool $assoc = false)
     {
         try {
             if ($form->getIsPass()) {
@@ -401,7 +406,7 @@ class AdminService extends Service
                 $model->offAdmin();
                 if ($model->save()) {
                     $form->setOperateLogParams($model, TypeConst::LOG_LOCK, ModuleConst::ADMIN);
-                    return true;
+                    return $assoc ? $model : true;
                 }
                 return false;
             }

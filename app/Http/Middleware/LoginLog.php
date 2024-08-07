@@ -29,11 +29,10 @@ class LoginLog
      */
     public function handle($request, Closure $next, int $fromId)
     {
-        $model = $this->getLoginUser($fromId);
         $response = $next($request);
         try {
             $loginLogParams = $request->loginLogParams;
-            !$model && $model = Arr::get($loginLogParams, 'data.model', $this->getLoginUser($fromId));
+            $model = Arr::get($loginLogParams, 'data.model', $this->getLoginUser($fromId));
             if ($model && $loginLogParams) {
                 $typeId = Arr::get($loginLogParams, 'typeId');
                 if ($this->isBackend($fromId)) {

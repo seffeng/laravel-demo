@@ -52,9 +52,9 @@ class SiteController extends Controller
             if ($errorItems = $form->getErrorItems($validator)) {
                 return $this->responseError($errorItems['message'], $errorItems['data']);
             } else {
-                if ($this->getAdminService()->createAdmin($form)) {
+                if ($model = $this->getAdminService()->createAdmin($form, true)) {
                     $request->merge(['operateLogParams' => $form->getOperateLogParams()]);
-                    return $this->responseSuccess([], trans('admin.createSuccess'));
+                    return $this->responseSuccess(['id' => $model->id], trans('admin.createSuccess'));
                 }
             }
             return $this->responseError(trans('admin.createFailure'));
@@ -78,9 +78,9 @@ class SiteController extends Controller
             if ($errorItems = $form->getErrorItems($validator)) {
                 return $this->responseError($errorItems['message'], $errorItems['data']);
             } else {
-                if ($this->getAdminService()->updateAdmin($form)) {
+                if ($model = $this->getAdminService()->updateAdmin($form, true)) {
                     $request->merge(['operateLogParams' => $form->getOperateLogParams()]);
-                    return $this->responseSuccess([], trans('admin.updateSuccess'));
+                    return $this->responseSuccess(['id' => $model->id], trans('admin.updateSuccess'));
                 }
             }
             return $this->responseError(trans('admin.updateFailure'));
@@ -104,9 +104,9 @@ class SiteController extends Controller
             if ($errorItems = $form->getErrorItems($validator)) {
                 return $this->responseError($errorItems['message'], $errorItems['data']);
             } else {
-                if ($this->getAdminService()->deleteAdmin($form)) {
+                if ($model = $this->getAdminService()->deleteAdmin($form, true)) {
                     $request->merge(['operateLogParams' => $form->getOperateLogParams()]);
-                    return $this->responseSuccess([], trans('admin.deleteSuccess'));
+                    return $this->responseSuccess(['id' => $model->id], trans('admin.deleteSuccess'));
                 }
                 return $this->responseError(trans('admin.deleteFailure'));
             }
@@ -132,9 +132,9 @@ class SiteController extends Controller
             if ($errorItems = $form->getErrorItems($validator)) {
                 return $this->responseError($errorItems['message'], $errorItems['data']);
             } else {
-                if ($this->getAdminService()->onAdmin($form)) {
+                if ($model = $this->getAdminService()->onAdmin($form, true)) {
                     $request->merge(['operateLogParams' => $form->getOperateLogParams()]);
-                    return $this->responseSuccess([], trans('admin.onSuccess'));
+                    return $this->responseSuccess(['id' => $model->id], trans('admin.onSuccess'));
                 }
                 return $this->responseError(trans('admin.onFailure'));
             }
@@ -160,9 +160,9 @@ class SiteController extends Controller
             if ($errorItems = $form->getErrorItems($validator)) {
                 return $this->responseError($errorItems['message'], $errorItems['data']);
             } else {
-                if ($this->getAdminService()->offAdmin($form)) {
+                if ($model = $this->getAdminService()->offAdmin($form, true)) {
                     $request->merge(['operateLogParams' => $form->getOperateLogParams()]);
-                    return $this->responseSuccess([], trans('admin.offSuccess'));
+                    return $this->responseSuccess(['id' => $model->id], trans('admin.offSuccess'));
                 }
                 return $this->responseError(trans('admin.offFailure'));
             }
