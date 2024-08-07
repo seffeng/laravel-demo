@@ -16,7 +16,7 @@ class UserSearchRequest extends FormRequest
      *
      * @var array
      */
-    protected  $fillable = ['id', 'username', 'startAt', 'endAt', 'orderBy'];
+    protected  $fillable = ['id', 'username', 'startAt', 'endAt', 'statusId', 'orderBy'];
 
     /**
      *

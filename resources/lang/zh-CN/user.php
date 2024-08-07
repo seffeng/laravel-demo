@@ -14,4 +14,11 @@ return [
     'updateFailure' => '修改失败！',
     'selfUpdateSuccess' => '修改成功！',
     'selfUpdateFailure' => '修改失败！',
+    'deleteSuccess' => '删除成功！',
+    'deleteFailure' => '删除失败！',
+
+    'onSuccess' => '启用成功！',
+    'onFailure' => '启用失败！',
+    'offSuccess' => '锁定成功！',
+    'offFailure' => '锁定失败！',
 ];

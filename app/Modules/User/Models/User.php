@@ -18,9 +18,12 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property string $username
  * @property integer $status_id
  * @property integer $delete_id
- * @method static User byId(int $id)
+ * @method static User byId(int|array $id)
  * @method static User byUsername(string $username)
  * @method static User likeUsername(string $username, bool $left = false)
+ * @method static User byStatusId(int|array $statusId)
+ * @method static User byStatusOn()
+ * @method static User byStatusOff()
  */
 class User extends Model implements AuthenticatableContracts, JWTSubject
 {
@@ -108,14 +111,41 @@ class User extends Model implements AuthenticatableContracts, JWTSubject
     /**
      *
      * @author zxf
-     * @date   2023-03-28
-     * @param Builder $query
-     * @param integer $id
+     * @date   2024-08-07
      * @return static
      */
-    public function scopeById(Builder $query, int $id)
+    public function onUser()
     {
-        return $query->where($this->qualifyColumn('id'), $id);
+        $this->setAttribute('status_id', StatusConst::NORMAL);
+        return $this;
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2024-08-07
+     * @return static
+     */
+    public function offUser()
+    {
+        $this->setAttribute('status_id', StatusConst::LOCK);
+        return $this;
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2023-03-28
+     * @param Builder $query
+     * @param integer|array $id
+     * @return static
+     */
+    public function scopeById(Builder $query, $id)
+    {
+        if (is_array($id)) {
+            return $query->whereIn($this->qualifyColumn('id'), $id);
+        }
+        return $query->where($this->qualifyColumn('id'), intval($id));
     }
 
     /**
@@ -143,6 +173,46 @@ class User extends Model implements AuthenticatableContracts, JWTSubject
     public function scopeLikeUsername(Builder $query, string $username, bool $left = false)
     {
         return $query->where($this->qualifyColumn('username'), 'like', ($left ? '%' : ''). $username .'%');
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2024-08-07
+     * @param Builder $query
+     * @param integer|array $statusId
+     * @return static
+     */
+    public function scopeByStatusId(Builder $query, $statusId)
+    {
+        if (is_array($statusId)) {
+            return $query->whereIn($this->qualifyColumn('status_id'), $statusId);
+        }
+        return $query->where($this->qualifyColumn('status_id'), intval($statusId));
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2024-08-07
+     * @param  Builder $query
+     * @return static
+     */
+    public function scopeByStatusOn(Builder $query)
+    {
+        return $this->scopeByStatusId($query, StatusConst::NORMAL);
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2024-08-07
+     * @param  Builder $query
+     * @return static
+     */
+    public function scopeByStatusOff(Builder $query)
+    {
+        return $this->scopeByStatusId($query, StatusConst::OFF);
     }
 
     /**

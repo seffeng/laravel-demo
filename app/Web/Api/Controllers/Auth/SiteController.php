@@ -13,7 +13,6 @@ use App\Web\Api\Requests\Auth\UserLoginRequest;
 use App\Web\Api\Requests\Auth\UserUpdateRequest;
 use App\Common\Exceptions\BaseException;
 use App\Modules\User\Exceptions\UserPasswordException;
-use Namshi\JOSE\JWS;
 use Seffeng\LaravelHelpers\Helpers\Arr;
 use Tymon\JWTAuth\Facades\JWTAuth;
 

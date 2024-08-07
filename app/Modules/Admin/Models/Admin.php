@@ -19,9 +19,12 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property string $username
  * @property integer $status_id
  * @property integer $delete_id
- * @method static Admin byId(int $id)
+ * @method static Admin byId(int|array $id)
  * @method static Admin byUsername(string $username)
  * @method static Admin likeUsername(string $username, bool $left = false)
+ * @method static Admin byStatusId(int|array $statusId)
+ * @method static Admin byStatusOn()
+ * @method static Admin byStatusOff()
  */
 class Admin extends Model implements AuthenticatableContracts, JWTSubject
 {
@@ -130,12 +133,15 @@ class Admin extends Model implements AuthenticatableContracts, JWTSubject
      * @author zxf
      * @date   2020年4月3日
      * @param Builder $query
-     * @param int $id
-     * @return Admin
+     * @param integer|array $id
+     * @return static
      */
-    public function scopeById(Builder $query, int $id)
+    public function scopeById(Builder $query, $id)
     {
-        return $query->where($this->qualifyColumn('id'), $id);
+        if (is_array($id)) {
+            return $query->whereIn($this->qualifyColumn('id'), $id);
+        }
+        return $query->where($this->qualifyColumn('id'), intval($id));
     }
 
     /**
@@ -144,7 +150,7 @@ class Admin extends Model implements AuthenticatableContracts, JWTSubject
      * @date    2020年4月3日
      * @param  Builder $query
      * @param  string $username
-     * @return Admin
+     * @return static
      */
     public function scopeByUsername(Builder $query, string $username)
     {
@@ -158,11 +164,51 @@ class Admin extends Model implements AuthenticatableContracts, JWTSubject
      * @param Builder $query
      * @param string $username
      * @param boolean $left
-     * @return Admin
+     * @return static
      */
     public function scopeLikeUsername(Builder $query, string $username, bool $left = false)
     {
         return $query->where($this->qualifyColumn('username'), 'like', ($left ? '%' : ''). $username .'%');
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2024-08-07
+     * @param Builder $query
+     * @param integer|array $statusId
+     * @return static
+     */
+    public function scopeByStatusId(Builder $query, $statusId)
+    {
+        if (is_array($statusId)) {
+            return $query->whereIn($this->qualifyColumn('status_id'), $statusId);
+        }
+        return $query->where($this->qualifyColumn('status_id'), intval($statusId));
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2024-08-07
+     * @param Builder $query
+     * @return static
+     */
+    public function scopeByStatusOn(Builder $query)
+    {
+        return $this->scopeByStatusId($query, StatusConst::NORMAL);
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2024-08-07
+     * @param Builder $query
+     * @return static
+     */
+    public function scopeByStatusOff(Builder $query)
+    {
+        return $this->scopeByStatusId($query, StatusConst::LOCK);
     }
 
     /**

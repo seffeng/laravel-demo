@@ -166,6 +166,11 @@ $ php ./artisan migrate --seed
 | 管理员启用       | /admin/on         | POST | id                   |
 | 管理员停用       | /admin/off        | POST | id                   |
 | 用户列表         | /user             | GET  |                      |
+| 用户添加       | /user/create     | POST | username,password    |
+| 用户编辑       | /user/update     | POST | id,username,password |
+| 用户删除       | /user/delete     | POST | id                   |
+| 用户启用       | /user/on         | POST | id                   |
+| 用户停用       | /user/off        | POST | id                   |
 | 操作日志         | /operate-log      | GET  |                      |
 | 管理员登录日志   | /admin/login-log  | GET  |                      |
 | 用户登录日志     | /user/login-log   | GET  |                      |

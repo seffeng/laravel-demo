@@ -3,7 +3,6 @@
 namespace App\Modules\User\Services;
 
 use App\Common\Base\Service;
-use App\Common\Constants\FormatConst;
 use App\Common\Constants\FromConst;
 use App\Common\Constants\ModuleConst;
 use App\Common\Constants\StatusConst;
@@ -18,8 +17,11 @@ use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Common\Exceptions\BaseException;
 use App\Modules\User\Exceptions\UserPasswordException;
+use App\Modules\User\Requests\UserCreateRequest;
+use App\Modules\User\Requests\UserDeleteRequest;
 use App\Modules\User\Requests\UserLoginRequest;
 use App\Modules\User\Requests\UserSearchRequest;
+use App\Modules\User\Requests\UserStatusRequest;
 use Illuminate\Support\Facades\Date;
 
 class UserService extends Service
@@ -201,7 +203,7 @@ class UserService extends Service
      * @throws \Exception
      * @return boolean|User
      */
-    public function updateUser(UserUpdateRequest $form, $assoc = false)
+    public function updateUser(UserUpdateRequest $form, bool $assoc = false)
     {
         try {
             if ($form->getIsPass()) {
@@ -232,6 +234,89 @@ class UserService extends Service
     /**
      *
      * @author zxf
+     * @date   2024-05-23
+     * @param UserDeleteRequest $form
+     * @param boolean $assoc
+     * @return boolean|User
+     */
+    public function deleteUser(UserDeleteRequest $form, bool $assoc = false)
+    {
+        try {
+            if ($form->getIsPass()) {
+                $model = $this->notNullById($form->getFillItems('id'));
+                if ($model->delete()) {
+                    $form->setOperateLogParams($model, TypeConst::LOG_DELETE, ModuleConst::USER);
+                    return $assoc ? $model : true;
+                }
+                return false;
+            }
+            throw new UserException(trans('common.validatorError'));
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2024-05-23
+     * @param UserStatusRequest $form
+     * @param boolean $assoc
+     * @return boolean|User
+     */
+    public function onUser(UserStatusRequest $form, bool $assoc = false)
+    {
+        try {
+            if ($form->getIsPass()) {
+                $model = $this->notNullById($form->getFillItems('id'));
+                if ($model->getStatus()->getIsNormal()) {
+                    return $assoc ? $model : true;
+                }
+                $model->onUser();
+                if ($model->save()) {
+                    $form->setOperateLogParams($model, TypeConst::LOG_UNLOCK, ModuleConst::USER);
+                    return $assoc ? $model : true;
+                }
+                return false;
+            }
+            throw new UserException(trans('common.validatorError'));
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2024-05-23
+     * @param UserStatusRequest $form
+     * @param boolean $assoc
+     * @return boolean|User
+     */
+    public function offUser(UserStatusRequest $form, bool $assoc = false)
+    {
+        try {
+            if ($form->getIsPass()) {
+                $model = $this->notNullById($form->getFillItems('id'));
+                if (!$model->getStatus()->getIsNormal()) {
+                    return $assoc ? $model : true;
+                }
+                $model->offUser();
+                if ($model->save()) {
+                    $form->setOperateLogParams($model, TypeConst::LOG_LOCK, ModuleConst::USER);
+                    return $assoc ? $model : true;
+                }
+                return false;
+            }
+            throw new UserException(trans('common.validatorError'));
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     *
+     * @author zxf
      * @date   2021年4月12日
      * @param UserSearchRequest $form
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
@@ -248,6 +333,9 @@ class UserService extends Service
         }
         if ($username = $form->getFillItems('username')) {
             $query->likeUsername($username);
+        }
+        if ($statusId = $form->getFillItems('statusId')) {
+            $query->byStatusId($statusId);
         }
         if ($createdStartAt = $form->getFillItems('startAt')) {
             $query->where('created_at', '>=', Date::parse($createdStartAt)->format((new User())->getDateFormat()));
@@ -300,6 +388,38 @@ class UserService extends Service
             'items' => $items,
             'page' => $this->getPaginate($paginator)
         ];
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2024-05-23
+     * @param UserCreateRequest $form
+     * @param boolean $assoc
+     * @return User|boolean
+     */
+    public function createUser(UserCreateRequest $form, bool $assoc = false)
+    {
+        try {
+            if ($form->getIsPass()) {
+                $model = new User();
+                $model->fill([
+                    'username' => $form->getFillItems('username'),
+                    'password' => $form->getFillItems('password'),
+                ]);
+                $model->encryptPassword();
+                $model->loadDefaultValue();
+
+                if ($model->save()) {
+                    $form->setOperateLogParams($model, TypeConst::LOG_CREATE, ModuleConst::USER);
+                    return $assoc ? $model : true;
+                }
+                return false;
+            }
+            throw new UserException(trans('common.validatorError'));
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 
     /**

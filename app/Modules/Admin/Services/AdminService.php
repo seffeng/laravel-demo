@@ -211,6 +211,9 @@ class AdminService extends Service
         if ($username = $form->getFillItems('username')) {
             $query->likeUsername($username);
         }
+        if ($statusId = $form->getFillItems('statusId')) {
+            $query->byStatusId($statusId);
+        }
 
         if ($createdStartAt = $form->getFillItems('startAt')) {
             $query->where('created_at', '>=', Date::parse($createdStartAt)->format((new Admin())->getDateFormat()));
@@ -375,6 +378,9 @@ class AdminService extends Service
         try {
             if ($form->getIsPass()) {
                 $model = $this->notNullById($form->getFillItems('id'));
+                if ($model->getStatus()->getIsNormal()) {
+                    return $assoc ? $model : true;
+                }
                 $model->onAdmin();
                 if ($model->save()) {
                     $form->setOperateLogParams($model, TypeConst::LOG_UNLOCK, ModuleConst::ADMIN);
@@ -403,6 +409,9 @@ class AdminService extends Service
         try {
             if ($form->getIsPass()) {
                 $model = $this->notNullById($form->getFillItems('id'));
+                if (!$model->getStatus()->getIsNormal()) {
+                    return $assoc ? $model : true;
+                }
                 $model->offAdmin();
                 if ($model->save()) {
                     $form->setOperateLogParams($model, TypeConst::LOG_LOCK, ModuleConst::ADMIN);
