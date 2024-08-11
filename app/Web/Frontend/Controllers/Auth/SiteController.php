@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Validator;
 use App\Modules\User\Exceptions\UserException;
 use App\Modules\User\Exceptions\UserPasswordException;
 use App\Web\Frontend\Requests\Auth\UserUpdateRequest;
-use Namshi\JOSE\JWS;
 use Seffeng\LaravelHelpers\Helpers\Arr;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\JWT;
@@ -28,8 +27,8 @@ class SiteController extends Controller
      */
     public function login(Request $request)
     {
+        $form = $this->getUserLoginRequest();
         try {
-            $form = $this->getUserLoginRequest();
             $validate = Validator::make($form->load($request->post()), $form->rules(), $form->messages(), $form->attributes());
             if ($errorItems = $form->getErrorItems($validate)) {
                 return $this->responseError($errorItems['message'], $errorItems['data']);

@@ -12,7 +12,6 @@ use App\Web\Backend\Requests\Admin\AdminLoginRequest;
 use App\Modules\Admin\Exceptions\AdminException;
 use App\Modules\Admin\Exceptions\AdminPasswordException;
 use App\Web\Backend\Requests\Admin\AdminUpdateRequest;
-use Namshi\JOSE\JWS;
 use Seffeng\LaravelHelpers\Helpers\Arr;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -27,8 +26,8 @@ class SiteController extends Controller
      */
     public function login(Request $request)
     {
+        $form = $this->getAdminLoginRequest();
         try {
-            $form = $this->getAdminLoginRequest();
             $validate = Validator::make($form->load($request->post()), $form->rules(), $form->messages(), $form->attributes());
             if ($errorItems = $form->getErrorItems($validate)) {
                 return $this->responseError($errorItems['message'], $errorItems['data']);

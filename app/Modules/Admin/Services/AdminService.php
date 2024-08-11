@@ -281,10 +281,9 @@ class AdminService extends Service
         try {
             if ($form->getIsPass()) {
                 $model = new Admin();
-                $model->fill([
-                    'username' => $form->getFillItems('username'),
-                    'password' => $form->getFillItems('password'),
-                ]);
+                $model->fill(array_filter($form->getFillItems(), function($value) {
+                    return $value;
+                }));
                 $model->encryptPassword();
                 $model->loadDefaultValue();
 

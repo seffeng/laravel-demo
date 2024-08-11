@@ -209,9 +209,9 @@ class UserService extends Service
             if ($form->getIsPass()) {
                 $model = $this->notNullById($form->getFillItems('id'));
                 $password = $form->getFillItems('password');
-                $model->fill([
-                    'username' => $form->getFillItems('username'),
-                ]);
+                $model->fill(array_filter($form->getFillItems(), function($value) {
+                    return $value;
+                }));
                 if ($password) {
                     $model->fill([
                         'password' => $form->getFillItems('password'),
@@ -403,10 +403,9 @@ class UserService extends Service
         try {
             if ($form->getIsPass()) {
                 $model = new User();
-                $model->fill([
-                    'username' => $form->getFillItems('username'),
-                    'password' => $form->getFillItems('password'),
-                ]);
+                $model->fill(array_filter($form->getFillItems(), function($value) {
+                    return $value;
+                }));
                 $model->encryptPassword();
                 $model->loadDefaultValue();
 

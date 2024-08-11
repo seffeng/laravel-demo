@@ -27,8 +27,8 @@ class SiteController extends Controller
      */
     public function login(Request $request)
     {
+        $form = $this->getUserLoginRequest();
         try {
-            $form = $this->getUserLoginRequest();
             $validate = Validator::make($form->load($request->post()), $form->rules(), $form->messages(), $form->attributes());
             if ($errorItems = $form->getErrorItems($validate)) {
                 return $this->responseError($errorItems['message'], $errorItems['data']);
