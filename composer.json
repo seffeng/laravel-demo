@@ -24,7 +24,7 @@
     "require": {
         "php": "^8.0",
         "laravel/framework": "^10.0",
-        "laravel/octane": "^1.5",
+        "laravel/octane": "^2.0",
         "laravel/tinker": "^2.8",
         "seffeng/laravel-basics": "^3.1",
         "tymon/jwt-auth": "^2.0"
