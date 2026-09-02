@@ -40,16 +40,4 @@ class EventServiceProvider extends ServiceProvider
             'App\Modules\Log\Listeners\OperateLogCreateListener'
         ],
     ];
-
-    /**
-     * Register any events for your application.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        parent::boot();
-
-        //
-    }
 }

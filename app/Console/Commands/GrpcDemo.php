@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Grpc\Demo\DemoInfoReply;
 use App\Grpc\Servers\DemoServer;
 use App\Grpc\Demo\DemoRequest;
 use App\Grpc\Demo\DemoListReply;
@@ -29,90 +30,76 @@ class GrpcDemo extends Command
     protected $description = 'Grpc Demo';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
      */
     public function handle()
     {
-        try {
-            $type = $this->argument('type');
-            $host = $this->option('host');
-            $port = $this->option('port');
-            if ($type === self::TYPE_CLIENT) {
-                /**
-                 * @var \App\Grpc\Clients\DemoClient
-                 */
-                $client = new \App\Grpc\Clients\DemoClient($host . ':' . $port, [
-                    'credentials' => \Grpc\ChannelCredentials::createInsecure(),
-                ]);
-                $form = new DemoRequest();
-                $form->setName('张三');
-                $form->setAge(random_int(1, 100));
-                /**
-                 * @var DemoInfoReply $reply
-                 * @var mixed $status
-                 */
-                list($reply, $status) = $client->view($form)->wait();
-                var_dump($reply->getStatus(), $reply->getCode(), $reply->getMessage(), $status);
-                $data = [
-                    'id' => $reply->getData()->getId(),
-                    'name' => $reply->getData()->getName(),
-                    'age' => [
-                        'id' => $reply->getData()->getAge()->getId(),
-                        'name' => $reply->getData()->getAge()->getName(),
-                    ]
-                ];
-                print_r($data);
+        $type = $this->argument('type');
+        $host = $this->option('host');
+        $port = $this->option('port');
+        if ($type === self::TYPE_CLIENT) {
+            /**
+             * @var \App\Grpc\Clients\DemoClient
+             */
+            $client = new \App\Grpc\Clients\DemoClient($host . ':' . $port, [
+                'credentials' => \Grpc\ChannelCredentials::createInsecure(),
+            ]);
+            $form = new DemoRequest();
+            $form->setName('张三');
+            $form->setAge(random_int(1, 100));
+            /**
+             * @var DemoInfoReply $reply
+             * @var mixed $status
+             */
+            list($reply, $status) = $client->view($form)->wait();
+            var_dump($reply->getStatus(), $reply->getCode(), $reply->getMessage(), $status);
+            $data = [
+                'id' => $reply->getData()->getId(),
+                'name' => $reply->getData()->getName(),
+                'age' => [
+                    'id' => $reply->getData()->getAge()->getId(),
+                    'name' => $reply->getData()->getAge()->getName(),
+                ]
+            ];
+            print_r($data);
 
-                /**
-                 * @var DemoListReply $reply
-                 * @var mixed $status
-                 */
-                list($reply, $status) = $client->list($form)->wait();
-                var_dump($reply->getStatus(), $reply->getCode(), $reply->getMessage(), $status);
-                $data = ['items' => [], 'page' => [
-                    'totalCount' => $reply->getData()->getPage()->getTotalCount(),
-                    'currentPage' => $reply->getData()->getPage()->getCurrentPage(),
-                    'pageCount' => $reply->getData()->getPage()->getPageCount(),
-                    'perPage' => $reply->getData()->getPage()->getPerPage()
-                ]];
-                $count = $reply->getData()->getItems()->count();
-                if ($count > 0) {
-                    $items = [];
-                    for ($i = 0; $i < $count; $i++) {
-                        $items[] = [
-                            'id' => $reply->getData()->getItems()->offsetGet($i)->getId(),
-                            'name' => $reply->getData()->getItems()->offsetGet($i)->getName(),
-                            'age' => [
-                                'id' => $reply->getData()->getItems()->offsetGet($i)->getAge()->getId(),
-                                'name' => $reply->getData()->getItems()->offsetGet($i)->getAge()->getName()
-                            ]
-                        ];
-                    }
-                    $data['items'] = $items;
+            /**
+             * @var DemoListReply $reply
+             * @var mixed $status
+             */
+            list($reply, $status) = $client->list($form)->wait();
+            var_dump($reply->getStatus(), $reply->getCode(), $reply->getMessage(), $status);
+            $data = ['items' => [], 'page' => [
+                'totalCount' => $reply->getData()->getPage()->getTotalCount(),
+                'currentPage' => $reply->getData()->getPage()->getCurrentPage(),
+                'pageCount' => $reply->getData()->getPage()->getPageCount(),
+                'perPage' => $reply->getData()->getPage()->getPerPage()
+            ]];
+            $count = $reply->getData()->getItems()->count();
+            if ($count > 0) {
+                $items = [];
+                for ($i = 0; $i < $count; $i++) {
+                    $items[] = [
+                        'id' => $reply->getData()->getItems()->offsetGet($i)->getId(),
+                        'name' => $reply->getData()->getItems()->offsetGet($i)->getName(),
+                        'age' => [
+                            'id' => $reply->getData()->getItems()->offsetGet($i)->getAge()->getId(),
+                            'name' => $reply->getData()->getItems()->offsetGet($i)->getAge()->getName()
+                        ]
+                    ];
                 }
-                print_r($data);
-                exit;
-            } else {
-                $server = new \Grpc\RpcServer();
-                $server->addHttp2Port($host . ':' . $port);
-                $server->handle(new DemoServer());
-                echo '[' . date('Y-m-d H:i:s'). ']Listening on port :' . $port . PHP_EOL;
-                $server->run();
+                $data['items'] = $items;
             }
-        } catch (\Exception $e) {
-            throw $e;
+            print_r($data);
+            exit;
+        } else {
+            $server = new \Grpc\RpcServer();
+            $server->addHttp2Port($host . ':' . $port);
+            $server->handle(new DemoServer());
+            echo '[' . date('Y-m-d H:i:s'). ']Listening on port :' . $port . PHP_EOL;
+            $server->run();
         }
     }
 }

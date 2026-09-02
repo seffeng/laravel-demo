@@ -14,28 +14,18 @@ use Seffeng\Basics\Traits\DeleteTrait;
 /**
  *
  * @author zxf
- * @date   2021年8月5日
- * @method static OperateLog byId(int $id)
- * @method static OperateLog byResId(int $resId)
- * @method static OperateLog byStatusId(int $statusId)
- * @method static OperateLog byFromId(int $fromId)
- * @method static OperateLog byTypeId(int $typeId)
- * @method static OperateLog byModuleId(int $moduleId)
- * @method static OperateLog byOperatorId(int $operatorId)
+ * @date   2026-08-27
+ * @method OperateLog byId(int $id)
+ * @method OperateLog byResId(int $resId)
+ * @method OperateLog byStatusId(int $statusId)
+ * @method OperateLog byFromId(int $fromId)
+ * @method OperateLog byTypeId(int $typeId)
+ * @method OperateLog byModuleId(int $moduleId)
+ * @method OperateLog byOperatorId(int $operatorId)
  */
 class OperateLog extends Model
 {
     use DeleteTrait;
-
-    /**
-     *
-     * @author zxf
-     * @date   2021年1月6日
-     */
-    protected static function boot()
-    {
-        parent::boot();
-    }
 
     /**
      *
@@ -52,7 +42,7 @@ class OperateLog extends Model
     /**
      *
      * @author zxf
-     * @date   2020年6月9日
+     * @date   2026-08-27
      * @return OperateLogType
      */
     public function getType()
@@ -63,7 +53,7 @@ class OperateLog extends Model
     /**
      *
      * @author zxf
-     * @date   2020年6月9日
+     * @date   2026-08-27
      * @return LogFrom
      */
     public function getFrom()
@@ -74,7 +64,7 @@ class OperateLog extends Model
     /**
      *
      * @author zxf
-     * @date   2020年6月9日
+     * @date   2026-08-27
      * @return LogStatus
      */
     public function getStatus()
@@ -85,7 +75,7 @@ class OperateLog extends Model
     /**
      *
      * @author zxf
-     * @date   2021年1月6日
+     * @date   2026-08-27
      * @return OperateLogModule
      */
     public function getLogModule()
@@ -107,7 +97,7 @@ class OperateLog extends Model
     /**
      *
      * @author zxf
-     * @date   2021年1月6日
+     * @date   2026-08-27
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function operator()
@@ -119,7 +109,7 @@ class OperateLog extends Model
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
+     * @date   2026-08-27
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function resource()
@@ -131,9 +121,9 @@ class OperateLog extends Model
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
-     * @param Builder $query
-     * @param int $id
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  int $id
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeById(Builder $query, int $id)
@@ -144,9 +134,9 @@ class OperateLog extends Model
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
-     * @param Builder $query
-     * @param int $resId
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  int $resId
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeByResId(Builder $query, int $resId)
@@ -157,9 +147,9 @@ class OperateLog extends Model
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
-     * @param Builder $query
-     * @param int $statusId
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  int $statusId
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeByStatusId(Builder $query, int $statusId)
@@ -170,9 +160,9 @@ class OperateLog extends Model
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
-     * @param Builder $query
-     * @param int $typeId
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  int $typeId
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeByTypeId(Builder $query, int $typeId)
@@ -183,9 +173,9 @@ class OperateLog extends Model
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
-     * @param Builder $query
-     * @param int $fromId
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  int $fromId
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeByFromId(Builder $query, int $fromId)
@@ -196,9 +186,9 @@ class OperateLog extends Model
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
-     * @param Builder $query
-     * @param int $moduleId
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  int $moduleId
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeByModuleId(Builder $query, int $moduleId)
@@ -209,9 +199,9 @@ class OperateLog extends Model
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
-     * @param Builder $query
-     * @param int $operatorId
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  int $operatorId
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeByOperatorId(Builder $query, int $operatorId)

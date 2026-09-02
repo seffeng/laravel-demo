@@ -35,7 +35,7 @@ class UserService extends Service
     /**
      *
      * @author zxf
-     * @date    2019年12月26日
+     * @date   2026-08-27
      * @param  int $id
      * @return User
      */
@@ -47,7 +47,7 @@ class UserService extends Service
     /**
      *
      * @author zxf
-     * @date    2019年10月29日
+     * @date   2026-08-27
      * @param  int $id
      * @throws UserNotFoundException
      * @throws \Exception
@@ -69,7 +69,7 @@ class UserService extends Service
     /**
      *
      * @author zxf
-     * @date    2019年9月29日
+     * @date   2026-08-27
      * @param  string $username
      * @return User
      */
@@ -81,7 +81,7 @@ class UserService extends Service
     /**
      *
      * @author zxf
-     * @date   2019年10月19日
+     * @date   2026-08-27
      * @param  string $username
      * @throws UserNotFoundException
      * @throws \Exception
@@ -103,13 +103,13 @@ class UserService extends Service
     /**
      *
      * @author zxf
-     * @date    2019年9月29日
-     * @param UserLoginRequest $form
+     * @date   2026-08-27
+     * @param  UserLoginRequest $form
      * @throws UserException
      * @throws UserStatusException
      * @throws UserNotFoundException
      * @throws \Exception
-     * @return boolean
+     * @return bool
      */
     public function userLogin(UserLoginRequest $form)
     {
@@ -138,7 +138,7 @@ class UserService extends Service
     /**
      *
      * @author zxf
-     * @date    2019年9月29日
+     * @date   2026-08-27
      */
     public function userLogout()
     {
@@ -157,8 +157,8 @@ class UserService extends Service
     /**
      *
      * @author zxf
-     * @date    2019年9月29日
-     * @return boolean
+     * @date   2026-08-27
+     * @return bool
      */
     public function userIsLogin()
     {
@@ -168,7 +168,7 @@ class UserService extends Service
     /**
      *
      * @author zxf
-     * @date    2019年10月21日
+     * @date   2026-08-27
      * @return \Illuminate\Contracts\Auth\Authenticatable|NULL
      */
     public function getLoginUser()
@@ -179,8 +179,8 @@ class UserService extends Service
     /**
      *
      * @author zxf
-     * @date    2019年10月21日
-     * @return NULL[]|array
+     * @date   2026-08-27
+     * @return array
      */
     public function getLoginUserToArray()
     {
@@ -197,11 +197,11 @@ class UserService extends Service
     /**
      *
      * @author zxf
-     * @date    2019年12月26日
+     * @date   2026-08-27
      * @param  UserUpdateRequest $form
-     * @param  boolean $assoc
+     * @param  bool $assoc
      * @throws \Exception
-     * @return boolean|User
+     * @return bool|User
      */
     public function updateUser(UserUpdateRequest $form, bool $assoc = false)
     {
@@ -234,10 +234,10 @@ class UserService extends Service
     /**
      *
      * @author zxf
-     * @date   2024-05-23
-     * @param UserDeleteRequest $form
-     * @param boolean $assoc
-     * @return boolean|User
+     * @date   2026-08-27
+     * @param  UserDeleteRequest $form
+     * @param  bool $assoc
+     * @return bool|User
      */
     public function deleteUser(UserDeleteRequest $form, bool $assoc = false)
     {
@@ -259,10 +259,10 @@ class UserService extends Service
     /**
      *
      * @author zxf
-     * @date   2024-05-23
-     * @param UserStatusRequest $form
-     * @param boolean $assoc
-     * @return boolean|User
+     * @date   2026-08-27
+     * @param  UserStatusRequest $form
+     * @param  bool $assoc
+     * @return bool|User
      */
     public function onUser(UserStatusRequest $form, bool $assoc = false)
     {
@@ -288,10 +288,10 @@ class UserService extends Service
     /**
      *
      * @author zxf
-     * @date   2024-05-23
-     * @param UserStatusRequest $form
-     * @param boolean $assoc
-     * @return boolean|User
+     * @date   2026-08-27
+     * @param  UserStatusRequest $form
+     * @param  bool $assoc
+     * @return bool|User
      */
     public function offUser(UserStatusRequest $form, bool $assoc = false)
     {
@@ -317,8 +317,8 @@ class UserService extends Service
     /**
      *
      * @author zxf
-     * @date   2021年4月12日
-     * @param UserSearchRequest $form
+     * @date   2026-08-27
+     * @param  UserSearchRequest $form
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function getUserPaginate(UserSearchRequest $form)
@@ -358,7 +358,7 @@ class UserService extends Service
     /**
      *
      * @author zxf
-     * @date    2021年4月12日
+     * @date   2026-08-27
      * @param  UserSearchRequest $form
      * @return array
      */
@@ -393,10 +393,10 @@ class UserService extends Service
     /**
      *
      * @author zxf
-     * @date   2024-05-23
-     * @param UserCreateRequest $form
-     * @param boolean $assoc
-     * @return User|boolean
+     * @date   2026-08-27
+     * @param  UserCreateRequest $form
+     * @param  bool $assoc
+     * @return User|bool
      */
     public function createUser(UserCreateRequest $form, bool $assoc = false)
     {
@@ -424,7 +424,7 @@ class UserService extends Service
     /**
      *
      * @author zxf
-     * @date   2020年3月23日
+     * @date   2026-08-27
      * @param string $auth
      */
     public function setAuth(string $auth)
@@ -436,7 +436,7 @@ class UserService extends Service
     /**
      *
      * @author zxf
-     * @date   2020年3月23日
+     * @date   2026-08-27
      * @return string
      */
     public function getAuth()
@@ -447,7 +447,7 @@ class UserService extends Service
     /**
      *
      * @author zxf
-     * @date    2019年9月29日
+     * @date   2026-08-27
      * @return \Illuminate\Contracts\Auth\StatefulGuard
      */
     public function getAuthGuard()

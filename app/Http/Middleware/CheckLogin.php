@@ -40,9 +40,12 @@ class CheckLogin
                 Auth::guard($guard)->setToken($token)->user();
                 return $next($request);
             } catch (JWTException $e) {
+                //
             }
         } catch (TokenInvalidException $e) {
+            //
         } catch (JWTException $e) {
+            //
         }
 
         throw new HttpException(ErrorConst::UNAUTHORIZED, ErrorConst::getError(ErrorConst::UNAUTHORIZED));

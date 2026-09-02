@@ -18,8 +18,8 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date    2019年10月29日
-     * @param Request $request
+     * @date   2026-08-27
+     * @param  Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
@@ -40,8 +40,8 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2024-05-23
-     * @param Request $request
+     * @date   2026-08-27
+     * @param  Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function create(Request $request)
@@ -66,8 +66,8 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2024-05-23
-     * @param Request $request
+     * @date   2026-08-27
+     * @param  Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request)
@@ -92,8 +92,8 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2024-05-23
-     * @param Request $request
+     * @date   2026-08-27
+     * @param  Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function delete(Request $request)
@@ -120,8 +120,8 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2024-05-23
-     * @param Request $request
+     * @date   2026-08-27
+     * @param  Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function on(Request $request)
@@ -148,8 +148,8 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2024-05-23
-     * @param Request $request
+     * @date   2026-08-27
+     * @param  Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function off(Request $request)
@@ -176,7 +176,7 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date    2019年10月29日
+     * @date   2026-08-27
      * @return UserService
      */
     private function getService()
@@ -187,7 +187,7 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date    2019年10月29日
+     * @date   2026-08-27
      * @return UserSearchRequest
      */
     private function getSearchRequest()
@@ -198,7 +198,7 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2024-05-23
+     * @date   2026-08-27
      * @return UserCreateRequest
      */
     private function getCreateRequest()
@@ -209,7 +209,7 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2024-05-23
+     * @date   2026-08-27
      * @return UserUpdateRequest
      */
     private function getUpdateRequest()
@@ -220,7 +220,7 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2024-05-23
+     * @date   2026-08-27
      * @return UserDeleteRequest
      */
     private function getDeleteRequest()
@@ -231,7 +231,7 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2024-05-23
+     * @date   2026-08-27
      * @return UserStatusRequest
      */
     private function getStatusRequest()

@@ -40,10 +40,13 @@ class LoginListener implements ShouldQueue
         $user = $event->getModel();
         $data = $event->getData();
         $ip = Arr::get($data, 'clientIp', '');
-        $user->updateLoginValues($ip);
-        $user->save();
 
         $statusId = Arr::getValue($data, 'statusId', StatusConst::SUCCESS);
+        if ($statusId === StatusConst::SUCCESS) {
+            $user->updateLoginValues($ip);
+            $user->save();
+        }
+
         $faildCount = Arr::getValue($data, 'faildCount', 0);
 
         $loginStatus = new LogStatus($statusId);
@@ -77,7 +80,7 @@ class LoginListener implements ShouldQueue
     /**
      *
      * @author zxf
-     * @date   2020年12月10日
+     * @date   2026-08-27
      * @return LogService
      */
     private function getLogService()

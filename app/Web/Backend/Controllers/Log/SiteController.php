@@ -14,8 +14,8 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2020年12月31日
-     * @param Request $request
+     * @date   2026-08-27
+     * @param  Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function operateLog(Request $request)
@@ -41,8 +41,8 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2020年12月31日
-     * @param Request $request
+     * @date   2026-08-27
+     * @param  Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function adminLoginLog(Request $request)
@@ -66,8 +66,8 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
-     * @param Request $request
+     * @date   2026-08-27
+     * @param  Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function userLoginLog(Request $request)
@@ -91,7 +91,7 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2020年12月31日
+     * @date   2026-08-27
      * @return LogService
      */
     private function getService()
@@ -102,7 +102,7 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2020年12月31日
+     * @date   2026-08-27
      * @return AdminLoginLogSearchRequest
      */
     private function getAdminLoginLogSearchRequest()
@@ -113,7 +113,7 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
+     * @date   2026-08-27
      * @return UserLoginLogSearchRequest
      */
     private function getUserLoginLogSearchRequest()
@@ -124,7 +124,7 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2020年12月31日
+     * @date   2026-08-27
      * @return OperateLogSearchRequest
      */
     private function getOperateLogSearchRequest()

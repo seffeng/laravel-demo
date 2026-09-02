@@ -9,19 +9,20 @@ use Seffeng\ArrHelper\ReplaceArrayValue;
 /**
  * 错误常量
  * @author zxf
+ * @date   2026-08-27
  */
 class ErrorConst extends \Seffeng\Basics\Constants\ErrorConst
 {
     /**
      *
-     * @var integer
+     * @var int
      */
     const SERVER_ERROR = 500;
 
     /**
      *
      * @author zxf
-     * @date    2019年12月5日
+     * @date   2026-08-27
      * @return array
      */
     public static function fetchNameItems()
@@ -35,14 +36,13 @@ class ErrorConst extends \Seffeng\Basics\Constants\ErrorConst
     /**
      *
      * @author zxf
-     * @date   2023-08-28
+     * @date   2026-08-27
      * @param array $headers
      * @param array $customHeaders
      * @return array
      */
     public static function mergeHeaders(array $headers = [], array $customHeaders = [])
     {
-        $customHeaders = [];
         if ($token = Request::header('Refresh-Token')) {
             $customHeaders['Refresh-Token'] = $token;
             $customHeaders['Access-Control-Expose-Headers'][] = 'Refresh-Token';

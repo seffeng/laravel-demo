@@ -11,8 +11,8 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2019年10月19日
-     * @param Request $request
+     * @date   2026-08-27
+     * @param  Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function getDownList(Request $request)
@@ -28,7 +28,7 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date    2019年12月25日
+     * @date   2026-08-27
      * @return \App\Common\Actions\DownListAction
      */
     private function getDownListAction()

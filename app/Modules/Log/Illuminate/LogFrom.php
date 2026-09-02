@@ -12,7 +12,7 @@ class LogFrom extends TypeIlluminate
     /**
      *
      * @author zxf
-     * @date   2020年12月10日
+     * @date   2026-08-27
      * @return string[]
      */
     public static function fetchNameItems()
@@ -27,8 +27,8 @@ class LogFrom extends TypeIlluminate
     /**
      *
      * @author zxf
-     * @date   2021年1月6日
-     * @return string[]
+     * @date   2026-08-27
+     * @return array
      */
     public static function fetchOperatorClassItems()
     {

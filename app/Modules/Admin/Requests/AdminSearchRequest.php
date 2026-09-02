@@ -6,9 +6,13 @@ use App\Common\Base\FormRequest;
 /**
  *
  * @author zxf
- * @date    2019年10月29日
+ * @date    2026-08-27
  * @property int $id
- * @property string $phone
+ * @property string $username
+ * @property int $statusId
+ * @property string $startAt
+ * @property string $endAt
+ * @property string $orderBy
  */
 class AdminSearchRequest extends FormRequest
 {

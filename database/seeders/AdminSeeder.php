@@ -1,17 +1,16 @@
 <?php
+
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Modules\Admin\Models\Admin;
+use Illuminate\Database\Seeder;
 
 class AdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         $username = '10086';
         if (!Admin::byUsername($username)->exists()) {
@@ -24,7 +23,7 @@ class AdminSeeder extends Seeder
                 'login_ip' => ''
             ]);
             $model->loadDefaultValue()->encryptPassword();
-            return $model->save();
+            $model->save();
         }
     }
 }

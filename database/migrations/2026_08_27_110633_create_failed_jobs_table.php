@@ -7,35 +7,37 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
-     *
-     * @return void
+     * @var string
      */
-    public function up()
+    private $table = 'failed_jobs';
+
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
     {
-        $tableName = 'failed_jobs';
-        if (!Schema::hasTable($tableName)) {
-            Schema::create($tableName, function (Blueprint $table) {
+        if (!Schema::hasTable($this->table)) {
+            Schema::create($this->table, function (Blueprint $table) {
                 $table->id();
                 $table->string('uuid')->unique();
-                $table->text('connection');
-                $table->text('queue');
+                $table->string('connection');
+                $table->string('queue');
                 $table->longText('payload');
                 $table->longText('exception');
                 $table->timestamp('failed_at')->useCurrent();
+
+                $table->index(['connection', 'queue', 'failed_at']);
             });
         }
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         if (config('app.env') === 'local' && config('app.debug')) {
-            Schema::dropIfExists('failed_jobs');
+            Schema::dropIfExists($this->table);
         }
     }
 };

@@ -6,7 +6,7 @@ use Seffeng\LaravelHelpers\Helpers\Arr;
 /**
  *
  * @author zxf
- * @date    2020年12月10日
+ * @date    2026-08-27
  * @property int $userId
  * @property int $statusId
  * @property int $typeId

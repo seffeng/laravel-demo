@@ -21,8 +21,8 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2019年10月20日
-     * @param Request $request
+     * @date   2026-08-27
+     * @param  Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function login(Request $request)
@@ -33,7 +33,7 @@ class SiteController extends Controller
             if ($errorItems = $form->getErrorItems($validate)) {
                 return $this->responseError($errorItems['message'], $errorItems['data']);
             } else {
-                $userService = $this->getUserService()->setAuth(config('packet.api.guard'));
+                $userService = $this->getUserService()->setAuth(config('context.api.guard'));
                 if ($token = $userService->userLogin($form)) {
                     $request->merge(['loginLogParams' => $form->getLoginLogParams()]);
                     return $this->responseSuccess([
@@ -59,16 +59,17 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2019年10月19日
-     * @param Request $request
+     * @date   2026-08-27
+     * @param  Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function logout(Request $request)
     {
         try {
-            $userService = $this->getUserService()->setAuth(config('packet.api.guard'));
+            $userService = $this->getUserService()->setAuth(config('context.api.guard'));
+            $loginUser = $userService->getLoginUser();
             if ($userService->userLogout()) {
-                $request->merge(['loginLogParams' => ['typeId' => TypeConst::LOG_LOGOUT, 'moduleId' => ModuleConst::USER]]);
+                $request->merge(['loginLogParams' => ['typeId' => TypeConst::LOG_LOGOUT, 'moduleId' => ModuleConst::USER, 'data' => ['model' => $loginUser]]]);
                 return $this->responseSuccess(['url' => '/login']);
             }
             return $this->responseError(trans('user.logoutFailure'));
@@ -82,12 +83,12 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2019年10月19日
+     * @date   2026-08-27
      * @return \Illuminate\Http\JsonResponse
      */
     public function isLogin(Request $request)
     {
-        $userService = $this->getUserService()->setAuth(config('packet.api.guard'));
+        $userService = $this->getUserService()->setAuth(config('context.api.guard'));
         return $this->responseSuccess([
             'isLogin' => $userService->userIsLogin(),
             'user' => $userService->getLoginUserToArray() ?: new \stdClass()
@@ -97,8 +98,8 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date    2019年12月26日
-     * @param Request $request
+     * @date   2026-08-27
+     * @param  Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request)
@@ -106,7 +107,7 @@ class SiteController extends Controller
         try {
             $form = $this->getUserUpdateRequest();
             $data = $request->all();
-            $userService = $this->getUserService()->setAuth(config('packet.api.guard'));
+            $userService = $this->getUserService()->setAuth(config('context.api.guard'));
             $data['id'] = $userService->getAuthGuard()->id();
             $data = $form->load($data);
             $validator = Validator::make($data, $form->rules(), $form->messages(), $form->attributes());
@@ -126,20 +127,20 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2020年3月23日
-     * @param Request $request
+     * @date   2026-08-27
+     * @param  Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function info(Request $request)
     {
-        $userService = $this->getUserService()->setAuth(config('packet.api.guard'));
+        $userService = $this->getUserService()->setAuth(config('context.api.guard'));
         return $this->responseSuccess($userService->getLoginUserToArray() ?: new \stdClass());
     }
 
     /**
      *
      * @author zxf
-     * @date    2019年9月29日
+     * @date   2026-08-27
      * @return UserService
      */
     private function getUserService()
@@ -150,7 +151,7 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2019年10月20日
+     * @date   2026-08-27
      * @return UserLoginRequest
      */
     private function getUserLoginRequest()
@@ -161,7 +162,7 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date    2019年12月26日
+     * @date   2026-08-27
      * @return UserUpdateRequest
      */
     private function getUserUpdateRequest()

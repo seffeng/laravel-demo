@@ -13,12 +13,12 @@ use Seffeng\Basics\Traits\DeleteTrait;
 /**
  *
  * @author zxf
- * @date   2021年8月5日
- * @method static AdminLoginLog byId(int $id)
- * @method static AdminLoginLog byStatusId(int $statusId)
- * @method static AdminLoginLog byTypeId(int $typeId)
- * @method static AdminLoginLog byFromId(int $fromId)
- * @method static AdminLoginLog byAdminId(int $adminId)
+ * @date   2026-08-27
+ * @method AdminLoginLog byId(int $id)
+ * @method AdminLoginLog byStatusId(int $statusId)
+ * @method AdminLoginLog byTypeId(int $typeId)
+ * @method AdminLoginLog byFromId(int $fromId)
+ * @method AdminLoginLog byAdminId(int $adminId)
  */
 class AdminLoginLog extends Model
 {
@@ -39,7 +39,7 @@ class AdminLoginLog extends Model
     /**
      *
      * @author zxf
-     * @date   2020年12月10日
+     * @date   2026-08-27
      * @return LoginLogType
      */
     public function getType()
@@ -50,7 +50,7 @@ class AdminLoginLog extends Model
     /**
      *
      * @author zxf
-     * @date   2020年12月10日
+     * @date   2026-08-27
      * @return \App\Modules\Log\Illuminate\LogFrom
      */
     public function getFrom()
@@ -61,7 +61,7 @@ class AdminLoginLog extends Model
     /**
      *
      * @author zxf
-     * @date   2020年12月10日
+     * @date   2026-08-27
      * @return LogStatus
      */
     public function getStatus()
@@ -83,7 +83,7 @@ class AdminLoginLog extends Model
     /**
      *
      * @author zxf
-     * @date   2021年1月6日
+     * @date   2026-08-27
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function admin()
@@ -94,9 +94,9 @@ class AdminLoginLog extends Model
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
-     * @param Builder $query
-     * @param int $id
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  int $id
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeById(Builder $query, int $id)
@@ -107,9 +107,9 @@ class AdminLoginLog extends Model
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
-     * @param Builder $query
-     * @param int $statusId
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  int $statusId
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeByStatusId(Builder $query, int $statusId)
@@ -120,9 +120,9 @@ class AdminLoginLog extends Model
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
-     * @param Builder $query
-     * @param int $adminId
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  int $adminId
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeByAdminId(Builder $query, int $adminId)
@@ -133,9 +133,9 @@ class AdminLoginLog extends Model
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
-     * @param Builder $query
-     * @param int $typeId
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  int $typeId
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeByTypeId(Builder $query, int $typeId)
@@ -146,9 +146,9 @@ class AdminLoginLog extends Model
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
-     * @param Builder $query
-     * @param int $fromId
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  int $fromId
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeByFromId(Builder $query, int $fromId)

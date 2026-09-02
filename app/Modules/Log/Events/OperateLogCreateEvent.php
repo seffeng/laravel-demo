@@ -1,6 +1,12 @@
 <?php
+
 namespace App\Modules\Log\Events;
 
+/**
+ *
+ * @author zxf
+ * @date   2026-08-27
+ */
 class OperateLogCreateEvent
 {
     /**
@@ -18,6 +24,7 @@ class OperateLogCreateEvent
     /**
      * Create a new event instance.
      *
+     * @param  mixed $model
      * @return void
      */
     public function __construct($model, array $data = [])
@@ -30,7 +37,7 @@ class OperateLogCreateEvent
     /**
      *
      * @author zxf
-     * @date   2020年12月10日
+     * @date   2026-08-27
      * @return mixed
      */
     public function getModel()
@@ -41,7 +48,7 @@ class OperateLogCreateEvent
     /**
      *
      * @author zxf
-     * @date   2020年12月10日
+     * @date   2026-08-27
      * @return array
      */
     public function getData()

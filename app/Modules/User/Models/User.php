@@ -6,28 +6,30 @@ use App\Common\Base\Model;
 use App\Common\Constants\DeleteConst;
 use App\Common\Constants\StatusConst;
 use App\Modules\User\Illuminate\UserStatus;
+use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContracts;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Seffeng\Basics\Traits\DeleteTrait;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 /**
  *
- * @date    2019年9月25日
- * @property integer $id
+ * @date     2026-08-27
+ * @property int $id
  * @property string $username
- * @property integer $status_id
- * @property integer $delete_id
- * @method static User byId(int|array $id)
- * @method static User byUsername(string $username)
- * @method static User likeUsername(string $username, bool $left = false)
- * @method static User byStatusId(int|array $statusId)
- * @method static User byStatusOn()
- * @method static User byStatusOff()
+ * @property int $status_id
+ * @property int $delete_id
+ * @method User byId(int|array $id)
+ * @method User byUsername(string $username)
+ * @method User likeUsername(string $username, bool $left = false)
+ * @method User byStatusId(int|array $statusId)
+ * @method User byStatusOn()
+ * @method User byStatusOff()
  */
 class User extends Model implements AuthenticatableContracts, JWTSubject
 {
-    use Authenticatable, DeleteTrait;
+    use Authenticatable, DeleteTrait, HasFactory;
 
     /**
      *
@@ -51,9 +53,20 @@ class User extends Model implements AuthenticatableContracts, JWTSubject
         'updated_at' => 'timestamp'
     ];
 
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Database\Factories\UserFactory
+     */
+    protected static function newFactory()
+    {
+        return UserFactory::new();
+    }
+
     /**
      * 密码加密
-     * @date    2019年7月30日
+     * @date    2026-08-27
      */
     public function encryptPassword()
     {
@@ -63,9 +76,9 @@ class User extends Model implements AuthenticatableContracts, JWTSubject
 
     /**
      * 密码验证
-     * @date    2019年7月30日
+     * @date   2026-08-27
      * @param  string $password
-     * @return boolean
+     * @return bool
      */
     public function verifyPassword($password)
     {
@@ -74,7 +87,7 @@ class User extends Model implements AuthenticatableContracts, JWTSubject
 
     /**
      *
-     * @date    2019年9月29日
+     * @date   2026-08-27
      * @return \App\Modules\User\Illuminate\UserStatus
      */
     public function getStatus()
@@ -85,8 +98,8 @@ class User extends Model implements AuthenticatableContracts, JWTSubject
     /**
      * 更新登录信息
      * @author zxf
-     * @date    2019年10月21日
-     * @param string $ipAddress
+     * @date   2026-08-27
+     * @param  string $ipAddress
      */
     public function updateLoginValues(string $ipAddress = '')
     {
@@ -98,7 +111,7 @@ class User extends Model implements AuthenticatableContracts, JWTSubject
     /**
      *
      * @author zxf
-     * @date   2023-03-28
+     * @date   2026-08-27
      * @return static
      */
     public function loadDefaultValue()
@@ -111,7 +124,7 @@ class User extends Model implements AuthenticatableContracts, JWTSubject
     /**
      *
      * @author zxf
-     * @date   2024-08-07
+     * @date   2026-08-27
      * @return static
      */
     public function onUser()
@@ -123,7 +136,7 @@ class User extends Model implements AuthenticatableContracts, JWTSubject
     /**
      *
      * @author zxf
-     * @date   2024-08-07
+     * @date   2026-08-27
      * @return static
      */
     public function offUser()
@@ -135,9 +148,9 @@ class User extends Model implements AuthenticatableContracts, JWTSubject
     /**
      *
      * @author zxf
-     * @date   2023-03-28
-     * @param Builder $query
-     * @param integer|array $id
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  int|array $id
      * @return static
      */
     public function scopeById(Builder $query, $id)
@@ -151,9 +164,9 @@ class User extends Model implements AuthenticatableContracts, JWTSubject
     /**
      *
      * @author zxf
-     * @date   2023-03-28
-     * @param Builder $query
-     * @param string $username
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  string $username
      * @return static
      */
     public function scopeByUsername(Builder $query, string $username)
@@ -164,10 +177,10 @@ class User extends Model implements AuthenticatableContracts, JWTSubject
     /**
      *
      * @author zxf
-     * @date   2023-03-28
-     * @param Builder $query
-     * @param string $username
-     * @param boolean $left
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  string $username
+     * @param  bool $left
      * @return static
      */
     public function scopeLikeUsername(Builder $query, string $username, bool $left = false)
@@ -178,9 +191,9 @@ class User extends Model implements AuthenticatableContracts, JWTSubject
     /**
      *
      * @author zxf
-     * @date   2024-08-07
-     * @param Builder $query
-     * @param integer|array $statusId
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  int|array $statusId
      * @return static
      */
     public function scopeByStatusId(Builder $query, $statusId)
@@ -194,7 +207,7 @@ class User extends Model implements AuthenticatableContracts, JWTSubject
     /**
      *
      * @author zxf
-     * @date   2024-08-07
+     * @date   2026-08-27
      * @param  Builder $query
      * @return static
      */
@@ -206,7 +219,7 @@ class User extends Model implements AuthenticatableContracts, JWTSubject
     /**
      *
      * @author zxf
-     * @date   2024-08-07
+     * @date   2026-08-27
      * @param  Builder $query
      * @return static
      */

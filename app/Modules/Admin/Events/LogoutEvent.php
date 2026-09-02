@@ -1,12 +1,5 @@
 <?php
-/**
- * 时代财经
- *
- * 本源代码由时代财经及其作者共同所有，未经版权持有者的事先书面授权，
- * 不得使用、复制、修改、合并、发布、分发和/或销售本源代码的副本。
- *
- * @copyright Copyright (c) 2020. tfcaijing.com all rights reserved.
- */
+
 namespace App\Modules\Admin\Events;
 
 use App\Modules\Admin\Models\Admin;
@@ -28,6 +21,7 @@ class LogoutEvent
     /**
      * Create a new event instance.
      *
+     * @param  Admin $model
      * @return void
      */
     public function __construct(Admin $model, array $data = [])
@@ -39,7 +33,7 @@ class LogoutEvent
     /**
      *
      * @author zxf
-     * @date   2020年12月10日
+     * @date   2026-08-27
      * @return Admin
      */
     public function getModel()
@@ -50,7 +44,7 @@ class LogoutEvent
     /**
      *
      * @author zxf
-     * @date   2020年12月10日
+     * @date   2026-08-27
      * @return array
      */
     public function getData()

@@ -13,12 +13,12 @@ use Seffeng\Basics\Traits\DeleteTrait;
 /**
  *
  * @author zxf
- * @date   2021年8月5日
- * @method static UserLoginLog byId(int $id)
- * @method static UserLoginLog byStatusId(int $statusId)
- * @method static UserLoginLog byTypeId(int $typeId)
- * @method static UserLoginLog byFromId(int $fromId)
- * @method static UserLoginLog byUserId(int $userId)
+ * @date   2026-08-27
+ * @method UserLoginLog byId(int $id)
+ * @method UserLoginLog byStatusId(int $statusId)
+ * @method UserLoginLog byTypeId(int $typeId)
+ * @method UserLoginLog byFromId(int $fromId)
+ * @method UserLoginLog byUserId(int $userId)
  */
 class UserLoginLog extends Model
 {
@@ -39,7 +39,7 @@ class UserLoginLog extends Model
     /**
      *
      * @author zxf
-     * @date   2020年12月10日
+     * @date   2026-08-27
      * @return LoginLogType
      */
     public function getType()
@@ -50,7 +50,7 @@ class UserLoginLog extends Model
     /**
      *
      * @author zxf
-     * @date   2020年12月10日
+     * @date   2026-08-27
      * @return \App\Modules\Log\Illuminate\LogFrom
      */
     public function getFrom()
@@ -61,7 +61,7 @@ class UserLoginLog extends Model
     /**
      *
      * @author zxf
-     * @date   2020年12月10日
+     * @date   2026-08-27
      * @return LogStatus
      */
     public function getStatus()
@@ -83,7 +83,7 @@ class UserLoginLog extends Model
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
+     * @date   2026-08-27
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
@@ -94,9 +94,9 @@ class UserLoginLog extends Model
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
-     * @param Builder $query
-     * @param int $id
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  int $id
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeById(Builder $query, int $id)
@@ -107,9 +107,9 @@ class UserLoginLog extends Model
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
-     * @param Builder $query
-     * @param int $statusId
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  int $statusId
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeByStatusId(Builder $query, int $statusId)
@@ -120,9 +120,9 @@ class UserLoginLog extends Model
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
-     * @param Builder $query
-     * @param int $userId
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  int $userId
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeByUserId(Builder $query, int $userId)
@@ -133,9 +133,9 @@ class UserLoginLog extends Model
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
-     * @param Builder $query
-     * @param int $typeId
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  int $typeId
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeByTypeId(Builder $query, int $typeId)
@@ -146,9 +146,9 @@ class UserLoginLog extends Model
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
-     * @param Builder $query
-     * @param int $fromId
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  int $fromId
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeByFromId(Builder $query, int $fromId)

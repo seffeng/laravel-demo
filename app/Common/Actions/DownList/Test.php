@@ -9,7 +9,7 @@ class Test
     /**
      *
      * @author zxf
-     * @date   2023-03-27
+     * @date   2026-08-27
      * @param  \Illuminate\Http\Request $request
      * @return void
      */
@@ -17,11 +17,14 @@ class Test
     {
         $data = [];
         $items = ['appName' => config('app.name'), 'key1' => 'value1', 'key2' => 'value2', 'date' => date(FormatConst::DATE_YMDHIS)];
-        if ($items) foreach ($items as $key => $item) {
-            $data[] = [
-                'id' => $key,
-                'name' => $item
-            ];
+        if ($items) {
+            foreach ($items as $key => $item) {
+                $data[] = [
+                    'id' => $key,
+                    'name' => $item,
+                    'params' => $request->all()
+                ];
+            }
         }
         return $data;
     }

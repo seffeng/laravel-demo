@@ -5,8 +5,9 @@ use App\Common\Base\FormRequest;
 /**
  *
  * @author zxf
- * @date    2021年8月5日
+ * @date   2026-08-27
  * @property int $userId
+ * @property string $username
  * @property int $statusId
  * @property int $typeId
  * @property int $fromId

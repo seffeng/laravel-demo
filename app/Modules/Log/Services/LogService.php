@@ -22,10 +22,10 @@ class LogService extends Service
     /**
      *
      * @author zxf
-     * @date   2020年12月10日
-     * @param AdminLoginLogCreateRequest $form
+     * @date   2026-08-27
+     * @param  AdminLoginLogCreateRequest $form
      * @throws \Exception
-     * @return boolean
+     * @return bool
      */
     public function createAdminLoginLog(AdminLoginLogCreateRequest $form)
     {
@@ -45,10 +45,10 @@ class LogService extends Service
     /**
      *
      * @author zxf
-     * @date   2020年12月25日
-     * @param UserLoginLogCreateRequest $form
+     * @date   2026-08-27
+     * @param  UserLoginLogCreateRequest $form
      * @throws \Exception
-     * @return boolean
+     * @return bool
      */
     public function createUserLoginLog(UserLoginLogCreateRequest $form)
     {
@@ -68,10 +68,10 @@ class LogService extends Service
     /**
      *
      * @author zxf
-     * @date   2020年12月10日
-     * @param OperateLogCreateRequest $form
+     * @date   2026-08-27
+     * @param  OperateLogCreateRequest $form
      * @throws \Exception
-     * @return boolean
+     * @return bool
      */
     public function createOperateLog(OperateLogCreateRequest $form)
     {
@@ -92,8 +92,8 @@ class LogService extends Service
     /**
      *
      * @author zxf
-     * @date   2021年1月6日
-     * @param AdminLoginLogSearchRequest $form
+     * @date   2026-08-27
+     * @param  AdminLoginLogSearchRequest $form
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function getAdminLoginLogPaginate(AdminLoginLogSearchRequest $form)
@@ -143,7 +143,7 @@ class LogService extends Service
     /**
      *
      * @author zxf
-     * @date   2021年1月6日
+     * @date   2026-08-27
      * @param  AdminLoginLogSearchRequest $form
      * @return array
      */
@@ -167,8 +167,8 @@ class LogService extends Service
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
-     * @param UserLoginLogSearchRequest $form
+     * @date   2026-08-27
+     * @param  UserLoginLogSearchRequest $form
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function getUserLoginLogPaginate(UserLoginLogSearchRequest $form)
@@ -218,8 +218,8 @@ class LogService extends Service
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
-     * @param UserLoginLogSearchRequest $form
+     * @date   2026-08-27
+     * @param  UserLoginLogSearchRequest $form
      * @return array
      */
     public function getUserLoginLogStore(UserLoginLogSearchRequest $form)
@@ -242,8 +242,8 @@ class LogService extends Service
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
-     * @param UserLoginLog|AdminLoginLog $model
+     * @date   2026-08-27
+     * @param  UserLoginLog|AdminLoginLog $model
      * @return array
      */
     protected function parseLoginLogModel($model)
@@ -279,8 +279,8 @@ class LogService extends Service
     /**
      *
      * @author zxf
-     * @date   2021年1月6日
-     * @param OperateLogSearchRequest $form
+     * @date   2026-08-27
+     * @param  OperateLogSearchRequest $form
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function getOperateLogPaginate(OperateLogSearchRequest $form)
@@ -336,8 +336,8 @@ class LogService extends Service
     /**
      *
      * @author zxf
-     * @date   2021年1月6日
-     * @param OperateLogSearchRequest $form
+     * @date   2026-08-27
+     * @param  OperateLogSearchRequest $form
      * @return array
      */
     public function getOperateLogStore(OperateLogSearchRequest $form)
@@ -360,8 +360,8 @@ class LogService extends Service
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
-     * @param OperateLog $model
+     * @date   2026-08-27
+     * @param  OperateLog $model
      * @return array
      */
     protected function parseOperateLogModel(OperateLog $model)

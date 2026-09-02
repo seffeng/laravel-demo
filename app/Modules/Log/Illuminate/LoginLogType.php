@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\Log\Illuminate;
 
 use App\Common\Illuminate\TypeIlluminate;
@@ -9,7 +10,7 @@ class LoginLogType extends TypeIlluminate
     /**
      *
      * @author zxf
-     * @date   2020年12月10日
+     * @date   2026-08-27
      * @return string[]
      */
     public static function fetchNameItems()

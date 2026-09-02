@@ -6,12 +6,13 @@ $ protoc --php_out=. app/Grpc/Protos/Demo.proto
 # 生成文件目录为 GPBMetadata 和 Demo
 
 # composer 安装 grpc/grpc, google/protobuf
+$ composer require grpc/grpc google/protobuf -vvv
 ```
 
 #### 服务端示例参考 `app/Grpc/Servers/DemoServer`
 ```shell
 # 启动服务
-$ php artisan command:grpc-demo
+$ php artisan command:grpc-demo --host=127.0.0.1 --port=50051
 
 # 关闭服务，结束进程
 $ kill -9 $(ps aux|grep grpc|grep -v grep|awk '{print $1}')
@@ -20,5 +21,5 @@ $ kill -9 $(ps aux|grep grpc|grep -v grep|awk '{print $1}')
 #### 客户端示例参考 `app/Grpc/Clients/DemoClient`
 ```shell
 # 请求
-$ php artisan command:grpc-demo client
+$ php artisan command:grpc-demo client --host=127.0.0.1 --port=50051
 ```

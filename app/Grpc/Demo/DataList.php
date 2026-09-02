@@ -28,7 +28,7 @@ class DataList extends \Google\Protobuf\Internal\Message
      * @param array $data {
      *     Optional. Data for populating the Message object.
      *
-     *     @type array<\App\Grpc\Demo\Data>|\Google\Protobuf\Internal\RepeatedField $items
+     *     @type \App\Grpc\Demo\Data[]|\Google\Protobuf\Internal\RepeatedField $items
      *     @type \App\Grpc\Demo\Page $page
      * }
      */
@@ -48,7 +48,7 @@ class DataList extends \Google\Protobuf\Internal\Message
 
     /**
      * Generated from protobuf field <code>repeated .Data items = 1;</code>
-     * @param array<\App\Grpc\Demo\Data>|\Google\Protobuf\Internal\RepeatedField $var
+     * @param \App\Grpc\Demo\Data[]|\Google\Protobuf\Internal\RepeatedField $var
      * @return $this
      */
     public function setItems($var)

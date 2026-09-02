@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
-use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Route;
+use Seffeng\LaravelHelpers\Helpers\Arr;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -24,7 +24,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->namespace = Arr::get(config('packet'), config('app.name') .'.namespace', $this->namespace);
+        $this->namespace = Arr::get(config('context'), config('app.name') .'.namespace', $this->namespace);
         parent::boot();
     }
 
@@ -36,7 +36,7 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $appName = config('app.name');
-        $middleware = config('packet.'. $appName .'.middleware');
+        $middleware = config('context.'. $appName .'.middleware');
         if ($middleware === 'api') {
             $this->mapApiRoutes($appName);
         } else {

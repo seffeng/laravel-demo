@@ -66,8 +66,9 @@ class SiteController extends Controller
     public function logout(Request $request)
     {
         try {
+            $loginUser = $this->getUserService()->getLoginUser();
             if ($this->getUserService()->userLogout()) {
-                $request->merge(['loginLogParams' => ['typeId' => TypeConst::LOG_LOGOUT, 'moduleId' => ModuleConst::USER]]);
+                $request->merge(['loginLogParams' => ['typeId' => TypeConst::LOG_LOGOUT, 'moduleId' => ModuleConst::USER, 'data' => ['model' => $loginUser]]]);
                 return $this->responseSuccess(['url' => '/login']);
             }
             return $this->responseError(trans('user.logoutFailure'));

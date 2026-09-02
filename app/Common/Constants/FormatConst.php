@@ -5,7 +5,7 @@ namespace App\Common\Constants;
 /**
  * 格式常量
  * @author zxf
- * @date    2020年11月24日
+ * @date   2026-08-27
  */
 class FormatConst
 {
@@ -23,7 +23,7 @@ class FormatConst
 
     /**
      * 每天 86400 秒
-     * @var integer
+     * @var int
      */
     const DATE_DAY_SECOND = 86400;
 }

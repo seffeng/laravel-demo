@@ -26,6 +26,7 @@ class LoginEvent
     /**
      * Create a new event instance.
      *
+     * @param Admin $model
      * @return void
      */
     public function __construct(Admin $model, array $data = [])
@@ -37,7 +38,7 @@ class LoginEvent
     /**
      *
      * @author zxf
-     * @date   2020年12月10日
+     * @date   2026-08-27
      * @return Admin
      */
     public function getModel()
@@ -48,7 +49,7 @@ class LoginEvent
     /**
      *
      * @author zxf
-     * @date   2020年12月10日
+     * @date   2026-08-27
      * @return array
      */
     public function getData()

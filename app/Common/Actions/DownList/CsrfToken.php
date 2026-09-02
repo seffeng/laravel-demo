@@ -7,11 +7,10 @@ class CsrfToken
     /**
      *
      * @author zxf
-     * @date   2023-03-27
-     * @param  \Illuminate\Http\Request $request
+     * @date   2026-08-27
      * @return void
      */
-    public function handle($request)
+    public function handle()
     {
         $data = csrf_token();
         return is_null($data) ? '' : $data;

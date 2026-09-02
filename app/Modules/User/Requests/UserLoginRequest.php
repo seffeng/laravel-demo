@@ -6,6 +6,15 @@ use App\Common\Base\FormRequest;
 use App\Common\Rules\Password;
 use Seffeng\LaravelHelpers\Helpers\Arr;
 
+/**
+ * 登录参数验证
+ *
+ * @author zxf
+ * @date   2026-08-27
+ * @param  string $username
+ * @param  string $password
+ * @param  bool $remember
+ */
 class UserLoginRequest extends FormRequest
 {
     /**

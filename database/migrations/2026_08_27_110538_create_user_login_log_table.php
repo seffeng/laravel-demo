@@ -1,6 +1,6 @@
 <?php
 
-use App\Modules\Admin\Models\Admin;
+use App\Modules\Log\Models\UserLoginLog;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -8,27 +8,25 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * @author zxf
-     * @date   2023-08-28
-     * @var    Admin
+     * @var UserLoginLog
      */
     protected $model;
 
     /**
      *
      * @author zxf
-     * @date   2023-08-28
+     * @date   2026-08-27
      */
     public function __construct()
     {
-        $this->model = new Admin();
+        $this->model = new UserLoginLog();
     }
 
     /**
      *
      * @author zxf
-     * @date   2023-08-28
-     * @return Admin
+     * @date   2026-08-27
+     * @return UserLoginLog
      */
     protected function getModel()
     {
@@ -37,41 +35,38 @@ return new class extends Migration
 
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         $tableName = $this->getModel()->getTable();
         if (!Schema::hasTable($tableName)) {
             Schema::create($tableName, function (Blueprint $table) {
-                $table->bigIncrements('id')->comment('管理员ID[自增]');
-                $table->string('username', 50)->index()->nullable(false)->default('')->comment('用户名');
-                $table->string('password')->nullable(false)->default('')->comment('密码');
+                $table->bigIncrements('id')->nullable(false)->comment('日志ID[自增]');
+                $table->bigInteger('user_id')->index()->unsigned()->nullable(false)->default(0)->comment('用户ID[admin.id]');
                 $table->tinyInteger('status_id')->unsigned()->nullable(false)->default(0)->comment('状态');
+                $table->tinyInteger('type_id')->unsigned()->nullable(false)->default(0)->comment('类型');
+                $table->tinyInteger('from_id')->unsigned()->nullable(false)->default(0)->comment('操作源[前台,api...]');
                 $table->tinyInteger('delete_id')->unsigned()->nullable(false)->default(0)->comment('删除类型');
-                $table->integer('login_count')->unsigned()->nullable(false)->default(0)->comment('登录次数');
-                $table->integer('login_at')->unsigned()->nullable(false)->default(0)->comment('登录时间');
-                $table->string('login_ip', 39)->nullable(false)->default('')->comment('登录IP');
+                $table->string('content')->nullable(false)->default('')->comment('内容');
+                $table->string('login_ip', 39)->nullable(false)->default('')->comment('登录ip');
                 $table->integer('created_at')->unsigned()->nullable(false)->default(0)->comment('添加时间');
                 $table->integer('updated_at')->unsigned()->nullable(false)->default(0)->comment('修改时间');
                 $table->charset = 'utf8mb4';
                 $table->engine = 'InnoDB';
                 $table->collation = 'utf8mb4_general_ci';
-                $table->comment('管理员表');
+                $table->comment('用户登录日志表');
             });
         }
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
+        $tableName = $this->getModel()->getTable();
         if (config('app.env') === 'local' && config('app.debug')) {
-            Schema::dropIfExists($this->getModel()->getTable());
+            Schema::dropIfExists($tableName);
         }
     }
 };

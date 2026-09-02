@@ -7,7 +7,7 @@ use App\Common\Constants\ErrorConst;
 /**
  *
  * @author zxf
- * @date    2019年11月15日
+ * @date    2026-08-27
  */
 class Handler extends \Seffeng\Basics\Exceptions\Handler
 {

@@ -17,11 +17,11 @@ class OperateLog
     /**
      *
      * @author zxf
-     * @date   2020年12月24日
-     * @param Request $request
-     * @param Closure $next
-     * @param int $fromId
-     * @return boolean
+     * @date   2026-08-27
+     * @param  Request $request
+     * @param  Closure $next
+     * @param  int $fromId
+     * @return bool
      */
     public function handle($request, Closure $next, int $fromId)
     {
@@ -52,9 +52,9 @@ class OperateLog
     /**
      *
      * @author zxf
-     * @date   2020年12月28日
-     * @param int $fromId
-     * @return \Illuminate\Contracts\Auth\Authenticatable|NULL|array
+     * @date   2026-08-27
+     * @param  int $fromId
+     * @return \Illuminate\Contracts\Auth\Authenticatable|null|array
      */
     private function getLoginUser(int $fromId)
     {
@@ -73,9 +73,9 @@ class OperateLog
     /**
      *
      * @author zxf
-     * @date   2020年12月28日
-     * @param int $fromId
-     * @return integer
+     * @date   2026-08-27
+     * @param  int $fromId
+     * @return int
      */
     private function getLoginUserId(int $fromId)
     {
@@ -89,9 +89,9 @@ class OperateLog
     /**
      *
      * @author zxf
-     * @date   2020年12月28日
-     * @param int $fromId
-     * @return boolean
+     * @date   2026-08-27
+     * @param  int $fromId
+     * @return bool
      */
     private function isBackend(int $fromId)
     {
@@ -101,7 +101,7 @@ class OperateLog
     /**
      *
      * @author zxf
-     * @date   2020年12月28日
+     * @date   2026-08-27
      * @return AdminService
      */
     private function getAdminService()
@@ -112,7 +112,7 @@ class OperateLog
     /**
      *
      * @author zxf
-     * @date   2020年12月28日
+     * @date   2026-08-27
      * @return UserService
      */
     private function getUserService()

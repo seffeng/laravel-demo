@@ -6,10 +6,10 @@ use Seffeng\LaravelHelpers\Helpers\Arr;
 /**
  *
  * @author zxf
- * @date    2020年12月10日
- * @property int $admin_id
- * @property int $status_id
- * @property int $type_id
+ * @date   2026-08-27
+ * @property int $adminId
+ * @property int $statusId
+ * @property int $typeId
  * @property string $content
  */
 class AdminLoginLogCreateRequest extends FormRequest

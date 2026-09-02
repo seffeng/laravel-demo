@@ -13,22 +13,22 @@ class DownListAction
     /**
      *
      * @author zxf
-     * @date    2019年12月25日
-     * @param  string $type
+     * @date   2026-08-27
+     * @param  Request $request
      * @return array
      */
     public function run(Request $request)
     {
-        try {
-            $data = [];
-            $type = $request->get('type');
-            $type = str_replace(' ', '', $type);
-            if (strpos($type, ',') !== false) {
-                $typeList = explode(',', $type);
-            } else {
-                $typeList = [$type];
-            }
-            if ($typeList) foreach ($typeList as $type) {
+        $data = [];
+        $type = $request->input('type');
+        $type = str_replace(' ', '', $type);
+        if (strpos($type, ',') !== false) {
+            $typeList = explode(',', $type);
+        } else {
+            $typeList = [$type];
+        }
+        if ($typeList) {
+            foreach ($typeList as $type) {
                 if (!$this->can($type)) {
                     continue;
                 }
@@ -37,10 +37,8 @@ class DownListAction
                     $data[$type] = (new $class)->handle($request);
                 }
             }
-            return $data;
-        } catch (\Exception $e) {
-            throw $e;
         }
+        return $data;
     }
 
     /**
@@ -48,10 +46,10 @@ class DownListAction
      * @author zxf
      * @date   2023-03-27
      * @param  string $type
-     * @return boolean
+     * @return bool
      */
     protected function can($type)
     {
-        return true;
+        return $type ? true : false;
     }
 }

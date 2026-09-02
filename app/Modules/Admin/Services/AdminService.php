@@ -30,8 +30,8 @@ class AdminService extends Service
     /**
      *
      * @author zxf
-     * @date    2019年10月29日
-     * @param int $id
+     * @date   2026-08-27
+     * @param  int $id
      * @return Admin
      */
     public function getAdminById(int $id)
@@ -42,8 +42,8 @@ class AdminService extends Service
     /**
      *
      * @author zxf
-     * @date    2019年10月29日
-     * @param int $id
+     * @date   2026-08-27
+     * @param  int $id
      * @throws AdminNotFoundException
      * @throws \Exception
      * @return Admin
@@ -64,7 +64,7 @@ class AdminService extends Service
     /**
      *
      * @author zxf
-     * @date    2019年9月29日
+     * @date   2026-08-27
      * @param  string $username
      * @return Admin
      */
@@ -76,7 +76,7 @@ class AdminService extends Service
     /**
      *
      * @author zxf
-     * @date   2019年10月19日
+     * @date   2026-08-27
      * @param  string $username
      * @throws AdminNotFoundException
      * @throws \Exception
@@ -98,13 +98,13 @@ class AdminService extends Service
     /**
      *
      * @author zxf
-     * @date    2019年9月29日
-     * @param AdminLoginRequest $form
+     * @date   2026-08-27
+     * @param  AdminLoginRequest $form
      * @throws AdminException
      * @throws AdminStatusException
      * @throws AdminNotFoundException
      * @throws \Exception
-     * @return boolean
+     * @return string
      */
     public function adminLogin(AdminLoginRequest $form)
     {
@@ -134,7 +134,7 @@ class AdminService extends Service
     /**
      *
      * @author zxf
-     * @date    2019年9月29日
+     * @date   2026-08-27
      */
     public function adminLogout()
     {
@@ -153,8 +153,8 @@ class AdminService extends Service
     /**
      *
      * @author zxf
-     * @date    2019年9月29日
-     * @return boolean
+     * @date   2026-08-27
+     * @return bool
      */
     public function adminIsLogin()
     {
@@ -164,7 +164,7 @@ class AdminService extends Service
     /**
      *
      * @author zxf
-     * @date    2019年10月21日
+     * @date   2026-08-27
      * @return \Illuminate\Contracts\Auth\Authenticatable|NULL
      */
     public function getLoginAdmin()
@@ -175,8 +175,8 @@ class AdminService extends Service
     /**
      *
      * @author zxf
-     * @date    2019年10月21日
-     * @return NULL[]|array
+     * @date   2026-08-27
+     * @return array
      */
     public function getLoginAdminToArray()
     {
@@ -193,7 +193,7 @@ class AdminService extends Service
     /**
      *
      * @author zxf
-     * @date    2020年6月7日
+     * @date   2026-08-27
      * @param  AdminSearchRequest $form
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
@@ -235,7 +235,7 @@ class AdminService extends Service
     /**
      *
      * @author zxf
-     * @date    2020年6月7日
+     * @date   2026-08-27
      * @param  AdminSearchRequest $form
      * @return array
      */
@@ -270,11 +270,11 @@ class AdminService extends Service
     /**
      *
      * @author zxf
-     * @date    2019年10月29日
+     * @date   2026-08-27
      * @param  AdminCreateRequest $form
-     * @param  boolean $assoc
+     * @param  bool $assoc
      * @throws \Exception
-     * @return boolean|Admin
+     * @return bool|Admin
      */
     public function createAdmin(AdminCreateRequest $form, bool $assoc = false)
     {
@@ -302,11 +302,11 @@ class AdminService extends Service
     /**
      *
      * @author zxf
-     * @date    2019年10月30日
+     * @date   2026-08-27
      * @param AdminUpdateRequest $form
-     * @param  boolean $assoc
+     * @param  bool $assoc
      * @throws \Exception
-     * @return boolean|Admin
+     * @return bool|Admin
      */
     public function updateAdmin(AdminUpdateRequest $form, bool $assoc = false)
     {
@@ -339,11 +339,11 @@ class AdminService extends Service
     /**
      *
      * @author zxf
-     * @date    2019年10月29日
+     * @date   2026-08-27
      * @param  AdminDeleteRequest $form
-     * @param  boolean $assoc
+     * @param  bool $assoc
      * @throws \Exception
-     * @return boolean|Admin
+     * @return bool|Admin
      */
     public function deleteAdmin(AdminDeleteRequest $form, bool $assoc = false)
     {
@@ -366,10 +366,10 @@ class AdminService extends Service
      * 启用
      *
      * @author zxf
-     * @date   2023-03-28
+     * @date   2026-08-27
      * @param  AdminStatusRequest $form
-     * @param  boolean $assoc
-     * @return boolean|Admin
+     * @param  bool $assoc
+     * @return bool|Admin
      */
     public function onAdmin(AdminStatusRequest $form, bool $assoc = false)
     {
@@ -397,10 +397,10 @@ class AdminService extends Service
      * 停用
      *
      * @author zxf
-     * @date   2023-03-28
+     * @date   2026-08-27
      * @param  AdminStatusRequest $form
-     * @param  boolean $assoc
-     * @return boolean|Admin
+     * @param  bool $assoc
+     * @return bool|Admin
      */
     public function offAdmin(AdminStatusRequest $form, bool $assoc = false)
     {
@@ -426,8 +426,8 @@ class AdminService extends Service
     /**
      *
      * @author zxf
-     * @date   2023-03-28
-     * @param int $id
+     * @date   2026-08-27
+     * @param  int $id
      * @return string
      */
     protected function getLoginFailedCacheKey(int $id)
@@ -438,9 +438,9 @@ class AdminService extends Service
     /**
      *
      * @author zxf
-     * @date   2023-03-28
-     * @param Admin $model
-     * @return number
+     * @date   2026-08-27
+     * @param  Admin $model
+     * @return int
      */
     public function getLoginFaildCount(Admin $model)
     {
@@ -453,8 +453,8 @@ class AdminService extends Service
     /**
      *
      * @author zxf
-     * @date   2023-03-28
-     * @return number
+     * @date   2026-08-27
+     * @return int
      */
     private function getLoginFaildCacheTTL()
     {
@@ -464,7 +464,7 @@ class AdminService extends Service
     /**
      *
      * @author zxf
-     * @date    2019年9月29日
+     * @date   2026-08-27
      * @return \Illuminate\Contracts\Auth\StatefulGuard
      */
     public function getAuthGuard()

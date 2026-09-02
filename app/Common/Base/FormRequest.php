@@ -7,7 +7,7 @@ use Seffeng\LaravelHelpers\Helpers\Arr;
 /**
  *
  * @author zxf
- * @date    2019年11月15日
+ * @date   2026-08-27
  */
 class FormRequest extends \Seffeng\Basics\Base\FormRequest
 {
@@ -15,7 +15,7 @@ class FormRequest extends \Seffeng\Basics\Base\FormRequest
      * fillable 参数格式
      * true-驼峰，false-下划线
      * 驼峰参数格式时$fillItems将同时存在驼峰和下划线两种值
-     * @var boolean
+     * @var bool
      */
     protected $isCamel = true;
 
@@ -23,16 +23,16 @@ class FormRequest extends \Seffeng\Basics\Base\FormRequest
      *
      * @var array
      */
-    protected $operateLogPamams = [];
+    protected $operateLogParams = [];
 
     /**
      *
-     * @var integer
+     * @var int
      */
     protected $loginLogTypeId;
     /**
      *
-     * @var integer
+     * @var int
      */
     protected $loginLogModuleId;
     /**
@@ -63,18 +63,18 @@ class FormRequest extends \Seffeng\Basics\Base\FormRequest
     /**
      *
      * @author zxf
-     * @date   2020年12月24日
+     * @date   2026-08-27
      * @return array
      */
     public function getOperateLogParams()
     {
-        return $this->operateLogPamams;
+        return $this->operateLogParams;
     }
 
     /**
      *
      * @author zxf
-     * @date   2020年12月24日
+     * @date   2026-08-27
      * @param mixed $operateLogModel
      * @param int $operateLogTypeId
      * @param int $operateLogModuleId
@@ -82,7 +82,7 @@ class FormRequest extends \Seffeng\Basics\Base\FormRequest
      */
     public function setOperateLogParams($operateLogModel, int $operateLogTypeId, int $operateLogModuleId, array $operateLogDiffChanges = [])
     {
-        array_push($this->operateLogPamams, [
+        array_push($this->operateLogParams, [
             'model' => $operateLogModel,
             'typeId' => $operateLogTypeId,
             'moduleId' => $operateLogModuleId,
@@ -93,7 +93,7 @@ class FormRequest extends \Seffeng\Basics\Base\FormRequest
     /**
      *
      * @author zxf
-     * @date   2020年12月25日
+     * @date   2026-08-27
      * @param int $loginTypeId
      * @param int $loginLogModuleId
      */
@@ -107,7 +107,7 @@ class FormRequest extends \Seffeng\Basics\Base\FormRequest
     /**
      *
      * @author zxf
-     * @date   2020年12月25日
+     * @date   2026-08-27
      * @return array
      */
     public function getLoginLogParams()

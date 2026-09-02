@@ -1,5 +1,5 @@
 *
-!api/
-!backend/
-!frontend/
+!api
+!backend
+!frontend
 !.gitignore

@@ -21,31 +21,35 @@ class LoginLog
     /**
      *
      * @author zxf
-     * @date   2020年12月25日
-     * @param Request $request
-     * @param Closure $next
-     * @param int $fromId
-     * @return boolean
+     * @date   2026-08-27
+     * @param  Request $request
+     * @param  Closure $next
+     * @param  int $fromId
+     * @return bool
      */
     public function handle($request, Closure $next, int $fromId)
     {
         $response = $next($request);
         try {
             $loginLogParams = $request->loginLogParams;
-            $model = Arr::get($loginLogParams, 'data.model', $this->getLoginUser($fromId));
+            $data = Arr::get($loginLogParams, 'data', []);
+            $model = Arr::get($data, 'model', $this->getLoginUser($fromId));
             if ($model && $loginLogParams) {
+                if (isset($data['model'])) {
+                    unset($data['model']);
+                }
                 $typeId = Arr::get($loginLogParams, 'typeId');
                 if ($this->isBackend($fromId)) {
                     if ($this->isLogout($typeId)) {
-                        event(new AdminLogoutEvent($model, Arr::merge(Arr::get($loginLogParams, 'data', []), ['fromId' => $fromId, 'clientIp' => $request->getClientIp()])));
+                        event(new AdminLogoutEvent($model, Arr::merge($data, ['fromId' => $fromId, 'clientIp' => $request->getClientIp()])));
                     } else {
-                        event(new AdminLoginEvent($model, Arr::merge(Arr::get($loginLogParams, 'data', []), ['fromId' => $fromId, 'clientIp' => $request->getClientIp()])));
+                        event(new AdminLoginEvent($model, Arr::merge($data, ['fromId' => $fromId, 'clientIp' => $request->getClientIp()])));
                     }
                 } else {
                     if ($this->isLogout($typeId)) {
-                        event(new UserLogoutEvent($model, Arr::merge(Arr::get($loginLogParams, 'data', []), ['fromId' => $fromId, 'clientIp' => $request->getClientIp()])));
+                        event(new UserLogoutEvent($model, Arr::merge($data, ['fromId' => $fromId, 'clientIp' => $request->getClientIp()])));
                     } else {
-                        event(new UserLoginEvent($model, Arr::merge(Arr::get($loginLogParams, 'data', []), ['fromId' => $fromId, 'clientIp' => $request->getClientIp()])));
+                        event(new UserLoginEvent($model, Arr::merge($data, ['fromId' => $fromId, 'clientIp' => $request->getClientIp()])));
                     }
                 }
             }
@@ -60,9 +64,9 @@ class LoginLog
     /**
      *
      * @author zxf
-     * @date   2020年12月25日
-     * @param int $fromId
-     * @return boolean
+     * @date   2026-08-27
+     * @param  int $fromId
+     * @return bool
      */
     private function isBackend(int $fromId)
     {
@@ -72,9 +76,9 @@ class LoginLog
     /**
      *
      * @author zxf
-     * @date   2020年12月28日
-     * @param int $typeId
-     * @return boolean
+     * @date   2026-08-27
+     * @param  int $typeId
+     * @return bool
      */
     private function isLogout(int $typeId)
     {
@@ -84,9 +88,9 @@ class LoginLog
     /**
      *
      * @author zxf
-     * @date   2020年12月28日
-     * @param int $fromId
-     * @return \Illuminate\Contracts\Auth\Authenticatable|NULL|array
+     * @date   2026-08-27
+     * @param  int $fromId
+     * @return \Illuminate\Contracts\Auth\Authenticatable|null|array
      */
     private function getLoginUser(int $fromId)
     {
@@ -105,7 +109,7 @@ class LoginLog
     /**
      *
      * @author zxf
-     * @date   2020年12月28日
+     * @date   2026-08-27
      * @return AdminService
      */
     private function getAdminService()
@@ -116,7 +120,7 @@ class LoginLog
     /**
      *
      * @author zxf
-     * @date   2020年12月28日
+     * @date   2026-08-27
      * @return UserService
      */
     private function getUserService()

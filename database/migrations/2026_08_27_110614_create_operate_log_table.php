@@ -8,16 +8,14 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * @author zxf
-     * @date   2023-08-28
-     * @var    OperateLog
+     * @var OperateLog
      */
     protected $model;
 
     /**
      *
      * @author zxf
-     * @date   2023-08-28
+     * @date   2026-08-27
      */
     public function __construct()
     {
@@ -27,7 +25,7 @@ return new class extends Migration
     /**
      *
      * @author zxf
-     * @date   2023-08-28
+     * @date   2026-08-27
      * @return OperateLog
      */
     protected function getModel()
@@ -37,10 +35,8 @@ return new class extends Migration
 
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         $tableName = $this->getModel()->getTable();
         if (!Schema::hasTable($tableName)) {
@@ -68,13 +64,12 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
+        $tableName = $this->getModel()->getTable();
         if (config('app.env') === 'local' && config('app.debug')) {
-            Schema::dropIfExists($this->getModel()->getTable());
+            Schema::dropIfExists($tableName);
         }
     }
 };

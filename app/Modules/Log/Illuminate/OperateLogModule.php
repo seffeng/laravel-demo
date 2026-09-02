@@ -12,7 +12,7 @@ class OperateLogModule extends TypeIlluminate
     /**
      *
      * @author zxf
-     * @date   2020年12月10日
+     * @date   2026-08-27
      * @return string[]
      */
     public static function fetchNameItems()
@@ -26,8 +26,8 @@ class OperateLogModule extends TypeIlluminate
     /**
      *
      * @author zxf
-     * @date   2021年8月5日
-     * @return string[]
+     * @date   2026-08-27
+     * @return array
      */
     public static function fetchResourceClassItems()
     {

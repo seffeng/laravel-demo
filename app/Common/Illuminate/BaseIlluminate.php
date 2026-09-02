@@ -4,19 +4,25 @@ namespace App\Common\Illuminate;
 
 use Illuminate\Support\Arr;
 
+/**
+ * 属性基础处理
+ *
+ * @author zxf
+ * @date   2026-08-27
+ */
 class BaseIlluminate
 {
         /**
      *
-     * @var integer
+     * @var int
      */
     protected $id;
 
     /**
      *
      * @author zxf
-     * @date    2020年12月25日
-     * @param int $id
+     * @date   2026-08-27
+     * @param  int $id
      */
     public function __construct(int $id)
     {
@@ -26,8 +32,8 @@ class BaseIlluminate
     /**
      *
      * @author zxf
-     * @date    2020年12月25日
-     * @return number
+     * @date   2026-08-27
+     * @return int
      */
     public function getValue()
     {
@@ -37,7 +43,7 @@ class BaseIlluminate
     /**
      *
      * @author zxf
-     * @date    2020年12月25日
+     * @date   2026-08-27
      * @return string
      */
     public function getName()
@@ -48,7 +54,7 @@ class BaseIlluminate
     /**
      *
      * @author zxf
-     * @date    2020年12月25日
+     * @date   2026-08-27
      * @return array
      */
     public static function fetchItems()
@@ -59,7 +65,7 @@ class BaseIlluminate
     /**
      *
      * @author zxf
-     * @date    2020年12月25日
+     * @date   2026-08-27
      * @return string[]
      */
     public static function fetchNameItems()

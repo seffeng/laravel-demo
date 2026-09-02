@@ -20,8 +20,8 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2019年10月20日
-     * @param Request $request
+     * @date   2026-08-27
+     * @param  Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function login(Request $request)
@@ -58,15 +58,16 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2019年10月19日
-     * @param Request $request
+     * @date   2026-08-27
+     * @param  Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function logout(Request $request)
     {
         try {
+            $loginAdmin = $this->getAdminService()->getLoginAdmin();
             if ($this->getAdminService()->adminLogout()) {
-                $request->merge(['loginLogParams' => ['typeId' => TypeConst::LOG_LOGOUT, 'moduleId' => ModuleConst::ADMIN]]);
+                $request->merge(['loginLogParams' => ['typeId' => TypeConst::LOG_LOGOUT, 'moduleId' => ModuleConst::ADMIN, 'data' => ['model' => $loginAdmin]]]);
                 return $this->responseSuccess(['url' => '/login']);
             }
             return $this->responseError(trans('admin.logoutFailure'));
@@ -78,7 +79,7 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2019年10月19日
+     * @date   2026-08-27
      * @return \Illuminate\Http\JsonResponse
      */
     public function isLogin(Request $request)
@@ -92,8 +93,8 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2020年3月23日
-     * @param Request $request
+     * @date   2026-08-27
+     * @param  Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function info(Request $request)
@@ -104,7 +105,7 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date    2019年12月25日
+     * @date   2026-08-27
      * @param  Request $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -132,7 +133,7 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date    2019年9月29日
+     * @date   2026-08-27
      * @return AdminService
      */
     private function getAdminService()
@@ -143,7 +144,7 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date   2019年10月20日
+     * @date   2026-08-27
      * @return AdminLoginRequest
      */
     private function getAdminLoginRequest()
@@ -154,7 +155,7 @@ class SiteController extends Controller
     /**
      *
      * @author zxf
-     * @date    2019年12月25日
+     * @date   2026-08-27
      * @return AdminUpdateRequest
      */
     private function getAdminUpdateRequest()

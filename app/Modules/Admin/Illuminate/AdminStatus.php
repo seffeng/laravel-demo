@@ -6,5 +6,4 @@ use App\Common\Illuminate\StatusIlluminate;
 
 class AdminStatus extends StatusIlluminate
 {
-
 }

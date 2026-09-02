@@ -7,7 +7,7 @@ use App\Common\Constants\ErrorConst;
 /**
  *
  * @author zxf
- * @date    2019年11月15日
+ * @date   2026-08-27
  */
 class Controller extends \Seffeng\Basics\Base\Controller
 {
@@ -22,7 +22,7 @@ class Controller extends \Seffeng\Basics\Base\Controller
      * {@inheritDoc}
      * @see \Seffeng\Basics\Base\Controller::responseSuccess()
      */
-    public function responseSuccess($data = [], string $message = 'success', array $headers = [], int $code = null)
+    public function responseSuccess($data = [], string $message = 'success', array $headers = [], ?int $code = null)
     {
         return parent::responseSuccess($data, $message, $this->errorClass::mergeHeaders($headers), $code);
     }
@@ -32,7 +32,7 @@ class Controller extends \Seffeng\Basics\Base\Controller
      * {@inheritDoc}
      * @see \Seffeng\Basics\Base\Controller::responseError()
      */
-    public function responseError(string $message, $data = [], int $code = null, array $headers = [])
+    public function responseError(string $message, $data = [], int|null $code = null, array $headers = [])
     {
         return parent::responseError($message, $data, $code, $this->errorClass::mergeHeaders($headers));
     }

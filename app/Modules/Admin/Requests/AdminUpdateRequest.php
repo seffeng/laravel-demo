@@ -12,10 +12,10 @@ use Seffeng\LaravelHelpers\Helpers\Arr;
 /**
  *
  * @author zxf
- * @date    2019年10月29日
+ * @date   2026-08-27
  * @property int $id
- * @property int $password
  * @property string $username
+ * @property string $password
  */
 class AdminUpdateRequest extends FormRequest
 {

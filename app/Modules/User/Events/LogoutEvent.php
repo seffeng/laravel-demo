@@ -21,6 +21,7 @@ class LogoutEvent
     /**
      * Create a new event instance.
      *
+     * @param  User $model
      * @return void
      */
     public function __construct(User $model, array $data = [])
@@ -32,7 +33,7 @@ class LogoutEvent
     /**
      *
      * @author zxf
-     * @date   2020年12月28日
+     * @date   2026-08-27
      * @return User
      */
     public function getModel()
@@ -43,7 +44,7 @@ class LogoutEvent
     /**
      *
      * @author zxf
-     * @date   2020年12月28日
+     * @date   2026-08-27
      * @return array
      */
     public function getData()

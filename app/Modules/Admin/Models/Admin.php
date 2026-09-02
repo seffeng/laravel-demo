@@ -14,17 +14,17 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
  *
- * @date    2019年9月25日
- * @property integer $id
+ * @date     2026-08-27
+ * @property int $id
  * @property string $username
- * @property integer $status_id
- * @property integer $delete_id
- * @method static Admin byId(int|array $id)
- * @method static Admin byUsername(string $username)
- * @method static Admin likeUsername(string $username, bool $left = false)
- * @method static Admin byStatusId(int|array $statusId)
- * @method static Admin byStatusOn()
- * @method static Admin byStatusOff()
+ * @property int $status_id
+ * @property int $delete_id
+ * @method Admin byId(int|array $id)
+ * @method Admin byUsername(string $username)
+ * @method Admin likeUsername(string $username, bool $left = false)
+ * @method Admin byStatusId(int|array $statusId)
+ * @method Admin byStatusOn()
+ * @method Admin byStatusOff()
  */
 class Admin extends Model implements AuthenticatableContracts, JWTSubject
 {
@@ -54,7 +54,7 @@ class Admin extends Model implements AuthenticatableContracts, JWTSubject
 
     /**
      * 密码加密
-     * @date    2019年7月30日
+     * @date    2026-08-27
      */
     public function encryptPassword()
     {
@@ -64,9 +64,9 @@ class Admin extends Model implements AuthenticatableContracts, JWTSubject
 
     /**
      * 密码验证
-     * @date    2019年7月30日
+     * @date   2026-08-27
      * @param  string $password
-     * @return boolean
+     * @return bool
      */
     public function verifyPassword($password)
     {
@@ -75,8 +75,8 @@ class Admin extends Model implements AuthenticatableContracts, JWTSubject
 
     /**
      *
-     * @date    2019年9月29日
-     * @return AdminStatus
+     * @date    2026-08-27
+     * @return  AdminStatus
      */
     public function getStatus()
     {
@@ -86,8 +86,8 @@ class Admin extends Model implements AuthenticatableContracts, JWTSubject
     /**
      * 更新登录信息
      * @author zxf
-     * @date    2019年10月21日
-     * @param string $ipAddress
+     * @date   2026-08-27
+     * @param  string $ipAddress
      */
     public function updateLoginValues(string $ipAddress = '')
     {
@@ -99,7 +99,7 @@ class Admin extends Model implements AuthenticatableContracts, JWTSubject
     /**
      *
      * @author zxf
-     * @date    2019年10月29日
+     * @date    2026-08-27
      */
     public function loadDefaultValue()
     {
@@ -111,7 +111,7 @@ class Admin extends Model implements AuthenticatableContracts, JWTSubject
     /**
      *
      * @author zxf
-     * @date   2020年12月11日
+     * @date   2026-08-27
      */
     public function onAdmin()
     {
@@ -121,7 +121,7 @@ class Admin extends Model implements AuthenticatableContracts, JWTSubject
     /**
      *
      * @author zxf
-     * @date   2020年12月11日
+     * @date   2026-08-27
      */
     public function offAdmin()
     {
@@ -131,9 +131,9 @@ class Admin extends Model implements AuthenticatableContracts, JWTSubject
     /**
      *
      * @author zxf
-     * @date   2020年4月3日
-     * @param Builder $query
-     * @param integer|array $id
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  int|array $id
      * @return static
      */
     public function scopeById(Builder $query, $id)
@@ -147,7 +147,7 @@ class Admin extends Model implements AuthenticatableContracts, JWTSubject
     /**
      *
      * @author zxf
-     * @date    2020年4月3日
+     * @date   2026-08-27
      * @param  Builder $query
      * @param  string $username
      * @return static
@@ -160,10 +160,10 @@ class Admin extends Model implements AuthenticatableContracts, JWTSubject
     /**
      *
      * @author zxf
-     * @date   2020年4月3日
-     * @param Builder $query
-     * @param string $username
-     * @param boolean $left
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  string $username
+     * @param  bool $left
      * @return static
      */
     public function scopeLikeUsername(Builder $query, string $username, bool $left = false)
@@ -174,9 +174,9 @@ class Admin extends Model implements AuthenticatableContracts, JWTSubject
     /**
      *
      * @author zxf
-     * @date   2024-08-07
-     * @param Builder $query
-     * @param integer|array $statusId
+     * @date   2026-08-27
+     * @param  Builder $query
+     * @param  int|array $statusId
      * @return static
      */
     public function scopeByStatusId(Builder $query, $statusId)
@@ -190,8 +190,8 @@ class Admin extends Model implements AuthenticatableContracts, JWTSubject
     /**
      *
      * @author zxf
-     * @date   2024-08-07
-     * @param Builder $query
+     * @date   2026-08-27
+     * @param  Builder $query
      * @return static
      */
     public function scopeByStatusOn(Builder $query)
@@ -202,8 +202,8 @@ class Admin extends Model implements AuthenticatableContracts, JWTSubject
     /**
      *
      * @author zxf
-     * @date   2024-08-07
-     * @param Builder $query
+     * @date   2026-08-27
+     * @param  Builder $query
      * @return static
      */
     public function scopeByStatusOff(Builder $query)

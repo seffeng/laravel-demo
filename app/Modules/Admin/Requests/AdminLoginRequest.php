@@ -6,6 +6,14 @@ use App\Common\Base\FormRequest;
 use App\Common\Rules\Password;
 use Seffeng\LaravelHelpers\Helpers\Arr;
 
+/**
+ *
+ * @author zxf
+ * @date   2026-08-27
+ * @param  string $username
+ * @param  string $password
+ * @param  bool $remember
+ */
 class AdminLoginRequest extends FormRequest
 {
     /**
@@ -43,7 +51,7 @@ class AdminLoginRequest extends FormRequest
                 new Password()
             ],
             'remember' => [
-                function($attribute, $value, $fail) {
+                function($attribute, $value) {
                     $this->setFillItem($attribute, boolval($value));
                 }
             ]

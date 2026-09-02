@@ -4,13 +4,19 @@ namespace App\Common\Illuminate;
 
 use App\Common\Constants\StatusConst;
 
+/**
+ * 状态说明
+ *
+ * @author zxf
+ * @date   2026-08-27
+ */
 class StatusIlluminate extends BaseIlluminate
 {
     /**
      *
      * @author zxf
-     * @date    2019年9月25日
-     * @return boolean
+     * @date   2026-08-27
+     * @return bool
      */
     public function getIsNormal()
     {
@@ -20,7 +26,7 @@ class StatusIlluminate extends BaseIlluminate
     /**
      *
      * @author zxf
-     * @date    2019年9月25日
+     * @date   2026-08-27
      * @return string[]
      */
     public static function fetchNameItems()

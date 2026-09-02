@@ -9,7 +9,7 @@ class LogStatus extends StatusIlluminate
     /**
      *
      * @author zxf
-     * @date   2020年12月10日
+     * @date   2026-08-27
      * @return string[]
      */
     public static function fetchNameItems()
@@ -23,8 +23,8 @@ class LogStatus extends StatusIlluminate
     /**
      *
      * @author zxf
-     * @date   2020年12月10日
-     * @return boolean
+     * @date   2026-08-27
+     * @return bool
      */
     public function isSuccess()
     {
