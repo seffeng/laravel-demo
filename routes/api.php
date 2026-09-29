@@ -4,6 +4,7 @@ use App\Common\Constants\FromConst;
 use App\Http\Middleware\CheckLogin;
 use App\Http\Middleware\LoginLog;
 use App\Http\Middleware\OperateLog;
+use App\Http\Middleware\RequestLog;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,7 +26,9 @@ Route::namespace('Auth')->group(function() {
         Route::post('/logout', 'SiteController@logout');
     });
 
-    Route::middleware([CheckLogin::class . ':' . FromConst::API_NAME, OperateLog::class . ':' . FromConst::API])->group(function() {
+    Route::middleware([CheckLogin::class . ':' . FromConst::API_NAME,
+                        OperateLog::class . ':' . FromConst::API,
+                        RequestLog::class . ':' . FromConst::API_NAME])->group(function() {
         Route::post('/auth/self-update', 'SiteController@update');
         Route::get('/auth', 'SiteController@info');
     });

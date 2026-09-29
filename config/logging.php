@@ -133,6 +133,14 @@ return [
             'level' => env('LOG_LEVEL', 'debug'),
             'days' => env('LOG_DAILY_DAYS', 14),
             'replace_placeholders' => true
+        ],
+
+        'requestlog' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/requestlog.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => env('LOG_DAILY_DAYS', 14),
+            'replace_placeholders' => true
         ]
 
     ],

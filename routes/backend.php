@@ -4,6 +4,7 @@ use App\Common\Constants\FromConst;
 use App\Http\Middleware\CheckLogin;
 use App\Http\Middleware\LoginLog;
 use App\Http\Middleware\OperateLog;
+use App\Http\Middleware\RequestLog;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,7 +21,9 @@ Route::namespace('Auth')->middleware(LoginLog::class . ':' . FromConst::BACKEND)
     Route::post('logout', 'SiteController@logout');
 });
 
-Route::middleware([CheckLogin::class . ':' . FromConst::BACKEND_NAME, OperateLog::class . ':' . FromConst::BACKEND])->group(function() {
+Route::middleware([CheckLogin::class . ':' . FromConst::BACKEND_NAME,
+                    OperateLog::class . ':' . FromConst::BACKEND,
+                    RequestLog::class . ':' . FromConst::BACKEND_NAME])->group(function() {
 
     Route::namespace('Log')->group(function() {
         Route::get('operate-log', 'SiteController@operateLog');

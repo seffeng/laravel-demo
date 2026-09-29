@@ -51,6 +51,11 @@ return [
      */
     'sql_debug' => (bool) env('APP_SQL_DEBUG', false),
 
+    /**
+     * 是否打印请求日志
+     */
+    'request_debug' => (bool) env('APP_REQUEST_DEBUG', false),
+
     /*
     |--------------------------------------------------------------------------
     | Application URL
