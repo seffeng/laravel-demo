@@ -319,7 +319,7 @@ class UserService extends Service
      * @author zxf
      * @date   2026-08-27
      * @param  UserSearchRequest $form
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public function getUserPaginate(UserSearchRequest $form)
     {

@@ -94,7 +94,7 @@ class LogService extends Service
      * @author zxf
      * @date   2026-08-27
      * @param  AdminLoginLogSearchRequest $form
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public function getAdminLoginLogPaginate(AdminLoginLogSearchRequest $form)
     {
@@ -169,7 +169,7 @@ class LogService extends Service
      * @author zxf
      * @date   2026-08-27
      * @param  UserLoginLogSearchRequest $form
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public function getUserLoginLogPaginate(UserLoginLogSearchRequest $form)
     {
@@ -281,7 +281,7 @@ class LogService extends Service
      * @author zxf
      * @date   2026-08-27
      * @param  OperateLogSearchRequest $form
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public function getOperateLogPaginate(OperateLogSearchRequest $form)
     {

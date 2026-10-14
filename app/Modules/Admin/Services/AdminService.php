@@ -195,7 +195,7 @@ class AdminService extends Service
      * @author zxf
      * @date   2026-08-27
      * @param  AdminSearchRequest $form
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public function getAdminPaginate(AdminSearchRequest $form)
     {
