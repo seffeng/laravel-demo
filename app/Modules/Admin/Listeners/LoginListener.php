@@ -52,6 +52,7 @@ class LoginListener implements ShouldQueue
         $loginStatus = new LogStatus($statusId);
         $form = new AdminLoginLogCreateRequest();
         $form->skipValidator()->load([
+            'applicationId' => Arr::get($data, 'applicationId', 0),
             'adminId' => $user->id,
             'statusId' => $statusId,
             'typeId' => TypeConst::LOG_LOGIN,
@@ -66,6 +67,7 @@ class LoginListener implements ShouldQueue
             $form->skipValidator()->setFillItem('id', $user->id);
             if ($this->getAdminService()->offAdmin($form)) {
                 event(new OperateLogCreateEvent($user, [
+                    'applicationId' => Arr::get($data, 'applicationId', 0),
                     'fromId' => FromConst::BACKEND,
                     'typeId' => TypeConst::LOG_LOCK,
                     'moduleId' => ModuleConst::ADMIN,

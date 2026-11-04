@@ -15,5 +15,5 @@ class OperateLogCreateRequest extends FormRequest
      *
      * @var array
      */
-    protected  $fillable = ['resId', 'statusId', 'typeId', 'fromId', 'moduleId', 'content', 'detail', 'operatorId', 'operatorIp'];
+    protected  $fillable = ['applicationId', 'resId', 'statusId', 'typeId', 'fromId', 'moduleId', 'content', 'detail', 'operatorId', 'operatorIp'];
 }

@@ -19,4 +19,9 @@ class ModuleConst
      * @var int
      */
     const USER = 2;
+    /**
+     * 应用
+     * @var int
+     */
+    const APPLICATION = 3;
 }

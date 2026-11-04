@@ -39,6 +39,7 @@ class OperateLogCreateListener implements ShouldQueue
         $logModule = new OperateLogModule(Arr::get($data, 'moduleId', 0));
         $content = Arr::get($data, 'content', $logModule->getName() . '：' . $logType->getName() . $logStatus->getName());
         $form->skipValidator()->load(Arr::merge($data, [
+            'applicationId' => Arr::get($data, 'applicationId', 0),
             'resId' => $model->id,
             'statusId' => $logStatus->getValue(),
             'content' => $content,

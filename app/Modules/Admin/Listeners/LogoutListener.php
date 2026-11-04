@@ -35,6 +35,7 @@ class LogoutListener implements ShouldQueue
         $data = $event->getData();
         $form = new AdminLoginLogCreateRequest();
         $form->skipValidator()->load([
+            'applicationId' => Arr::get($data, 'applicationId', 0),
             'adminId' => $user->id,
             'statusId' => StatusConst::SUCCESS,
             'typeId' => TypeConst::LOG_LOGOUT,

@@ -22,6 +22,7 @@
         "laravel/octane": "^2.13",
         "laravel/tinker": "^3.0",
         "seffeng/laravel-basics": "^3.1",
+        "seffeng/laravel-signature": "^1.1",
         "tymon/jwt-auth": "^2.3"
     },
     "require-dev": {

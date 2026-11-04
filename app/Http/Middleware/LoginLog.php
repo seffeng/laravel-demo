@@ -15,6 +15,7 @@ use App\Common\Constants\FromConst;
 use App\Common\Constants\TypeConst;
 use App\Modules\Admin\Services\AdminService;
 use App\Modules\User\Services\UserService;
+use Seffeng\LaravelHelpers\Helpers\Util;
 
 class LoginLog
 {
@@ -39,17 +40,18 @@ class LoginLog
                     unset($data['model']);
                 }
                 $typeId = Arr::get($loginLogParams, 'typeId');
+                $appendData = ['fromId' => $fromId, 'clientIp' => Util::getUserIp(), 'applicationId' => $request->input('signatureAppId', 0)];
                 if ($this->isBackend($fromId)) {
                     if ($this->isLogout($typeId)) {
-                        event(new AdminLogoutEvent($model, Arr::merge($data, ['fromId' => $fromId, 'clientIp' => $request->getClientIp()])));
+                        event(new AdminLogoutEvent($model, Arr::merge($data, $appendData)));
                     } else {
-                        event(new AdminLoginEvent($model, Arr::merge($data, ['fromId' => $fromId, 'clientIp' => $request->getClientIp()])));
+                        event(new AdminLoginEvent($model, Arr::merge($data, $appendData)));
                     }
                 } else {
                     if ($this->isLogout($typeId)) {
-                        event(new UserLogoutEvent($model, Arr::merge($data, ['fromId' => $fromId, 'clientIp' => $request->getClientIp()])));
+                        event(new UserLogoutEvent($model, Arr::merge($data, $appendData)));
                     } else {
-                        event(new UserLoginEvent($model, Arr::merge($data, ['fromId' => $fromId, 'clientIp' => $request->getClientIp()])));
+                        event(new UserLoginEvent($model, Arr::merge($data, $appendData)));
                     }
                 }
             }

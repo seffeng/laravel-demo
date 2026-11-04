@@ -37,7 +37,7 @@ class OperateLog extends Model
      *
      * @var array
      */
-    protected  $fillable = ['res_id', 'status_id', 'type_id', 'module_id', 'from_id', 'content', 'detail', 'operator_id', 'operator_ip'];
+    protected  $fillable = ['application_id', 'res_id', 'status_id', 'type_id', 'module_id', 'from_id', 'content', 'detail', 'operator_id', 'operator_ip'];
 
     /**
      *

@@ -16,7 +16,7 @@ class OperateLogSearchRequest extends FormRequest
      *
      * @var array
      */
-    protected  $fillable = ['id', 'statusId', 'typeId', 'fromId', 'resId', 'moduleId', 'operatorId', 'username', 'startAt', 'endAt', 'orderBy'];
+    protected  $fillable = ['id', 'applicationId', 'statusId', 'typeId', 'fromId', 'resId', 'moduleId', 'operatorId', 'username', 'startAt', 'endAt', 'orderBy'];
 
     /**
      *

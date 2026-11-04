@@ -127,6 +127,14 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+        'requestlog' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/requestlog.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => env('LOG_DAILY_DAYS', 14),
+            'replace_placeholders' => true
+        ],
+
         'sqllog' => [
             'driver' => 'daily',
             'path' => storage_path('logs/query.log'),
@@ -135,11 +143,10 @@ return [
             'replace_placeholders' => true
         ],
 
-        'requestlog' => [
-            'driver' => 'daily',
-            'path' => storage_path('logs/requestlog.log'),
+        'signature' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/signature.log'),
             'level' => env('LOG_LEVEL', 'debug'),
-            'days' => env('LOG_DAILY_DAYS', 14),
             'replace_placeholders' => true
         ]
 

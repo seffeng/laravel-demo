@@ -370,19 +370,10 @@ class UserService extends Service
          *
          * @var User $model
          */
-        if ($paginator) foreach ($paginator as $model) {
-            $items[] = $this->filterByFillable([
-                'id' => $model->id,
-                'username' => $model->username,
-                'status' => [
-                    'id' => $model->status_id,
-                    'name' => $model->getStatus()->getName(),
-                    'isNormal' => $model->getStatus()->getIsNormal()
-                ],
-                'loginAt' => $model->login_at,
-                'createdAt' => $model->created_at,
-                'updatedAt' => $model->updated_at
-            ]);
+        if ($paginator->count() > 0) {
+            foreach ($paginator as $model) {
+                $items[] = $this->parseModel($model);
+            }
         }
         return [
             'items' => $items,
@@ -419,6 +410,29 @@ class UserService extends Service
         } catch (\Exception $e) {
             throw $e;
         }
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2026-08-27
+     * @param  User $model
+     * @return array
+     */
+    protected function parseModel(User $model)
+    {
+        return $this->filterByFillable([
+            'id' => $model->id,
+            'username' => $model->username,
+            'status' => [
+                'id' => $model->status_id,
+                'name' => $model->getStatus()->getName(),
+                'isNormal' => $model->getStatus()->getIsNormal()
+            ],
+            'loginAt' => $model->login_at,
+            'createdAt' => $model->created_at,
+            'updatedAt' => $model->updated_at
+        ]);
     }
 
     /**

@@ -18,7 +18,7 @@ class AdminLoginLogCreateRequest extends FormRequest
      *
      * @var array
      */
-    protected  $fillable = ['adminId', 'statusId', 'typeId', 'fromId', 'loginIp', 'content'];
+    protected  $fillable = ['applicationId', 'adminId', 'statusId', 'typeId', 'fromId', 'loginIp', 'content'];
 
     /**
      *

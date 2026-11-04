@@ -19,15 +19,4 @@ class LogStatus extends StatusIlluminate
             StatusConst::FAILD => '失败'
         ];
     }
-
-    /**
-     *
-     * @author zxf
-     * @date   2026-08-27
-     * @return bool
-     */
-    public function isSuccess()
-    {
-        return $this->getValue() == StatusConst::SUCCESS;
-    }
 }

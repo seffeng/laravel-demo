@@ -86,7 +86,7 @@ class SiteController extends Controller
     {
         return $this->responseSuccess([
             'isLogin' => $this->getAdminService()->adminIsLogin(),
-            'admin' => $this->getAdminService()->getLoginAdminToArray() ?: new \stdClass()
+            'user' => $this->getAdminService()->getLoginAdminToArray() ?: new \stdClass()
         ]);
     }
 

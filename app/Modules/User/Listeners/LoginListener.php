@@ -44,6 +44,7 @@ class LoginListener implements ShouldQueue
         $loginStatus = new LogStatus($statusId);
         $form = new UserLoginLogCreateRequest();
         $form->skipValidator()->load([
+            'applicationId' => Arr::get($data, 'applicationId', 0),
             'userId' => $user->id,
             'statusId' => $statusId,
             'typeId' => TypeConst::LOG_LOGIN,

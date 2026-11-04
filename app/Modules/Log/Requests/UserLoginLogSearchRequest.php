@@ -18,7 +18,7 @@ class UserLoginLogSearchRequest extends FormRequest
      *
      * @var array
      */
-    protected  $fillable = ['id', 'userId', 'username', 'statusId', 'typeId', 'fromId', 'startAt', 'endAt', 'orderBy'];
+    protected  $fillable = ['id', 'applicationId', 'userId', 'username', 'statusId', 'typeId', 'fromId', 'startAt', 'endAt', 'orderBy'];
 
     /**
      *

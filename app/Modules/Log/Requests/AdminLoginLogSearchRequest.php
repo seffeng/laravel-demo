@@ -18,7 +18,7 @@ class AdminLoginLogSearchRequest extends FormRequest
      *
      * @var array
      */
-    protected  $fillable = ['id', 'adminId', 'username', 'statusId', 'typeId', 'fromId', 'startDate', 'endDate', 'orderBy'];
+    protected  $fillable = ['id', 'applicationId', 'adminId', 'username', 'statusId', 'typeId', 'fromId', 'startDate', 'endDate', 'orderBy'];
 
     /**
      *

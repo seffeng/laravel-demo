@@ -155,8 +155,10 @@ class LogService extends Service
          *
          * @var AdminLoginLog $model
          */
-        if ($paginator) foreach ($paginator as $model) {
-            $items[] = $this->parseLoginLogModel($model);
+        if ($paginator->count() > 0) {
+            foreach ($paginator as $model) {
+                $items[] = $this->parseLoginLogModel($model);
+            }
         }
         return [
             'items' => $items,
@@ -230,8 +232,10 @@ class LogService extends Service
          *
          * @var UserLoginLog $model
          */
-        if ($paginator) foreach ($paginator as $model) {
-            $items[] = $this->parseLoginLogModel($model);
+        if ($paginator->count() > 0) {
+            foreach ($paginator as $model) {
+                $items[] = $this->parseLoginLogModel($model);
+            }
         }
         return [
             'items' => $items,
@@ -257,11 +261,14 @@ class LogService extends Service
         }
         return $this->filterByFillable([
             'id' => $model->id,
-            'username' => Arr::get($user, 'username', ''),
+            'user' => [
+                'id' => Arr::get($user, 'id', 0),
+                'username' => Arr::get($user, 'username', '')
+            ],
             'status' => [
                 'id' => $model->status_id,
                 'name' => $model->getStatus()->getName(),
-                'isSuccess' => $model->getStatus()->isSuccess()
+                'isSuccess' => $model->getStatus()->getIsSuccess()
             ],
             'type' => [
                 'id' => $model->type_id,
@@ -348,8 +355,10 @@ class LogService extends Service
          *
          * @var OperateLog $model
          */
-        if ($paginator) foreach ($paginator as $model) {
-            $items[] = $this->parseOperateLogModel($model);
+        if ($paginator->count() > 0) {
+            foreach ($paginator as $model) {
+                $items[] = $this->parseOperateLogModel($model);
+            }
         }
         return [
             'items' => $items,
@@ -372,13 +381,13 @@ class LogService extends Service
         return $this->filterByFillable([
             'id' => $model->id,
             'operator' => [
-                'id' => Arr::get($operator, 'id', ''),
+                'id' => Arr::get($operator, 'id', 0),
                 'username' => Arr::get($operator, 'username', '')
             ],
             'status' => [
                 'id' => $model->status_id,
                 'name' => $model->getStatus()->getName(),
-                'isSuccess' => $model->getStatus()->isSuccess()
+                'isSuccess' => $model->getStatus()->getIsSuccess()
             ],
             'type' => [
                 'id' => $model->type_id,

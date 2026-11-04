@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Common\Constants\FromConst;
 use App\Modules\Admin\Services\AdminService;
 use App\Modules\User\Services\UserService;
+use Seffeng\LaravelHelpers\Helpers\Util;
 
 class OperateLog
 {
@@ -28,18 +29,21 @@ class OperateLog
         $response = $next($request);
         try {
             $operateLogParams = $request->operateLogParams;
-            if ($operateLogParams) foreach ($operateLogParams as $operateLogParam) {
-                $model = Arr::get($operateLogParam, 'model');
-                $content = Arr::get($operateLogParam, 'content');
-                $model && event(new OperateLogCreateEvent($model, [
-                    'fromId' => $fromId,
-                    'typeId' => Arr::get($operateLogParam, 'typeId', 0),
-                    'moduleId' => Arr::get($operateLogParam, 'moduleId', 0),
-                    'clientIp' => $request->getClientIp(),
-                    'operatorId' => $this->getLoginUserId($fromId),
-                    'content' => $content,
-                    'diffChanges' => Arr::get($operateLogParam, 'diffChanges', []),
-                ]));
+            if ($operateLogParams) {
+                foreach ($operateLogParams as $operateLogParam) {
+                    $model = Arr::get($operateLogParam, 'model');
+                    $content = Arr::get($operateLogParam, 'content');
+                    $model && event(new OperateLogCreateEvent($model, [
+                        'fromId' => $fromId,
+                        'typeId' => Arr::get($operateLogParam, 'typeId', 0),
+                        'moduleId' => Arr::get($operateLogParam, 'moduleId', 0),
+                        'clientIp' => Util::getUserIp(),
+                        'operatorId' => $this->getLoginUserId($fromId),
+                        'applicationId' => $request->input('signatureAppId', 0),
+                        'content' => $content,
+                        'diffChanges' => Arr::get($operateLogParam, 'diffChanges', []),
+                    ]));
+                }
             }
         } catch (BaseException $e) {
             Log::error($e->getMessage());

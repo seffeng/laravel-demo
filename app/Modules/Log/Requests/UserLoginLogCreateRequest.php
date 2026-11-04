@@ -20,7 +20,7 @@ class UserLoginLogCreateRequest extends FormRequest
      *
      * @var array
      */
-    protected  $fillable = ['userId', 'statusId', 'typeId', 'fromId', 'loginIp', 'content'];
+    protected  $fillable = ['applicationId', 'userId', 'statusId', 'typeId', 'fromId', 'loginIp', 'content'];
 
     /**
      *

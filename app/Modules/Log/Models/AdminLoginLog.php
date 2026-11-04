@@ -34,7 +34,7 @@ class AdminLoginLog extends Model
      *
      * @var array
      */
-    protected $fillable = ['admin_id', 'status_id', 'type_id', 'from_id', 'login_ip', 'content'];
+    protected $fillable = ['application_id', 'admin_id', 'status_id', 'type_id', 'from_id', 'login_ip', 'content'];
 
     /**
      *

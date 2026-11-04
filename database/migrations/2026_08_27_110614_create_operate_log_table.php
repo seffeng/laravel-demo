@@ -42,6 +42,7 @@ return new class extends Migration
         if (!Schema::hasTable($tableName)) {
             Schema::create($tableName, function (Blueprint $table) {
                 $table->bigIncrements('id')->nullable(false)->comment('日志ID[自增]');
+                $table->bigInteger('application_id')->index()->unsigned()->nullable(false)->default(0)->comment('应用ID[application.id]');
                 $table->bigInteger('res_id')->index()->unsigned()->nullable(false)->default(0)->comment('资源ID[对应表主键ID]');
                 $table->tinyInteger('status_id')->unsigned()->nullable(false)->default(0)->comment('状态');
                 $table->tinyInteger('type_id')->unsigned()->nullable(false)->default(0)->comment('类型');

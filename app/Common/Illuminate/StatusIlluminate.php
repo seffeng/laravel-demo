@@ -27,6 +27,61 @@ class StatusIlluminate extends BaseIlluminate
      *
      * @author zxf
      * @date   2026-08-27
+     * @return bool
+     */
+    public function getIsLock()
+    {
+        return $this->getValue() == StatusConst::LOCK;
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2026-10-15
+     * @return bool
+     */
+    public function getIsOn()
+    {
+        return $this->getValue() == StatusConst::ON;
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2026-10-15
+     * @return bool
+     */
+    public function getIsOff()
+    {
+        return $this->getValue() == StatusConst::OFF;
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2026-10-15
+     * @return bool
+     */
+    public function getIsSuccess()
+    {
+        return $this->getValue() == StatusConst::SUCCESS;
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2026-10-15
+     * @return bool
+     */
+    public function getIsFaild()
+    {
+        return $this->getValue() == StatusConst::FAILD;
+    }
+
+    /**
+     *
+     * @author zxf
+     * @date   2026-08-27
      * @return string[]
      */
     public static function fetchNameItems()
