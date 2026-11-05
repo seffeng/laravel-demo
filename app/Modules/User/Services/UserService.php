@@ -55,15 +55,11 @@ class UserService extends Service
      */
     public function notNullById(int $id)
     {
-        try {
-            $model = $this->getUserById($id);
-            if ($model) {
-                return $model;
-            }
-            throw new UserNotFoundException(trans('user.notFound'));
-        } catch (\Exception $e) {
-            throw $e;
+        $model = $this->getUserById($id);
+        if ($model) {
+            return $model;
         }
+        throw new UserNotFoundException();
     }
 
     /**
@@ -89,15 +85,11 @@ class UserService extends Service
      */
     public function notNullByUsername(string $username)
     {
-        try {
-            $model = $this->getUserByUsername($username);
-            if ($model) {
-                return $model;
-            }
-            throw new UserNotFoundException(trans('user.notFound'));
-        } catch (\Exception $e) {
-            throw $e;
+        $model = $this->getUserByUsername($username);
+        if ($model) {
+            return $model;
         }
+        throw new UserNotFoundException();
     }
 
     /**
@@ -205,30 +197,26 @@ class UserService extends Service
      */
     public function updateUser(UserUpdateRequest $form, bool $assoc = false)
     {
-        try {
-            if ($form->getIsPass()) {
-                $model = $this->notNullById($form->getFillItems('id'));
-                $password = $form->getFillItems('password');
-                $model->fill(array_filter($form->getFillItems(), function($value) {
-                    return $value;
-                }));
-                if ($password) {
-                    $model->fill([
-                        'password' => $form->getFillItems('password'),
-                    ]);
-                    $model->encryptPassword();
-                }
-                $diffChanges = $model->diffChanges(['username']);
-                if ($model->save()) {
-                    $form->setOperateLogParams($model, TypeConst::LOG_UPDATE, ModuleConst::USER, $diffChanges);
-                    return $assoc ? $model : true;
-                }
-                return false;
+        if ($form->getIsPass()) {
+            $model = $this->notNullById($form->getFillItems('id'));
+            $password = $form->getFillItems('password');
+            $model->fill(array_filter($form->getFillItems(), function($value) {
+                return $value;
+            }));
+            if ($password) {
+                $model->fill([
+                    'password' => $form->getFillItems('password'),
+                ]);
+                $model->encryptPassword();
             }
-            throw new UserException(trans('common.validatorError'));
-        } catch (\Exception $e) {
-            throw $e;
+            $diffChanges = $model->diffChanges(['username']);
+            if ($model->save()) {
+                $form->setOperateLogParams($model, TypeConst::LOG_UPDATE, ModuleConst::USER, $diffChanges);
+                return $assoc ? $model : true;
+            }
+            return false;
         }
+        throw new UserException(trans('common.validatorError'));
     }
 
     /**
@@ -241,19 +229,15 @@ class UserService extends Service
      */
     public function deleteUser(UserDeleteRequest $form, bool $assoc = false)
     {
-        try {
-            if ($form->getIsPass()) {
-                $model = $this->notNullById($form->getFillItems('id'));
-                if ($model->delete()) {
-                    $form->setOperateLogParams($model, TypeConst::LOG_DELETE, ModuleConst::USER);
-                    return $assoc ? $model : true;
-                }
-                return false;
+        if ($form->getIsPass()) {
+            $model = $this->notNullById($form->getFillItems('id'));
+            if ($model->delete()) {
+                $form->setOperateLogParams($model, TypeConst::LOG_DELETE, ModuleConst::USER);
+                return $assoc ? $model : true;
             }
-            throw new UserException(trans('common.validatorError'));
-        } catch (\Exception $e) {
-            throw $e;
+            return false;
         }
+        throw new UserException(trans('common.validatorError'));
     }
 
     /**
@@ -266,23 +250,19 @@ class UserService extends Service
      */
     public function onUser(UserStatusRequest $form, bool $assoc = false)
     {
-        try {
-            if ($form->getIsPass()) {
-                $model = $this->notNullById($form->getFillItems('id'));
-                if ($model->getStatus()->getIsNormal()) {
-                    return $assoc ? $model : true;
-                }
-                $model->onUser();
-                if ($model->save()) {
-                    $form->setOperateLogParams($model, TypeConst::LOG_UNLOCK, ModuleConst::USER);
-                    return $assoc ? $model : true;
-                }
-                return false;
+        if ($form->getIsPass()) {
+            $model = $this->notNullById($form->getFillItems('id'));
+            if ($model->getStatus()->getIsNormal()) {
+                return $assoc ? $model : true;
             }
-            throw new UserException(trans('common.validatorError'));
-        } catch (\Exception $e) {
-            throw $e;
+            $model->onUser();
+            if ($model->save()) {
+                $form->setOperateLogParams($model, TypeConst::LOG_UNLOCK, ModuleConst::USER);
+                return $assoc ? $model : true;
+            }
+            return false;
         }
+        throw new UserException(trans('common.validatorError'));
     }
 
     /**
@@ -295,23 +275,19 @@ class UserService extends Service
      */
     public function offUser(UserStatusRequest $form, bool $assoc = false)
     {
-        try {
-            if ($form->getIsPass()) {
-                $model = $this->notNullById($form->getFillItems('id'));
-                if (!$model->getStatus()->getIsNormal()) {
-                    return $assoc ? $model : true;
-                }
-                $model->offUser();
-                if ($model->save()) {
-                    $form->setOperateLogParams($model, TypeConst::LOG_LOCK, ModuleConst::USER);
-                    return $assoc ? $model : true;
-                }
-                return false;
+        if ($form->getIsPass()) {
+            $model = $this->notNullById($form->getFillItems('id'));
+            if (!$model->getStatus()->getIsNormal()) {
+                return $assoc ? $model : true;
             }
-            throw new UserException(trans('common.validatorError'));
-        } catch (\Exception $e) {
-            throw $e;
+            $model->offUser();
+            if ($model->save()) {
+                $form->setOperateLogParams($model, TypeConst::LOG_LOCK, ModuleConst::USER);
+                return $assoc ? $model : true;
+            }
+            return false;
         }
+        throw new UserException(trans('common.validatorError'));
     }
 
     /**
@@ -391,25 +367,21 @@ class UserService extends Service
      */
     public function createUser(UserCreateRequest $form, bool $assoc = false)
     {
-        try {
-            if ($form->getIsPass()) {
-                $model = new User();
-                $model->fill(array_filter($form->getFillItems(), function($value) {
-                    return $value;
-                }));
-                $model->encryptPassword();
-                $model->loadDefaultValue();
+        if ($form->getIsPass()) {
+            $model = new User();
+            $model->fill(array_filter($form->getFillItems(), function($value) {
+                return $value;
+            }));
+            $model->encryptPassword();
+            $model->loadDefaultValue();
 
-                if ($model->save()) {
-                    $form->setOperateLogParams($model, TypeConst::LOG_CREATE, ModuleConst::USER);
-                    return $assoc ? $model : true;
-                }
-                return false;
+            if ($model->save()) {
+                $form->setOperateLogParams($model, TypeConst::LOG_CREATE, ModuleConst::USER);
+                return $assoc ? $model : true;
             }
-            throw new UserException(trans('common.validatorError'));
-        } catch (\Exception $e) {
-            throw $e;
+            return false;
         }
+        throw new UserException(trans('common.validatorError'));
     }
 
     /**

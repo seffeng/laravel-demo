@@ -12,8 +12,19 @@ class Model extends \Seffeng\Basics\Base\Model
     /**
      * @var array
      */
-    protected $casts = [
+    protected $baseCasts = [
         'created_at' => 'timestamp',
         'updated_at' => 'timestamp'
     ];
+
+    /**
+     *
+     * @author zxf
+     * @date   2026-10-15
+     * @return array
+     */
+    public function getCasts()
+    {
+        return array_merge($this->baseCasts, parent::getCasts());
+    }
 }

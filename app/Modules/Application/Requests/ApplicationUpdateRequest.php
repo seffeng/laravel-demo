@@ -24,8 +24,7 @@ class ApplicationUpdateRequest extends FormRequest
     {
         return [
             'id' => [
-                'required',
-                Rule::exists((new Application())->getTable())
+                'required'
             ],
             'name' => [
                 'required',

@@ -37,15 +37,11 @@ class ApplicationService extends Service
      */
     public function notNullById(int $id)
     {
-        try {
-            $model = $this->getById($id);
-            if ($model) {
-                return $model;
-            }
-            throw new ApplicationNotFoundException(trans('application.notFound'));
-        } catch (\Exception $e) {
-            throw $e;
+        $model = $this->getById($id);
+        if ($model) {
+            return $model;
         }
+        throw new ApplicationNotFoundException();
     }
 
     /**
@@ -69,15 +65,11 @@ class ApplicationService extends Service
      */
     public function notNullByAppKey(string $appKey)
     {
-        try {
-            $model = $this->getByAppKey($appKey);
-            if ($model) {
-                return $model;
-            }
-            throw new ApplicationNotFoundException(trans('application.notFound'));
-        } catch (\Exception $e) {
-            throw $e;
+        $model = $this->getByAppKey($appKey);
+        if ($model) {
+            return $model;
         }
+        throw new ApplicationNotFoundException();
     }
 
     /**
@@ -159,23 +151,19 @@ class ApplicationService extends Service
      */
     public function create(ApplicationCreateRequest $form, bool $assoc = false)
     {
-        try {
-            if ($form->getIsPass()) {
-                $model = new Application();
-                $model->fill(array_filter($form->getFillItems(), function($value) {
-                    return $value;
-                }));
-                $model->loadDefaultValue()->generateAppkey()->generateAppsecret();
-                if ($model->save()) {
-                    $form->setOperateLogParams($model, TypeConst::LOG_CREATE, ModuleConst::APPLICATION);
-                    return $assoc ? $model : true;
-                }
-                return false;
+        if ($form->getIsPass()) {
+            $model = new Application();
+            $model->fill(array_filter($form->getFillItems(), function($value) {
+                return $value;
+            }));
+            $model->loadDefaultValue()->generateAppkey()->generateAppsecret();
+            if ($model->save()) {
+                $form->setOperateLogParams($model, TypeConst::LOG_CREATE, ModuleConst::APPLICATION);
+                return $assoc ? $model : true;
             }
-            throw new ApplicationException(trans('common.validatorError'));
-        } catch (\Exception $e) {
-            throw $e;
+            return false;
         }
+        throw new ApplicationException(trans('common.validatorError'));
     }
 
     /**
@@ -188,23 +176,19 @@ class ApplicationService extends Service
      */
     public function update(ApplicationUpdateRequest $form, bool $assoc = false)
     {
-        try {
-            if ($form->getIsPass()) {
-                $model = $this->notNullById($form->getFillItems('id'));
-                $model->fill(array_filter($form->getFillItems(), function($value) {
-                    return !is_null($value);
-                }));
-                $diffChange = $model->diffChanges();
-                if ($model->save()) {
-                    $form->setOperateLogParams($model, TypeConst::LOG_UPDATE, ModuleConst::APPLICATION, $diffChange);
-                    return $assoc ? $model : true;
-                }
-                return false;
+        if ($form->getIsPass()) {
+            $model = $this->notNullById($form->getFillItems('id'));
+            $model->fill(array_filter($form->getFillItems(), function($value) {
+                return !is_null($value);
+            }));
+            $diffChange = $model->diffChanges();
+            if ($model->save()) {
+                $form->setOperateLogParams($model, TypeConst::LOG_UPDATE, ModuleConst::APPLICATION, $diffChange);
+                return $assoc ? $model : true;
             }
-            throw new ApplicationException(trans('common.validatorError'));
-        } catch (\Exception $e) {
-            throw $e;
+            return false;
         }
+        throw new ApplicationException(trans('common.validatorError'));
     }
 
     /**
@@ -212,23 +196,20 @@ class ApplicationService extends Service
      * @author zxf
      * @date   2026-10-15
      * @param  ApplicationStatusRequest $form
-     * @return bool
+     * @param  bool $assoc
+     * @return Application|bool
      */
-    public function delete(ApplicationStatusRequest $form)
+    public function delete(ApplicationStatusRequest $form, bool $assoc = false)
     {
-        try {
-            if ($form->getIsPass()) {
-                $model = $this->notNullById($form->getFillItems('id'));
-                if ($model->delete()) {
-                    $form->setOperateLogParams($model, TypeConst::LOG_DELETE, ModuleConst::APPLICATION);
-                    return true;
-                }
-                return false;
+        if ($form->getIsPass()) {
+            $model = $this->notNullById($form->getFillItems('id'));
+            if ($model->delete()) {
+                $form->setOperateLogParams($model, TypeConst::LOG_DELETE, ModuleConst::APPLICATION);
+                return $assoc ? $model : true;
             }
-            throw new ApplicationException(trans('common.validatorError'));
-        } catch (\Exception $e) {
-            throw $e;
+            return false;
         }
+        throw new ApplicationException(trans('common.validatorError'));
     }
 
     /**
@@ -236,24 +217,21 @@ class ApplicationService extends Service
      * @author zxf
      * @date   2026-10-15
      * @param  ApplicationStatusRequest $form
-     * @return bool
+     * @param  bool $assoc
+     * @return Application|bool
      */
-    public function on(ApplicationStatusRequest $form)
+    public function on(ApplicationStatusRequest $form, bool $assoc = false)
     {
-        try {
-            if ($form->getIsPass()) {
-                $model = $this->notNullById($form->getFillItems('id'));
-                $model->onApplication();
-                if ($model->save()) {
-                    $form->setOperateLogParams($model, TypeConst::LOG_ON, ModuleConst::APPLICATION);
-                    return true;
-                }
-                return false;
+        if ($form->getIsPass()) {
+            $model = $this->notNullById($form->getFillItems('id'));
+            $model->onApplication();
+            if ($model->save()) {
+                $form->setOperateLogParams($model, TypeConst::LOG_ON, ModuleConst::APPLICATION);
+                return $assoc ? $model : true;
             }
-            throw new ApplicationException(trans('common.validatorError'));
-        } catch (\Exception $e) {
-            throw $e;
+            return false;
         }
+        throw new ApplicationException(trans('common.validatorError'));
     }
 
     /**
@@ -261,24 +239,21 @@ class ApplicationService extends Service
      * @author zxf
      * @date   2026-10-15
      * @param  ApplicationStatusRequest $form
-     * @return bool
+     * @param  bool $assoc
+     * @return Application|bool
      */
-    public function off(ApplicationStatusRequest $form)
+    public function off(ApplicationStatusRequest $form, bool $assoc = false)
     {
-        try {
-            if ($form->getIsPass()) {
-                $model = $this->notNullById($form->getFillItems('id'));
-                $model->offApplication();
-                if ($model->save()) {
-                    $form->setOperateLogParams($model, TypeConst::LOG_OFF, ModuleConst::APPLICATION);
-                    return true;
-                }
-                return false;
+        if ($form->getIsPass()) {
+            $model = $this->notNullById($form->getFillItems('id'));
+            $model->offApplication();
+            if ($model->save()) {
+                $form->setOperateLogParams($model, TypeConst::LOG_OFF, ModuleConst::APPLICATION);
+                return $assoc ? $model : true;
             }
-            throw new ApplicationException(trans('common.validatorError'));
-        } catch (\Exception $e) {
-            throw $e;
+            return false;
         }
+        throw new ApplicationException(trans('common.validatorError'));
     }
 
     /**

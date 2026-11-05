@@ -52,9 +52,9 @@ class SiteController extends Controller
             if ($errorItems = $form->getErrorItems($validator)) {
                 return $this->responseError($errorItems['message'], $errorItems['data']);
             } else {
-                if ($this->getApplicationService()->create($form)) {
+                if ($model = $this->getApplicationService()->create($form, true)) {
                     $request->merge(['operateLogParams' => $form->getOperateLogParams()]);
-                    return $this->responseSuccess([], trans('application.createSuccess'));
+                    return $this->responseSuccess(['id' => $model->id], trans('application.createSuccess'));
                 }
             }
             return $this->responseError(trans('application.createFailure'));
@@ -78,9 +78,9 @@ class SiteController extends Controller
             if ($errorItems = $form->getErrorItems($validator)) {
                 return $this->responseError($errorItems['message'], $errorItems['data']);
             } else {
-                if ($this->getApplicationService()->update($form)) {
+                if ($model = $this->getApplicationService()->update($form, true)) {
                     $request->merge(['operateLogParams' => $form->getOperateLogParams()]);
-                    return $this->responseSuccess([], trans('application.updateSuccess'));
+                    return $this->responseSuccess(['id' => $model->id], trans('application.updateSuccess'));
                 }
             }
             return $this->responseError(trans('application.updateFailure'));
@@ -104,9 +104,9 @@ class SiteController extends Controller
             if ($errorItems = $form->getErrorItems($validator)) {
                 return $this->responseError($errorItems['message'], $errorItems['data']);
             } else {
-                if ($this->getApplicationService()->delete($form)) {
+                if ($model = $this->getApplicationService()->delete($form, true)) {
                     $request->merge(['operateLogParams' => $form->getOperateLogParams()]);
-                    return $this->responseSuccess([], trans('application.deleteSuccess'));
+                    return $this->responseSuccess(['id' => $model->id], trans('application.deleteSuccess'));
                 }
                 return $this->responseError(trans('application.deleteFailure'));
             }
@@ -132,9 +132,9 @@ class SiteController extends Controller
             if ($errorItems = $form->getErrorItems($validator)) {
                 return $this->responseError($errorItems['message'], $errorItems['data']);
             } else {
-                if ($this->getApplicationService()->on($form)) {
+                if ($model = $this->getApplicationService()->on($form, true)) {
                     $request->merge(['operateLogParams' => $form->getOperateLogParams()]);
-                    return $this->responseSuccess([], trans('application.onSuccess'));
+                    return $this->responseSuccess(['id' => $model->id], trans('application.onSuccess'));
                 }
                 return $this->responseError(trans('application.onFailure'));
             }
@@ -160,9 +160,9 @@ class SiteController extends Controller
             if ($errorItems = $form->getErrorItems($validator)) {
                 return $this->responseError($errorItems['message'], $errorItems['data']);
             } else {
-                if ($this->getApplicationService()->off($form)) {
+                if ($model = $this->getApplicationService()->off($form, true)) {
                     $request->merge(['operateLogParams' => $form->getOperateLogParams()]);
-                    return $this->responseSuccess([], trans('application.offSuccess'));
+                    return $this->responseSuccess(['id' => $model->id], trans('application.offSuccess'));
                 }
                 return $this->responseError(trans('application.offFailure'));
             }

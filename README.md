@@ -29,6 +29,8 @@ $ php ./artisan jwt:secret
 2、创建数据库；
 
 3、修改 .env 对应配置，如关闭DEBUG(APP_DEBUG=false)、数据库信息（DB_DATABASE）等；
+# 打印SQL日志到 storage/logs 目录(APP_SQL_DEBUG=true)
+# 打印请求日志到 storage/logs 目录(APP_REQUEST_DEBU=true)
 
 4、执行迁移脚本创建数据表，初始数据，初始用户：（账号：10086, 密码：Aa123456）；
 $ php ./artisan migrate --seed
@@ -37,7 +39,7 @@ $ php ./artisan migrate --seed
 
 6、增加网站应用；
 # 1. /public 目录下增加应用入口，nginx配置root；
-# 2. /config/packet.php 增加应用设置；
+# 2. /config/context.php 增加应用设置；
 # 3. /app/Web 目录下增加对应应用；
 # 4. /routes 目录下增加对应路由；
 # 5. 其他：/storage/framework/views、/resources/views。
@@ -49,6 +51,27 @@ $ php ./artisan migrate --seed
 # 2、执行命令 php artisan crypt root
 # 3、将生成的字符填入 .env 配置 DB_USERNAME=生成字符
 # 其他需加密的字符配置参考配置文件 config/database.php
+
+8、签名验证，使用应用（application）的 APPKEY 和 APPSECRET 进行签名字符串生成
+# 针对应用开启验证
+# SIGNATURE_API_DEBUG=false
+# SIGNATURE_BACKEND_DEBUG=false
+# SIGNATURE_FRONTEND_DEBUG=false
+
+9、RSA加密
+# 针对应用开启加密
+# RSA_API_ENABLE_PASSWORD=true
+# RSA_BACKEND_ENABLE_PASSWORD=true
+# RSA_FRONTEND_ENABLE_PASSWORD=true
+
+# 生成应用对应的key
+$ php artisan rsa:generate [api|backend|frontend]
+
+# 加密，plaintext-待加密字符串
+$ php artisan command:rsa -c [api|backend|frontend] plaintext
+
+# 解密，entext-待解密字符串
+$ php artisan command:rsa -c [api|backend|frontend] -d entext
 ```
 
 ## 目录说明
@@ -77,6 +100,7 @@ $ php ./artisan migrate --seed
 │  │  │  ├─Models                   数据表模块
 │  │  │  ├─Requests                 表单规则验证
 │  │  │  └─Services                 服务处理
+|  |  ├─Application             应用模块
 │  │  ├─Log                     日志模块
 │  │  └─User                    用户模块
 │  ├─Providers
@@ -128,9 +152,11 @@ $ php ./artisan migrate --seed
 
 ## 项目依赖
 
-| 依赖                   | 仓库地址                                  | 备注 |
-| :--------------------- | :---------------------------------------- | :--- |
-| seffeng/laravel-basics | https://github.com/seffeng/laravel-basics | 无   |
+| 依赖                      | 仓库地址                                     | 备注     |
+| :------------------------ | :------------------------------------------- | :------- |
+| seffeng/laravel-basics    | https://github.com/seffeng/laravel-basics    | 无       |
+| seffeng/laravel-signature | https://github.com/seffeng/laravel-signature | 签名验证 |
+| seffeng/laravel-rsa       | https://github.com/seffeng/laravel-rsa       | RSA加密  |
 
 ## 演示地址
 
@@ -175,6 +201,12 @@ $ php ./artisan migrate --seed
 | 用户删除         | /user/delete      | POST | id                   |
 | 用户启用         | /user/on          | POST | id                   |
 | 用户停用         | /user/off         | POST | id                   |
+| 应用列表         | /applicatioin     | GET  |                      |
+| 应用添加         | /applicatioin/create | POST | name              |
+| 应用编辑         | /applicatioin/update | POST | id,name           |
+| 应用删除         | /applicatioin/delete | POST | id                |
+| 应用启用         | /applicatioin/on     | POST | id                |
+| 应用停用         | /applicatioin/off    | POST | id                |
 | 操作日志         | /operate-log      | GET  |                      |
 | 管理员登录日志   | /admin/login-log  | GET  |                      |
 | 用户登录日志     | /user/login-log   | GET  |                      |

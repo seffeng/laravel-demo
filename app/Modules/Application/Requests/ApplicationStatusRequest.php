@@ -3,8 +3,6 @@
 namespace App\Modules\Application\Requests;
 
 use App\Common\Base\FormRequest;
-use Illuminate\Validation\Rule;
-use App\Modules\Application\Models\Application;
 
 class ApplicationStatusRequest extends FormRequest
 {
@@ -23,8 +21,7 @@ class ApplicationStatusRequest extends FormRequest
     {
         return [
             'id' => [
-                'required',
-                Rule::exists((new Application())->getTable())
+                'required'
             ]
         ];
     }

@@ -29,17 +29,13 @@ class LogService extends Service
      */
     public function createAdminLoginLog(AdminLoginLogCreateRequest $form)
     {
-        try {
-            if ($form->getIsPass()) {
-                $model = new AdminLoginLog();
-                $model->fill($form->getFillItems());
-                $model->loadDefaultValue();
-                return $model->save();
-            }
-            throw new LoginLogException(trans('common.validatorError'));
-        } catch (\Exception $e) {
-            throw $e;
+        if ($form->getIsPass()) {
+            $model = new AdminLoginLog();
+            $model->fill($form->getFillItems());
+            $model->loadDefaultValue();
+            return $model->save();
         }
+        throw new LoginLogException(trans('common.validatorError'));
     }
 
     /**
@@ -52,17 +48,13 @@ class LogService extends Service
      */
     public function createUserLoginLog(UserLoginLogCreateRequest $form)
     {
-        try {
-            if ($form->getIsPass()) {
-                $model = new UserLoginLog();
-                $model->fill($form->getFillItems());
-                $model->loadDefaultValue();
-                return $model->save();
-            }
-            throw new LoginLogException(trans('common.validatorError'));
-        } catch (\Exception $e) {
-            throw $e;
+        if ($form->getIsPass()) {
+            $model = new UserLoginLog();
+            $model->fill($form->getFillItems());
+            $model->loadDefaultValue();
+            return $model->save();
         }
+        throw new LoginLogException(trans('common.validatorError'));
     }
 
     /**
@@ -75,18 +67,14 @@ class LogService extends Service
      */
     public function createOperateLog(OperateLogCreateRequest $form)
     {
-        try {
-            if ($form->getIsPass()) {
-                $model = new OperateLog();
-                $form->setFillItem('detail', Json::encode($form->getFillItems('detail', [])));
-                $model->fill($form->getFillItems());
-                $model->loadDefaultValue();
-                return $model->save();
-            }
-            throw new LoginLogException(trans('common.validatorError'));
-        } catch (\Exception $e) {
-            throw $e;
+        if ($form->getIsPass()) {
+            $model = new OperateLog();
+            $form->setFillItem('detail', Json::encode($form->getFillItems('detail', [])));
+            $model->fill($form->getFillItems());
+            $model->loadDefaultValue();
+            return $model->save();
         }
+        throw new LoginLogException(trans('common.validatorError'));
     }
 
     /**
