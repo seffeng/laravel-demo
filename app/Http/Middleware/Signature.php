@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Common\Exceptions\BaseException;
+use App\Modules\Application\Exceptions\ApplicationNotFoundException;
 use App\Modules\Application\Services\ApplicationService;
 use Illuminate\Support\Facades\Log;
 use Seffeng\LaravelSignature\Middleware\Signature as Middleware;
@@ -46,11 +47,16 @@ class Signature extends Middleware
             ];
 
             if ($this->getAccessKeyId()) {
-                $application = $this->getApplicationService()->notNullByAppKey($this->getAccessKeyId());
+                $application = $this->getApplicationService()->getByAppKey($this->getAccessKeyId());
                 $params = $request->all();
-                $request->merge(['signatureAppId' => $application->id]);
+                if ($application) {
+                    $request->merge(['signatureAppId' => $application->id]);
+                }
                 if (SignatureFacade::getIsDebug()) {
                     return $next($request);
+                }
+                if (!$application) {
+                    throw new ApplicationNotFoundException();
                 }
                 if (!$application->getStatus()->getIsOn()) {
                     throw new BaseException(trans('application.notFound'));
