@@ -25,10 +25,10 @@ class Signature extends Middleware
         $message = '';
         try {
             !is_null($server) && SignatureFacade::setServer($server)->loadServer();
-            if (SignatureFacade::getIsDebug()) {
+            $this->setAccessKeyId($request->header(SignatureFacade::getHeaderAccessKeyId()));
+            if (SignatureFacade::getIsDebug() && !$this->getAccessKeyId()) {
                 return $next($request);
             }
-            $this->setAccessKeyId($request->header(SignatureFacade::getHeaderAccessKeyId()));
             $this->setTimestamp($request->header(SignatureFacade::getHeaderTimestamp()));
             $this->setSignature($request->header(SignatureFacade::getHeaderSignature()));
             $this->setVersion($request->header(SignatureFacade::getHeaderVersion(), ''));
@@ -47,6 +47,11 @@ class Signature extends Middleware
 
             if ($this->getAccessKeyId()) {
                 $application = $this->getApplicationService()->notNullByAppKey($this->getAccessKeyId());
+                $params = $request->all();
+                $request->merge(['signatureAppId' => $application->id]);
+                if (SignatureFacade::getIsDebug()) {
+                    return $next($request);
+                }
                 if (!$application->getStatus()->getIsOn()) {
                     throw new BaseException(trans('application.notFound'));
                 }
@@ -56,11 +61,9 @@ class Signature extends Middleware
                 }
                 $this->setAllowIp($application->allowIps);
                 $this->setDenyIp($application->denyIps);
-                $params = $request->all();
                 $logContent['params'] = $params;
                 $this->setParams($params);
                 if (parent::handle($request, $next)) {
-                    $request->merge(['signatureAppId' => $application->id]);
                     return $next($request);
                 }
             }
