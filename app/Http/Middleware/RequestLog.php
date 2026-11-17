@@ -40,7 +40,7 @@ class RequestLog
                 if (isset($headers['cookie'])) {
                     unset($headers['cookie']);
                 }
-                $params = $request->all();
+                $params = $request->input();
                 if (isset($params['operateLogParams'])) {
                     unset($params['operateLogParams']);
                 }
